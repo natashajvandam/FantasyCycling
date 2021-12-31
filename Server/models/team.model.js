@@ -9,5 +9,5 @@ const UserTeamSchema = new Schema({
 	riders: { type: Array}
 });
 
-module.exports = mongoose.model('CyclingFantasyTeam', UserTeamSchema); // collection name = 'Topic' -> 'Topics'
+module.exports = mongoose.model('CyclingFantasyTeam', UserTeamSchema); // collection = 'CyclingFantasyTeams' 
 // Mongoose creates the collection for you with the pluralized version

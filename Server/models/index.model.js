@@ -14,4 +14,4 @@ db.once('open', () => {
   console.log('We are connected to the database!');
 })
 
-module.exports = db;
+export default db;

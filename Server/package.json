@@ -5,6 +5,7 @@
     "express": "^4.17.2",
     "got": "^12.0.0",
     "http": "^0.0.1-security",
-    "jsdom": "^19.0.0"
+    "jsdom": "^19.0.0",
+    "mongoose": "^6.1.4"
   }
 }

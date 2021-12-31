@@ -8,7 +8,8 @@ router.get('/allriders', fetchRiderData);
 router.get('/team/:id', fetchTeam);
 router.post('/newTeam', createNewTeam);
 router.put('/team/:id/:rider', addRider);
-router.delete('/team/:id/:rider', removeRider);
+router.put('/team/:id/:rider', removeRider);
+//router.put('/rider', updateScore);
 router.all('*', (req, res) => res.status(404).send('Does not exist'));
 
 export default router;
