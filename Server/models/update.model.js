@@ -13,13 +13,13 @@ const updateRiderTable = async (rider) => {
 }
 
 const updateScoresTable = async (obj) => {
+  let rider = obj.rider.replaceAll("'", "''");
   const date = convertToPgDate();
-  console.log(date);
   const res = await client.query(`
     INSERT into score_table (rider, score, updated_at) 
-    VALUES ('${obj.rider}', ${obj.score}, '${date}')
+    VALUES ('${rider}', ${obj.score}, '${date}')
     ON CONFLICT (rider) DO
-      UPDATE SET (updated_at, score) = (EXCLUDED.obj.date, EXCLUDED.obj.score);
+      UPDATE SET (updated_at, score) = (EXCLUDED.updated_at, EXCLUDED.score);
   `)
   return res.rows;
 }
