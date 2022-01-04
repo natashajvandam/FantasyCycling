@@ -7,8 +7,8 @@ const fetchRequest = (path, options) => {
   .catch(err => console.log(err));
 };
 
-function getTopics () {
-  return fetchRequest('/allriders');
-};
+// function getTopics () {
+//   return fetchRequest('/allriders');
+// };
 
-module.exports = { getTopics };
+// module.exports = { getTopics };
