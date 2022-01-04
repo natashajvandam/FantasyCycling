@@ -1,17 +1,19 @@
-// mongosh
-import mongoose from 'mongoose'; //npm i mongoose
+'use strict';
 
-const databaseName = "test" //if not a database yet, mongoose creates the database for you
-mongoose.connect(`mongodb://localhost/${databaseName}`);
+const databaseName = "cyclingfantacyteam" 
 
-const db = mongoose.connection;
+import pkg from 'pg';
 
-db.on('error', () => {
-  console.log('there was an error connecting to the database!');
+const { Client } = pkg;
+const DATABASE_URL = `postgres://@localhost:5432/${databaseName}`; // try adding : in case
+
+const client = new Client({
+  connectionString: DATABASE_URL,
 });
 
-db.once('open', () => {
-  console.log('We are connected to the database!');
-})
+client.connect();
+//pool.once('open') //is there a way to check connected?
 
-export default db;
+export default client;
+
+

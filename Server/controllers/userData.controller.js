@@ -1,8 +1,11 @@
+'use strict';
+import { getUserRoster, setNewUser, addRiderToRoster, removeRiderFromRoster } from '../models/team.model.js';
 
 const fetchTeam = async (req, res) => {
   try {
-    const team = await userTeam.findById({_id: id});
-    res.send(team);
+    const user = req.params.id;
+    const rowOfRiders = await getUserRoster(user);
+    res.send(rowOfRiders);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
@@ -11,10 +14,11 @@ const fetchTeam = async (req, res) => {
 
 const createNewTeam = async (req, res) => {
   try {
-    const { title, username } = req.body;
-    const team = await userTeam.create({ title: title, username: username });
+    const { username, team, password} = req.body;
+    const newUser = await setNewUser({ name: username, teamName: team, password, score:0 });
+    //not sure what this response will be
     res.status(201);
-    res.send(team);
+    res.send(newUser);
   } catch (error) {
     console.log(error)
     res.sendStatus(500);
@@ -24,10 +28,7 @@ const createNewTeam = async (req, res) => {
 const addRider = async (req, res) => {
   try {
     const { id, rider } = req.params;
-    const team = await userTeam.findOneAndUpdate(
-      { _id: id }, //mongoose db starts with underscore
-      { $push: { rider: rider }}, 
-      { new: true}); //options object -> new to true fixes async update thing
+    const team = await addRiderToRoster(rider, id);
     res.send(team); // will automatically send status 200
   } catch (error) {
     console.log(error);
@@ -39,10 +40,7 @@ const addRider = async (req, res) => {
 const removeRider = async (req, res) => {
   try {
     const { id, rider } = req.params;
-    const team = await userTeam.findOneAndUpdate(
-      { _id: id }, //mongoose db starts with underscore
-      { $pull: { rider: rider }}, 
-      { new: true}); //options object -> new to true fixes async update thing
+    const team = await removeRiderFromRoster(rider, id);
     res.send(team); // will automatically send status 200
   } catch (error) {
     console.log(error);
@@ -51,3 +49,50 @@ const removeRider = async (req, res) => {
 }
 
 export {fetchTeam, createNewTeam, addRider, removeRider}
+
+
+// async function returnMessages(ctx) {
+//   const query = "SELECT author_id, timestamp, content FROM message;";
+//   const results = await team.query(query);
+//   ctx.body = JSON.stringify(results.rows);
+//   ctx.status = 200;
+// }
+
+// function addMessages(ctx) {
+//   const { authorId, timestamp, content } = ctx.request.body;
+//   query =
+//     "INSERT INTO message(author_id, timestamp, content) " +
+//     "VALUES (" +
+//     authorId +
+//     ", " +
+//     timestamp +
+//     ", '" +
+//     content +
+//     "')";
+//   team.query(query);
+//   ctx.status = 201;
+// }
+
+// module.exports.addMessages = addMessages;
+// module.exports.returnMessages = returnMessages;
+
+
+
+// exports.getAll = async ctx => {
+//   try {
+//     ctx.body = await message.getAll();
+//   } catch (e) {
+//     ctx.status = 500;
+//     // Further handle your error on the back-end
+//   }
+// };
+
+// exports.post = async ctx => {
+//   try {
+//     await message.set(ctx.request.body);
+//     ctx.status = 200;
+//   } catch (e) {
+//     ctx.status = 500;
+//     // Further handle your error on the back-end
+//   }
+// };

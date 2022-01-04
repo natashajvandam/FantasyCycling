@@ -1,13 +1,29 @@
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+'use strict';
 
-const UserTeamSchema = new Schema({
-  title: { type: String, required: true },
-  username: { type: String, required: true },
-  password: {type: String, required: true },
-  score: { type: Number, default: 0},
-	riders: { type: Array}
-});
+import client from './index.model.js';
 
-module.exports = mongoose.model('CyclingFantasyTeam', UserTeamSchema); // collection = 'CyclingFantasyTeams' 
-// Mongoose creates the collection for you with the pluralized version
+const getUserRoster = async (user) => {
+  const res = await client.query(`SELECT riders FROM playersTable WHERE userId = ${user}`);
+  return res.rows;
+};
+
+const setNewUser = async (user) => { 
+  const res = await client.query(`
+    INSERT INTO userTable (userName, teamName, password, score, date)
+    VALUES (${user.name}, ${user.teamName}, ${user.password}, ${user.score}, ${Date.now()});
+  `);
+  return res.rows;
+}
+
+const addRiderToRoster = async (rider, user) => {
+  const res = await client.query(`INSERT into riderTable ("userId") VALUES (${user}) WHERE riderId = ${rider};`);
+  return res.rows;
+};
+
+const removeRiderFromRoster = async (rider, user) => {
+  const res = await pool.query(`UPDATE riderTable WHERE riderId = ${rider} AND userId=${user} SET userId = 0;`);
+  return res.rows;
+};
+
+
+export {getUserRoster, setNewUser, addRiderToRoster, removeRiderFromRoster}

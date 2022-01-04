@@ -11,7 +11,7 @@ function League () {
   }, []);
   return (
     <div>
-    hello
+    League Page
     </div>
   )
 }

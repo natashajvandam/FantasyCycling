@@ -1,5 +1,5 @@
-import express from 'express';
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 import fetchRiderData from './controllers/riderData.controller.js';
 import {fetchTeam, createNewTeam, addRider, removeRider} from './controllers/userData.controller.js';

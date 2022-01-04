@@ -4,7 +4,8 @@ import './team.css';
 
 function Team () {
   return (
-    <div>HEllo
+    <div> 
+    Team Page
     </div>
   )
 }
