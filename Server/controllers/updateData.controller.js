@@ -1,6 +1,6 @@
 import fetchRiderData from './riderData.controller.js';
 import cron from 'node-cron';
-import {updateRiderTable, updateScoresTable, updateTeamScores} from '../models/update.model.js';
+import {updateRiderTable, updateScoresTable, updateUserTable} from '../models/update.model.js';
 
 cron.schedule('1 * * * * *', async () => {
   //proper timeline: uae tour (end of february) - il lombardia (beginning of october)
@@ -8,6 +8,7 @@ cron.schedule('1 * * * * *', async () => {
   fetchRiderData()
     .then(data => updateRiders(data))
     .then(data => updateScores(data))
+    .then(data => updateUserScores(data))
     .catch(error => console.log(error));
 });
 
@@ -23,10 +24,12 @@ const updateScores = async (data) => {
     const riderScore = {};
     riderScore.score = +obj.score;
     riderScore.rider = obj.rider;
-    updateScoresTable(riderScore).then(scoreIncrease => {
-      if (scoreIncrease > 0) { updateTeamScores(scoreIncrease, obj.rider)}
-    });
+    updateScoresTable(riderScore);
   });
   return data;
+}
+
+const updateUserScores = async (data) => {
+  updateUserTable();
 }
 

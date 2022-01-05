@@ -14,31 +14,49 @@ const updateRiderTable = async (rider) => {
 
 const updateScoresTable = async (obj) => {
   let rider = obj.rider.replaceAll("'", "''");
-  const prevScore = await client.query(`
-    SELECT score FROM score_table WHERE rider = '${rider}';
-  `);
-  if (prevScore.rows[0].score !== obj.score) {
-    const userPoints = !prevScore.rows[0].score? 0 : obj.score - prevScore.rows[0].score;
     const date = convertToPgDate();
+    const prevScore = await client.query(`SELECT score FROM score_table WHERE rider = '${rider}';`);
     const res = await client.query(`
-      INSERT into score_table (rider, score, updated_at) 
-      VALUES ('${rider}', ${obj.score}, '${date}')
-      ON CONFLICT (rider) DO
-        UPDATE SET (updated_at, score) = (EXCLUDED.updated_at, EXCLUDED.score);
-    `)
-    return userPoints;
-  }
-  return 0;
+      INSERT into score_table (rider, score, updated_at, prev_score) 
+      VALUES ('${rider}', ${obj.score}, '${date}', ${prevScore.rows[0].score || obj.score})
+      ON CONFLICT ON CONSTRAINT unchanged_score DO NOTHING;`
+    )
+    return res;
 }
 
-const updateTeamScores = async (points, rider) => {
-  const owner = await client.query(`
-    SELECT roster FROM rider_table WHERE rider = ${rider}
+const updateUserTable = async () => {
+  const userList = await client.query(`
+    SELECT id FROM user_table;
   `);
-  const user = owner.rows[0].name;
+  //console.log(userList);
+  if (userList.rows.length) {
+    userList.rows.forEach(async(obj) => {
+      const riders = await client.query(`
+        SELECT name FROM rider_table WHERE roster = ${obj.id};
+      `)
+      const user = obj.id;
+      // console.log(riders);
+      if (riders.rows.length) {
+        riders.rows.forEach(async (obj) => {
+          const scores = await client.query(`
+            SELECT score, prev_score FROM score_table WHERE rider = '${obj.name}';
+          `)
+          const latest = scores.rows[scores.rows.length-1];
+          if (latest.score !== latest.prev_score) {
+            updateUserScore(latest.score, latest.prev_score, user);
+          }
+        })
+      }
+    })
+  }
+}
+
+const updateUserScore = async (score, prev, user) => {
+  const newScore = (score-prev);
   const res = await client.query(`
-    UPDATE user_table SET score
-  `)
+    UPDATE user_table SET score = score + ${newScore} WHERE id = ${user};
+  `);
+  return res;
 }
 
 function convertToPgDate () {
@@ -48,4 +66,5 @@ function convertToPgDate () {
   const day = ('0' + date.getDate()).slice(-2);
   return `${year}-${month}-${day}`;
 }
-export {updateRiderTable, updateScoresTable, updateTeamScores};
+
+export {updateRiderTable, updateScoresTable, updateUserTable};
