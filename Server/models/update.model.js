@@ -28,20 +28,13 @@ const updateUserTable = async () => {
   const userList = await client.query(`
     SELECT id FROM user_table;
   `);
-  //console.log(userList);
   if (userList.rows.length) {
     userList.rows.forEach(async(obj) => {
-      const riders = await client.query(`
-        SELECT name FROM rider_table WHERE roster = ${obj.id};
-      `)
+      const riders = await fetchRiders(obj);
       const user = obj.id;
-      // console.log(riders);
       if (riders.rows.length) {
         riders.rows.forEach(async (obj) => {
-          const scores = await client.query(`
-            SELECT score, prev_score FROM score_table WHERE rider = '${obj.name}';
-          `)
-          const latest = scores.rows[scores.rows.length-1];
+          const latest = await fetchScores(obj);
           if (latest.score !== latest.prev_score) {
             updateUserScore(latest.score, latest.prev_score, user);
           }
@@ -49,6 +42,21 @@ const updateUserTable = async () => {
       }
     })
   }
+}
+
+//----HELPER-FUNCTIONS--------------------------------->
+const fetchRiders = async (obj) => {
+  const riders = await client.query(`
+    SELECT name FROM rider_table WHERE roster = ${obj.id};
+  `)
+  return riders;
+}
+
+const fetchScores = async (obj) => {
+  const scores = await client.query(`
+    SELECT score, prev_score FROM score_table WHERE rider = '${obj.name}';
+  `)
+  return scores.rows[scores.rows.length-1];
 }
 
 const updateUserScore = async (score, prev, user) => {
