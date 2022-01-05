@@ -3,7 +3,7 @@
 import client from './index.model.js';
 
 const getUserRoster = async (user) => {
-  const res = await client.query(`SELECT riders FROM playersTable WHERE userId = ${user}`);
+  const res = await client.query(`SELECT name FROM rider_table WHERE roster = ${user}`);
   return res.rows;
 };
 
