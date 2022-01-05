@@ -6,11 +6,10 @@ import {fetchTeam, createNewTeam, addRider, removeRider} from './controllers/use
 
 //router.get('/allriders', fetchRiderData); 
 //---needs to return just name, (teamname?), price, whether on roster?, (current points?)
-router.get('/team/:id', fetchTeam);
-router.post('/newTeam', createNewTeam);
-router.put('/team/:id/:rider', addRider);
-router.put('/team/:id/:rider', removeRider);
-//router.put('/rider', updateScore);
+router.post('/newTeam', createNewTeam); //{ username, team, password} = req.body;
+router.get('/team/:id', fetchTeam); //returns [{"name":"Hendrik"},{"name":"Natasha"},...]
+router.put('/team/:id/:rider', addRider); //currently both id numbers(userId, riderId)
+router.put('/team/:rider', removeRider);
 router.all('*', (req, res) => res.status(404).send('Does not exist'));
 
 export default router;

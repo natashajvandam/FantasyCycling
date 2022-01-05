@@ -1,7 +1,7 @@
 'use strict';
 
 import client from './index.model.js';
-import {getUserRoster} from './team.model.js';
+import {getUserRoster, convertToPgDate} from './team.model.js';
 
 const updateRiderTable = async (rider) => {
   rider = rider.replaceAll("'", "''");
@@ -19,9 +19,10 @@ const updateScoresTable = async (obj) => {
     const prevScore = await client.query(`
       SELECT score FROM score_table WHERE rider = '${rider}';`
     );
+    const oldScore = prevScore.rows.length? prevScore.rows[0].score : obj.score;
     const res = await client.query(`
       INSERT into score_table (rider, score, updated_at, prev_score) 
-      VALUES ('${rider}', ${obj.score}, '${date}', ${prevScore.rows[0].score || obj.score})
+      VALUES ('${rider}', ${obj.score}, '${date}', ${oldScore})
       ON CONFLICT ON CONSTRAINT unchanged_score 
       DO UPDATE SET prev_score = EXCLUDED.prev_score;`
       //havent checked if this last line: do update set... works.
@@ -61,14 +62,6 @@ const updateUserScore = async (score, prev, user) => {
     UPDATE user_table SET score = score + ${newScore} WHERE id = ${user};`
   );
   return res;
-}
-
-function convertToPgDate () {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = ('0' + (date.getMonth()+1)).slice(-2);
-  const day = ('0' + date.getDate()).slice(-2);
-  return `${year}-${month}-${day}`;
 }
 
 export {updateRiderTable, updateScoresTable, updateUserTable};
