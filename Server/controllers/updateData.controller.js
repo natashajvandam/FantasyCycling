@@ -15,7 +15,6 @@ cron.schedule('1 * * * * *', async () => {
 });
 
 const updateRiders = (data) => {
-  console.log('update riders called');
   data.forEach(obj => {
     updateRiderTable(obj.rider)
   })
@@ -23,7 +22,6 @@ const updateRiders = (data) => {
 }
 
 const updateScores = async (data) => {
-  console.log('update scores called');
   data.forEach(obj => {
     const riderScore = {};
     riderScore.score = +obj.score;

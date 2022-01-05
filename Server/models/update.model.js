@@ -14,14 +14,12 @@ const updateRiderTable = async (rider) => {
 }
 
 const updateScoresTable = async (obj) => {
-  console.log('updateScoresTable called');
   let rider = obj.rider.replaceAll("'", "''");
     const date = convertToPgDate();
     const prevScore = await client.query(`
       SELECT score FROM score_table WHERE rider = '${rider}';`
     );
-    const oldScore = prevScore.rows.length? prevScore.rows[0].score : obj.score;
-    console.log('oldScore', oldScore);
+    const oldScore = prevScore.rows.length? prevScore.rows[prevScore.rows.length-1].score : obj.score;
     const res = await client.query(`
       INSERT into score_table (rider, score, updated_at, prev_score) 
       VALUES ('${rider}', ${obj.score}, '${date}', ${oldScore})
