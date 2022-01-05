@@ -5,7 +5,6 @@ const createNewTeam = async (req, res) => {
   try {
     const { username, team, password} = req.body;
     const newUser = await setNewUser({ username, team, password, score:0 });
-    //not sure what this response will be
     res.status(201);
     res.send(newUser);
   } catch (error) {

@@ -9,5 +9,11 @@
     "mongoose": "^6.1.4",
     "node-cron": "^3.0.0",
     "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
