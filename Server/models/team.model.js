@@ -16,6 +16,11 @@ const getUserRoster = async (user) => {
   return res.rows; //rows necessary for function reliant on it!
 };
 
+const getUserDetails = async (user) => {
+  const res = await client.query(`SELECT name, team_name, score, money FROM user_table WHERE id = ${user};`);
+  return res.rows[0];
+}
+
 const addRiderToRoster = async (id, rider) => {
   const remainder = await getResultingMoney (id, rider, true);
   if (remainder >= 0) {
@@ -57,4 +62,4 @@ const getResultingMoney = async (id, rider, spending) => {
   return spending? (money.rows[0].money - price.rows[0].price) : (money.rows[0].money + price.rows[0].price);
 }
 
-export {getUserRoster, setNewUser, addRiderToRoster, removeRiderFromRoster, convertToPgDate}
+export {getUserRoster, getUserDetails, setNewUser, addRiderToRoster, removeRiderFromRoster, convertToPgDate}

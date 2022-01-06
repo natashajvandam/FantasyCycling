@@ -1,5 +1,5 @@
 'use strict';
-import { getUserRoster, setNewUser, addRiderToRoster, removeRiderFromRoster } from '../models/team.model.js';
+import { getUserRoster, setNewUser, addRiderToRoster, removeRiderFromRoster, getUserDetails } from '../models/team.model.js';
 
 const createNewTeam = async (req, res) => {
   try {
@@ -7,6 +7,17 @@ const createNewTeam = async (req, res) => {
     const newUser = await setNewUser({ username, team, password, score:0 });
     res.status(201);
     res.send(newUser);
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500);
+  }
+}
+
+const fetchUserData = async (req, res) => {
+  try {
+    const user = req.params.id;
+    const userDetails = await getUserDetails(user);
+    res.send(userDetails);
   } catch (error) {
     console.log(error)
     res.sendStatus(500);
@@ -47,4 +58,4 @@ const removeRider = async (req, res) => {
   }
 }
 
-export {fetchTeam, createNewTeam, addRider, removeRider}
+export {fetchTeam, fetchUserData, createNewTeam, addRider, removeRider}
