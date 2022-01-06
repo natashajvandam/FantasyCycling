@@ -27,8 +27,8 @@ const fetchTeam = async (req, res) => {
 const addRider = async (req, res) => {
   try {
     const { id, rider } = req.params;
-    const team = await addRiderToRoster(id, rider);
-    res.send(team); // will automatically send status 200
+    const roster = await addRiderToRoster(id, rider);
+    res.send(roster); // will automatically send status 200
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
@@ -38,8 +38,8 @@ const addRider = async (req, res) => {
 
 const removeRider = async (req, res) => {
   try {
-    const { rider } = req.params;
-    const team = await removeRiderFromRoster(rider);
+    const { id, rider } = req.params;
+    const team = await removeRiderFromRoster(id, rider);
     res.send(team); // will automatically send status 200
   } catch (error) {
     console.log(error);

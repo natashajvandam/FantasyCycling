@@ -17,7 +17,7 @@ const mockData = [
     next: '-',
     rider: ' van Aert Wout',
     team: 'Team Jumbo-Visma',
-    score: '3000'
+    score: '3200'
   },
   {
     rank: '3',

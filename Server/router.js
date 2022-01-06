@@ -9,8 +9,8 @@ import {fetchTeam, createNewTeam, addRider, removeRider} from './controllers/use
 
 router.post('/newTeam', createNewTeam); //{ username, team, password} = req.body;
 router.get('/team/:id', fetchTeam); //returns [{"name":"Hendrik"},{"name":"Wout"},...]
-router.put('/team/:id/:rider', addRider); //currently both id numbers(userId, riderId)
-router.put('/team/:rider', removeRider);
+router.put('/team/add/:id/:rider', addRider); //currently both id numbers(userId, riderId)
+router.put('/team/delete/:id/:rider', removeRider);
 
 router.all('*', (req, res) => res.status(404).send('Does not exist'));
 
