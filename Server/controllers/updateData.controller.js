@@ -1,10 +1,8 @@
 import fetchRiderData from './riderData.controller.js';
 import getMockData from '../tests/mock.data.js';
-import cron from 'node-cron';
 import {updateRiderTable, updateScoresTable, updateUserTable} from '../models/update.model.js';
 
-cron.schedule('1 * * * * *', async () => {
-  //proper timeline: uae tour (end of february) - il lombardia (beginning of october)
+export const updateAllData = async () => {
   console.log('updated');
   //fetchRiderData()
   getMockData()
@@ -12,11 +10,11 @@ cron.schedule('1 * * * * *', async () => {
     .then(data => updateScores(data))
     .then(data => updateUserScores(data))
     .catch(error => console.log(error));
-});
+};
 
 const updateRiders = (data) => {
   data.forEach(obj => {
-    updateRiderTable(obj.rider)
+    updateRiderTable(obj.rider, obj.rank, obj.team)
   })
   return data;
 }
