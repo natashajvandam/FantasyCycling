@@ -6,9 +6,11 @@ const setNewUser = async (user) => {
   const res = await client.query(`
     INSERT INTO user_table (name, team_name, password, score)
     VALUES ('${user.username}', '${user.team}', '${user.password}', ${user.score})
-    ON CONFLICT (team_name) DO NOTHING;`
+    ON CONFLICT (team_name) DO NOTHING
+    RETURNING id;`
   );
-  return res;
+  if (res.rows.length < 1) {return 'unsuccessful', res}; //NOT WORKING....
+  return 'userId:', res.rows[0];
 }
 
 const getUserRoster = async (user) => {

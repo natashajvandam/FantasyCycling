@@ -7,7 +7,7 @@ import {fetchTeam, createNewTeam, addRider, removeRider, fetchUserData} from './
 //router.get('/allriders', fetchRiderData); 
 //---needs to return name, (teamname?), price, whether on roster?, (current points?)
 
-router.post('/newTeam', createNewTeam);              //{ username, team, password} = req.body;
+router.post('/newTeam', createNewTeam);              //{ username, team, password} = req.body; => returns
 router.get('/team/:id', fetchTeam);                  //returns [{"name":"Hendrik"},{"name":"Wout"},...]
 router.put('/team/add/:id/:rider', addRider);        //currently both id numbers(userId, riderId)
 router.put('/team/delete/:id/:rider', removeRider);
