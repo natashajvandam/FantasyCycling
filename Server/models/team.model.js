@@ -23,6 +23,11 @@ const getUserDetails = async (user) => {
   return res.rows[0];
 }
 
+const fetchRiderNames = async () => {
+  const res = await client.query(`SELECT name FROM rider_table`);
+  return res.rows;
+}
+
 const addRiderToRoster = async (id, rider) => {
   const newMoneyAmount = await getResultingMoney (id, rider, true);
   const date = convertToPgDate();
@@ -90,4 +95,4 @@ const getResultingMoney = async (id, rider, spending) => {
   return spending? (money.rows[0].money - price.rows[0].price) : (money.rows[0].money + price.rows[0].price);
 }
 
-export {getUserRoster, getUserDetails, setNewUser, addRiderToRoster, removeRiderFromRoster, convertToPgDate}
+export {getUserRoster, getUserDetails, setNewUser, addRiderToRoster, removeRiderFromRoster, convertToPgDate, fetchRiderNames}

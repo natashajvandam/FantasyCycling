@@ -5,11 +5,13 @@ import {convertToPgDate} from './team.model.js';
 
 const updateRiderTable = async (rider, rank, team) => {
   rider = rider.replaceAll("'", "''");
+  team = team.replaceAll("'", "''");
   const value = await findPrice(rank);
   const res = await client.query(`
     INSERT into rider_table (name, price, team) 
     VALUES ('${rider}', ${value}, '${team}') 
-    ON CONFLICT (name) DO NOTHING;`
+    ON CONFLICT (name) DO UPDATE
+    SET team = EXCLUDED.team;`
   );
   return res.rows;
 }
