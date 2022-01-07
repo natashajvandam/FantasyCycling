@@ -4,8 +4,8 @@ import {updateRiderTable, updateScoresTable, updateUserTable} from '../models/up
 
 export const updateAllData = async () => {
   console.log('updated');
-  //fetchRiderData()
-  getMockData()
+  fetchRiderData()
+  // getMockData()
     .then(data => updateRiders(data))
     .then(data => updateScores(data))
     .then(data => updateUserScores(data))

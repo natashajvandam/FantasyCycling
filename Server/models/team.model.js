@@ -14,7 +14,7 @@ const setNewUser = async (user) => {
 }
 
 const getUserRoster = async (user) => {
-  const res = await client.query(`SELECT name FROM rider_table WHERE roster = ${user};`);
+  const res = await client.query(`SELECT * FROM rider_table WHERE roster = ${user};`);
   return res.rows; //rows necessary for function reliant on it!
 };
 
@@ -24,12 +24,26 @@ const getUserDetails = async (user) => {
 }
 
 const addRiderToRoster = async (id, rider) => {
-  const remainder = await getResultingMoney (id, rider, true);
-  if (remainder >= 0) {
-    const resOfAdding = await client.query(`UPDATE rider_table SET roster = ${id} WHERE id = ${rider} AND roster IS NULL;`);
-    if (resOfAdding.rowCount >= 1) {
-      const resOfPaying = await client.query(`UPDATE user_table SET money = ${remainder} WHERE id = ${id};`);
-      return 'remaining: ' + remainder;
+  const newMoneyAmount = await getResultingMoney (id, rider, true);
+  const date = convertToPgDate();
+  if (newMoneyAmount >= 0) {
+    const addRider = await client.query(`
+      UPDATE rider_table SET roster = ${id}, added_at = '${date}'
+      WHERE id = ${rider} AND roster IS NULL
+      RETURNING name;` 
+    );
+    if (addRider.rowCount > 0) {
+      const riderName = addRider.rows[0].name;
+      const resOfRosterTable = await client.query(`
+        INSERT INTO roster_table (roster, rider, start_date)
+        VALUES (${id}, '${riderName}', '${date}')
+        RETURNING roster, rider, start_date;`
+        );
+      const resOfPaying = await client.query(`
+        UPDATE user_table SET money = ${newMoneyAmount} 
+        WHERE id = ${id};`
+      );
+      return 'remaining: ' + newMoneyAmount;
     } else { 
       return 'did not add'; 
     }
@@ -39,9 +53,22 @@ const addRiderToRoster = async (id, rider) => {
 
 const removeRiderFromRoster = async (id, rider) => {
   const newMoneyAmount = await getResultingMoney (id, rider, false);
-  const resOfRemoving = await client.query(`UPDATE rider_table SET roster = null WHERE id = ${rider} AND roster = ${id};`);
-  if (resOfRemoving.rowCount >= 1) {
-    const resOfMoney = await client.query(`UPDATE user_table SET money = ${newMoneyAmount} WHERE id = ${id};`)
+  const resOfRemoving = await client.query(`
+    UPDATE rider_table SET roster = null 
+    WHERE id = ${rider} AND roster = ${id}
+    RETURNING name;`
+  );
+  if (resOfRemoving.rowCount > 0) {
+    const riderName = resOfRemoving.rows[0].name;
+    const date = convertToPgDate();
+    const resOfRosterTable = await client.query(`
+      UPDATE roster_table SET end_date = '${date}' 
+      WHERE roster = ${id} AND rider = '${riderName}';`
+    )
+    const resOfMoney = await client.query(`
+      UPDATE user_table SET money = ${newMoneyAmount} 
+      WHERE id = ${id};`
+    )
     return resOfMoney;
   } else {
     return 'cannot remove';
@@ -56,7 +83,6 @@ function convertToPgDate () {
   const day = ('0' + date.getDate()).slice(-2);
   return `${year}-${month}-${day}`;
 }
-
 
 const getResultingMoney = async (id, rider, spending) => {
   const money = await client.query(`SELECT money FROM user_table WHERE id = ${id};`);
