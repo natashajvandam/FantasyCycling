@@ -1,6 +1,8 @@
 //for testing
 import getMockData from '../tests/mock.data.js';
 
+import {convertToPgDate} from '../models/team.model.js';
+
 //webscrapers
 import fetchRiderData from '../webscrapers/riderData.webscraper.js';
 import fetchRiderPhoto from '../webscrapers/riderPhotos.webscraper.js';
@@ -24,7 +26,9 @@ export const updateAllData = async () => {
 const loopThroughPages = async () => {
   let allData = [];
   for (let i = 0; i <= 22; i++) {
-    const arrayOfData = await fetchRiderData(`https://www.procyclingstats.com/rankings.php?date=2022-01-07&nation=&age=&zage=&page=smallerorequal&team=&offset=${i}00&teamlevel=&filter=Filter`);
+    //https://www.procyclingstats.com/rankings.php?date=2022-01-08&nation=&age=&zage=&page=smallerorequal&team=&offset=100&teamlevel=&filter=Filter
+    const date = convertToPgDate();
+    const arrayOfData = await fetchRiderData(`https://www.procyclingstats.com/rankings.php?date=${date}&nation=&age=&zage=&page=smallerorequal&team=&offset=${i}00&teamlevel=&filter=Filter`);
     allData = allData.concat(arrayOfData);
   }
   return allData;
@@ -32,6 +36,7 @@ const loopThroughPages = async () => {
 
 //---STEP 1---------------------------------------------------------> use data to update riders
 const updateRiders = (data) => {
+  console.log('updating riders');
   data.forEach(async (obj) => {
     const res = await updateRiderTable(obj.rider, obj.rank, obj.team)
   });
@@ -40,6 +45,7 @@ const updateRiders = (data) => {
 
 //---STEP 2---------------------------------------------------------> use data to update rider scores
 const updateScores = async (data) => {
+  console.log('updating scores');
   data.forEach(async (obj) => {
     const riderScore = {};
     riderScore.score = +obj.score;
@@ -51,12 +57,14 @@ const updateScores = async (data) => {
 
 //---STEP 3---------------------------------------------------------> use data to update user scores
 const updateUserScores = async (data) => {
+  console.log('updating user score');
   const res = await updateUserTable();
   return data;
 }
 
 //---STEP 4---------------------------------------------------------> use names to update rider images
 const updatePhotoLinks = async () => {
+  console.log('updating photo links')
   fetchRiderNames()
     .then(data => splitNames(data))
     .then(names => fetchRiderPhoto(names))
@@ -70,6 +78,7 @@ const updatePhotoLinks = async () => {
 
 //---STEP 4 helper--------------------------------------------------> split first and last names
 const splitNames = (data) => {
+  console.log('successfully fetched rider names')
   const names = data.map(rider => {
     const nameArray = rider.name.split(' ');
     const firstName = nameArray.pop();
