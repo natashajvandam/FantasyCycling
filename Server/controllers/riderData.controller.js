@@ -2,7 +2,6 @@ import got from "got";
 import jsdom from "jsdom";
 const { JSDOM } = jsdom;
 
-//const url = "https://www.procyclingstats.com/rankings.php";
 const fetchRiderData = async (url) => {
   const data = await got(url).then((response) => {
     const dom = new JSDOM(response.body);

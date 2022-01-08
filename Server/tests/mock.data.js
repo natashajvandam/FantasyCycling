@@ -65,7 +65,7 @@ const mockData = [
     next: '-',
     rider: ' Bernal Egan',
     team: 'INEOS Grenadiers',
-    score: '1510'
+    score: '1610'
   },
   {
     rank: '9',

@@ -51,6 +51,15 @@ const updateUserTable = async () => {
   }
 }
 
+const insertImages = async (array) => {
+  array.forEach(async (riderObj) => {
+    const name = riderObj.rider.name.replaceAll("'", "''");
+    const res = await client.query(`
+      UPDATE rider_table SET image = '${riderObj.image}' WHERE name = '${name}';`
+    )
+  })
+}
+
 //----HELPER-FUNCTIONS--------------------------------->
 const getRoster = async (user) => {
   const roster = await client.query(`
@@ -97,4 +106,4 @@ const valueLibrary = ['buffer', 300, 260, 220, 180, 170, 160, 150,
   12, 12, 11, 11, 10, 10];
 
 
-export {updateRiderTable, updateScoresTable, updateUserTable};
+export {updateRiderTable, updateScoresTable, updateUserTable, insertImages};

@@ -1,23 +1,21 @@
 import fetchRiderData from './riderData.controller.js';
 import getMockData from '../tests/mock.data.js';
-import {updateRiderTable, updateScoresTable, updateUserTable} from '../models/update.model.js';
-import getFirstAndLastName from './riderPhotos.controller.js';
+import {updateRiderTable, updateScoresTable, updateUserTable, insertImages} from '../models/update.model.js';
+import fetchRiderPhoto from './riderPhotos.controller.js';
 import {fetchRiderNames} from '../models/team.model.js';
-import client from '../models/index.model.js';
-//const masterUrl = `https://www.procyclingstats.com/rankings.php?date=2022-01-07&nation=&age=&zage=&page=smallerorequal&team=&offset=${i}00&teamlevel=&filter=Filter`;
-export const updateAllData = async () => {
-  console.log('updated');
 
-  //fetchRiderData()
-  // getMockData()
-  loopThroughPages()
-    .then(data => updateRiders(data))
-    .then(data => updateScores(data))
-    .then(data => updateUserScores(data))
-    .then(data => getRiderPhotoLinks(data))
-    .catch(error => console.log(error));
+export const updateAllData = async () => {
+  console.log('updating');
+  getMockData()
+  //loopThroughPages()
+    .then(data => updateRiders(data))       // - 1
+    .then(data => updateScores(data))       // - 2
+    .then(data => updateUserScores(data))   // - 3
+    .then(data => updatePhotoLinks(data))   // - 4
+    .catch(error => console.log(error));    // - errors
 };
 
+//---GET ALL DATA FROM WEB---------------------------------------->
 const loopThroughPages = async () => {
   let allData = [];
   for (let i = 0; i <= 22; i++) {
@@ -27,30 +25,50 @@ const loopThroughPages = async () => {
   return allData;
 }
 
-const getRiderPhotoLinks = async () => {
-  fetchRiderNames()
-    .then(data => getFirstAndLastName(data))
-    .catch(error => console.log(error));
-}
-
+//---STEP 1---------------------------------------------------------> use data to update riders
 const updateRiders = (data) => {
-  data.forEach(obj => {
-    updateRiderTable(obj.rider, obj.rank, obj.team)
-  })
-  return data;
-}
-
-const updateScores = async (data) => {
-  data.forEach(obj => {
-    const riderScore = {};
-    riderScore.score = +obj.score;
-    riderScore.rider = obj.rider;
-    updateScoresTable(riderScore);
+  data.forEach(async (obj) => {
+    const res = await updateRiderTable(obj.rider, obj.rank, obj.team)
   });
   return data;
 }
 
-const updateUserScores = async (data) => {
-  updateUserTable();
+//---STEP 2---------------------------------------------------------> use data to update rider scores
+const updateScores = async (data) => {
+  data.forEach(async (obj) => {
+    const riderScore = {};
+    riderScore.score = +obj.score;
+    riderScore.rider = obj.rider;
+    const res = await updateScoresTable(riderScore);
+  });
+  return data;
 }
+
+//---STEP 3---------------------------------------------------------> use data to update user scores
+const updateUserScores = async (data) => {
+  const res = await updateUserTable();
+  return data;
+}
+
+//---STEP 4---------------------------------------------------------> use names to update rider images
+const updatePhotoLinks = async () => {
+  fetchRiderNames()
+    .then(data => splitNames(data))
+    .then(names => fetchRiderPhoto(names))
+    .then(array => insertImages(array))
+    .then(finished => console.log('finished'))
+    .catch(error => console.log(error));
+}
+
+//---STEP 4 helper--------------------------------------------------> split first and last names
+const splitNames = (data) => {
+  const names = data.map(rider => {
+    const nameArray = rider.name.split(' ');
+    const firstName = nameArray.pop();
+    const lastNames = nameArray.join('-');
+    return {firstName, lastNames, rider};
+  });
+  return names;
+}
+
 
