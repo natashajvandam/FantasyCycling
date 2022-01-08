@@ -55,8 +55,9 @@ const insertImages = async (array) => {
   array.forEach(async (riderObj) => {
     const name = riderObj.rider.name.replaceAll("'", "''");
     const res = await client.query(`
-      UPDATE rider_table SET image = '${riderObj.image}' WHERE name = '${name}';`
-    )
+      UPDATE rider_table SET image = '${riderObj.image}' 
+      WHERE name = '${name}';`
+    );
   })
 }
 
@@ -78,7 +79,7 @@ const fetchRiderScores = async (rider) => {
   const endScore = await client.query(`
     SELECT score FROM score_table WHERE rider='${rider.rider}' 
     AND updated_at <= '${end}';`
-  )
+  );
   const startingScore = startScore.rows[startScore.rows.length-1].score;
   const endingScore = endScore.rows[endScore.rows.length-1].score;
   return endingScore - startingScore;

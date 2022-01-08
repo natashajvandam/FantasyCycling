@@ -1,13 +1,18 @@
-import fetchRiderData from './riderData.controller.js';
+//for testing
 import getMockData from '../tests/mock.data.js';
+
+//webscrapers
+import fetchRiderData from '../webscrapers/riderData.webscraper.js';
+import fetchRiderPhoto from '../webscrapers/riderPhotos.webscraper.js';
+
 import {updateRiderTable, updateScoresTable, updateUserTable, insertImages} from '../models/update.model.js';
-import fetchRiderPhoto from './riderPhotos.controller.js';
 import {fetchRiderNames} from '../models/team.model.js';
+
 
 export const updateAllData = async () => {
   console.log('updating');
-  getMockData()
-  //loopThroughPages()
+  // getMockData()
+  loopThroughPages()
     .then(data => updateRiders(data))       // - 1
     .then(data => updateScores(data))       // - 2
     .then(data => updateUserScores(data))   // - 3
@@ -56,7 +61,10 @@ const updatePhotoLinks = async () => {
     .then(data => splitNames(data))
     .then(names => fetchRiderPhoto(names))
     .then(array => insertImages(array))
-    .then(finished => console.log('finished'))
+    .then(finished => {
+      console.log('finished'); 
+      return finished;
+    })
     .catch(error => console.log(error));
 }
 

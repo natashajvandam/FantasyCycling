@@ -9,13 +9,12 @@ const setNewUser = async (user) => {
     ON CONFLICT (team_name) DO NOTHING
     RETURNING id;`
   );
-  if (res.rows.length < 1) {return 'unsuccessful', res}; //NOT WORKING....
-  return 'userId:', res.rows[0];
+  return (res.rows.length)? res.rows[0] : res;  
 }
 
 const getUserRoster = async (user) => {
   const res = await client.query(`SELECT * FROM rider_table WHERE roster = ${user};`);
-  return res.rows; //rows necessary for function reliant on it!
+  return res.rows; //rows necessary for function reliant on it.
 };
 
 const getUserDetails = async (user) => {

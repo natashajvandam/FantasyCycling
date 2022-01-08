@@ -46,7 +46,6 @@ const addRider = async (req, res) => {
   }
 }
 
-
 const removeRider = async (req, res) => {
   try {
     const { id, rider } = req.params;
