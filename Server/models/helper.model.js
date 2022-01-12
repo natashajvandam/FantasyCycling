@@ -26,12 +26,10 @@ const getRoster = async (user) => {
 }
 
 const fetchRiderScores = async (rider) => {
-  console.log(rider.start_date);
   const startScore = await client.query(`
     SELECT score FROM score_table WHERE rider='${rider.rider}' 
     AND updated_at <= TO_DATE('${rider.start_date}', 'Dy Mon DD YYYY');`
   );
-  //const end = rider.end_date || convertToPgDate();
   let endScore;
   if (rider.end_date) {
     endScore = await client.query(`

@@ -6,7 +6,7 @@ import router from './router.js';
 import cron from 'node-cron';
 import {updateAllData} from './controllers/updateData.controller.js'
 
-cron.schedule('0 */31 * * * *', async () => { updateAllData() } );
+cron.schedule('0 0 0 * * *', async () => { updateAllData() } );
   //proper timeline: uae tour (end of february) - il lombardia (beginning of october)
 app.use(cors());
 app.use(express.json()); // body parser

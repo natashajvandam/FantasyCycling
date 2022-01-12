@@ -21,6 +21,16 @@ async function createUser (body) {
   })
 };
 
+async function changeNameOfTeam (userId, newName) {
+  return fetchRequest(`/team/${userId}`, {
+    method: 'PUT',
+    body: JSON.stringify({newName}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+}
+
 async function addRider (userId, riderId) {
   return fetchRequest(`/team/add/${userId}/${riderId}`, {method: 'PUT'});
 }
@@ -37,4 +47,4 @@ async function fetchUserData (userId) {
   return fetchRequest(`/team/details/${userId}`);
 }
 
-export { getAllRiders, createUser, addRider, removeRider, fetchUserRoster, fetchUserData};
+export { getAllRiders, createUser, addRider, removeRider, fetchUserRoster, fetchUserData, changeNameOfTeam};

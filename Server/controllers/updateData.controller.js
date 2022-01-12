@@ -77,7 +77,6 @@ const updatePhotoLinks = async () => {
 
 //---STEP 4 helper--------------------------------------------------> split first and last names
 const splitNames = (data) => {
-  console.log('successfully fetched rider names')
   const names = data.map(rider => {
     const nameArray = rider.name.split(' ');
     const firstName = nameArray.pop();

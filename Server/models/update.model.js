@@ -61,6 +61,7 @@ const insertImages = async (array) => {
         UPDATE rider_table SET image = '${image}' 
         WHERE name = '${name}';`
       );
+      console.log(res.rowCount);
     }
   })
 }

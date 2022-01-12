@@ -8,6 +8,7 @@ const fetchRiderPhoto = async (names) => {
     const link = await findImageLink(dom);
     return {image: link, rider: name.rider}
   });
+  console.log('returning linkAndName')
   return linkAndName;
 };
 
