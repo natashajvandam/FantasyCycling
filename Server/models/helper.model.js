@@ -13,7 +13,7 @@ function convertToPgDate () {
 //----update-model-helpers------------------------->
 
 const fetchRiderNames = async () => {
-  const res = await client.query(`SELECT name FROM rider_table WHERE image is NULL`);
+  const res = await client.query(`SELECT name FROM rider_table WHERE image is NULL AND price = 10`);
   return res.rows;
 }
 
@@ -26,15 +26,25 @@ const getRoster = async (user) => {
 }
 
 const fetchRiderScores = async (rider) => {
+  console.log(rider.start_date);
   const startScore = await client.query(`
     SELECT score FROM score_table WHERE rider='${rider.rider}' 
-    AND updated_at >= TO_DATE('${rider.start_date}', 'Dy Mon DD YYYY');`
+    AND updated_at <= TO_DATE('${rider.start_date}', 'Dy Mon DD YYYY');`
   );
-  const end = rider.end_date || convertToPgDate();
-  const endScore = await client.query(`
-    SELECT score FROM score_table WHERE rider='${rider.rider}' 
-    AND updated_at <= '${end}';`
-  );
+  //const end = rider.end_date || convertToPgDate();
+  let endScore;
+  if (rider.end_date) {
+    endScore = await client.query(`
+      SELECT score FROM score_table WHERE rider='${rider.rider}' 
+      AND updated_at <= TO_DATE('${rider.end_date}', 'Dy Mon DD YYYY');`
+    );
+  } else {
+    const today = convertToPgDate(); 
+    endScore = await client.query(`
+      SELECT score FROM score_table WHERE rider='${rider.rider}' 
+      AND updated_at <= '${today}';`
+    );
+  }
   const startingScore = startScore.rows[startScore.rows.length-1].score;
   const endingScore = endScore.rows[endScore.rows.length-1].score;
   return endingScore - startingScore;

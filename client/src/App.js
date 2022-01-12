@@ -3,6 +3,10 @@ import League from './Pages/League/league';
 import Login from './Pages/Login/login';
 import Team from './Pages/Team/team';
 import * as React from "react";
+
+import { useState, useEffect } from 'react';
+import { getAllRiders, createUser } from './ApiClient';
+
 import {
   Routes,
   Route,
@@ -14,6 +18,7 @@ import {
 } from "react-router-dom";
 
 function App() {
+  
   return (
     <div>
       <Routes>

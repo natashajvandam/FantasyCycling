@@ -2,9 +2,9 @@ import { Router } from 'express';
 const router = Router();
 
 //import fetchRiderData from './controllers/riderData.controller.js';
-import {fetchTeam, createNewTeam, addRider, removeRider, fetchUserData} from './controllers/userData.controller.js';
+import {fetchTeam, createNewTeam, addRider, removeRider, fetchUserData, fetchRiders} from './controllers/userData.controller.js';
 
-//router.get('/allriders', fetchRiderData); 
+router.get('/allriders', fetchRiders); 
 //---needs to return name, (teamname?), price, whether on roster?, (current points?)
 
 router.post('/newTeam', createNewTeam);              //{ username, team, password} = req.body; => returns {id:"1"}

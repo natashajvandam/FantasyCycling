@@ -1,6 +1,16 @@
 'use strict';
-import { getUserRoster, setNewUser, getUserDetails } from '../models/user.model.js';
+import { getUserRoster, setNewUser, getUserDetails, fetchAllRiders } from '../models/user.model.js';
 import { addRiderToRoster, removeRiderFromRoster} from '../models/roster.model.js';
+
+const fetchRiders = async (req, res) => {
+  try {
+    const fullList = await fetchAllRiders();
+    res.status(200);
+    res.send(fullList);
+  } catch (error) {
+
+  }
+}
 
 const createNewTeam = async (req, res) => {
   try {
@@ -58,4 +68,4 @@ const removeRider = async (req, res) => {
   }
 }
 
-export {fetchTeam, fetchUserData, createNewTeam, addRider, removeRider}
+export {fetchTeam, fetchUserData, createNewTeam, addRider, removeRider, fetchRiders}

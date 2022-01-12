@@ -52,9 +52,9 @@ const updateUserTable = async () => {
 }
 
 const insertImages = async (array) => {
-  console.log(array[0]);
+  array = await Promise.allSettled(array);
   array.forEach(async (riderObj) => {
-    if (riderObj.status === 'fulfilled') {
+    if (riderObj.image) {
       const name = riderObj.rider.name.replaceAll("'", "''");
       const image = riderObj.image.replaceAll("'", "''");
       const res = await client.query(`
