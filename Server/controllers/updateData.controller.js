@@ -1,24 +1,23 @@
 //for testing
 import getMockData from '../tests/mock.data.js';
 
-import {convertToPgDate} from '../models/team.model.js';
 
 //webscrapers
 import fetchRiderData from '../webscrapers/riderData.webscraper.js';
 import fetchRiderPhoto from '../webscrapers/riderPhotos.webscraper.js';
 
 import {updateRiderTable, updateScoresTable, updateUserTable, insertImages} from '../models/update.model.js';
-import {fetchRiderNames} from '../models/team.model.js';
+import {fetchRiderNames, convertToPgDate} from '../models/helper.model.js';
 
 
 export const updateAllData = async () => {
   console.log('updating');
-  // getMockData()
-  loopThroughPages()
+  getMockData()
+  // loopThroughPages()
     .then(data => updateRiders(data))       // - 1
     .then(data => updateScores(data))       // - 2
     .then(data => updateUserScores(data))   // - 3
-    .then(data => updatePhotoLinks(data))   // - 4
+    .then(data => updatePhotoLinks(data))   // - 4 
     .catch(error => console.log(error));    // - errors
 };
 

@@ -1,31 +1,7 @@
 'use strict';
 
 import client from './index.model.js';
-
-const setNewUser = async (user) => { 
-  const res = await client.query(`
-    INSERT INTO user_table (name, team_name, password, score)
-    VALUES ('${user.username}', '${user.team}', '${user.password}', ${user.score})
-    ON CONFLICT (team_name) DO NOTHING
-    RETURNING id;`
-  );
-  return (res.rows.length)? res.rows[0] : res;  
-}
-
-const getUserRoster = async (user) => {
-  const res = await client.query(`SELECT * FROM rider_table WHERE roster = ${user};`);
-  return res.rows; //rows necessary for function reliant on it.
-};
-
-const getUserDetails = async (user) => {
-  const res = await client.query(`SELECT name, team_name, score, money FROM user_table WHERE id = ${user};`);
-  return res.rows[0];
-}
-
-const fetchRiderNames = async () => {
-  const res = await client.query(`SELECT name FROM rider_table`);
-  return res.rows;
-}
+import {convertToPgDate} from './helper.model.js';
 
 const addRiderToRoster = async (id, rider) => {
   const newMoneyAmount = await getResultingMoney (id, rider, true);
@@ -79,19 +55,11 @@ const removeRiderFromRoster = async (id, rider) => {
   }
 };
 
-//----HELPER FUNCTIONS-------------------->
-function convertToPgDate () {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = ('0' + (date.getMonth()+1)).slice(-2);
-  const day = ('0' + date.getDate()).slice(-2);
-  return `${year}-${month}-${day}`;
-}
-
+//-helper
 const getResultingMoney = async (id, rider, spending) => {
   const money = await client.query(`SELECT money FROM user_table WHERE id = ${id};`);
   const price = await client.query(`SELECT price FROM rider_table WHERE id = ${rider};`);
   return spending? (money.rows[0].money - price.rows[0].price) : (money.rows[0].money + price.rows[0].price);
 }
 
-export {getUserRoster, getUserDetails, setNewUser, addRiderToRoster, removeRiderFromRoster, convertToPgDate, fetchRiderNames}
+export {addRiderToRoster, removeRiderFromRoster}

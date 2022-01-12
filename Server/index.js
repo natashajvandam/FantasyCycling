@@ -6,11 +6,16 @@ import router from './router.js';
 import cron from 'node-cron';
 import {updateAllData} from './controllers/updateData.controller.js'
 
-cron.schedule('*/500 * * * * *', async () => { updateAllData() } );
+cron.schedule('0 */7 * * * *', async () => { updateAllData() } );
   //proper timeline: uae tour (end of february) - il lombardia (beginning of october)
 app.use(cors());
 app.use(express.json()); // body parser
 app.use(router);
+
+// socket.on("error", (err) =>
+// console.log("Caught flash policy server socket error: ")
+// console.log(err.stack)
+// )
 
 (async function () {
   try {

@@ -1,5 +1,6 @@
 'use strict';
-import { getUserRoster, setNewUser, addRiderToRoster, removeRiderFromRoster, getUserDetails } from '../models/team.model.js';
+import { getUserRoster, setNewUser, getUserDetails } from '../models/user.model.js';
+import { addRiderToRoster, removeRiderFromRoster} from '../models/roster.model.js';
 
 const createNewTeam = async (req, res) => {
   try {
