@@ -1,6 +1,6 @@
 'use strict';
 import { getUserRoster, setNewUser, getUserDetails, fetchAllRiders } from '../models/user.model.js';
-import { addRiderToRoster, removeRiderFromRoster} from '../models/roster.model.js';
+import { addRiderToRoster, removeRiderFromRoster, changeUserTeam} from '../models/roster.model.js';
 
 const fetchRiders = async (req, res) => {
   try {
@@ -8,7 +8,8 @@ const fetchRiders = async (req, res) => {
     res.status(200);
     res.send(fullList);
   } catch (error) {
-
+    console.log(error);
+    res.sendStatus(500);
   }
 }
 
@@ -31,6 +32,18 @@ const fetchUserData = async (req, res) => {
     res.send(userDetails);
   } catch (error) {
     console.log(error)
+    res.sendStatus(500);
+  }
+}
+
+const changeTeamName = async (req, res) => {
+  try {
+    const user = req.params.id;
+    const { newName } = req.body;
+    const userDetails = await changeUserTeam(user, newName);
+    res.send(userDetails);
+  } catch (error) {
+    console.log(error);
     res.sendStatus(500);
   }
 }
@@ -68,4 +81,4 @@ const removeRider = async (req, res) => {
   }
 }
 
-export {fetchTeam, fetchUserData, createNewTeam, addRider, removeRider, fetchRiders}
+export {fetchTeam, fetchUserData, createNewTeam, addRider, removeRider, fetchRiders, changeTeamName}

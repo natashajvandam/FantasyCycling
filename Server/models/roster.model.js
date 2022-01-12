@@ -3,6 +3,15 @@
 import client from './index.model.js';
 import {convertToPgDate} from './helper.model.js';
 
+const changeUserTeam = async (id, newName) => {
+  newName = newName.replaceAll("'", "''");
+  const user = await client.query(`
+  UPDATE user_table SET team_name = '${newName}' 
+  WHERE id = ${id};`
+  )
+  return user;
+} 
+
 const addRiderToRoster = async (id, rider) => {
   const newMoneyAmount = await getResultingMoney (id, rider, true);
   const date = convertToPgDate();
@@ -62,4 +71,4 @@ const getResultingMoney = async (id, rider, spending) => {
   return spending? (money.rows[0].money - price.rows[0].price) : (money.rows[0].money + price.rows[0].price);
 }
 
-export {addRiderToRoster, removeRiderFromRoster}
+export {addRiderToRoster, removeRiderFromRoster, changeUserTeam}
