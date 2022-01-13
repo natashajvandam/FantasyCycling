@@ -1,13 +1,21 @@
 import './league.scss';
-import List from '../../Components/list/list.js';
+import UserList from '../../Components/userList/userList.js';
 import { useEffect, useState } from 'react';
+import Header from '../../Components/header/header';
 
+function League ({userList, userData}) {
 
-function League () {
   return (
+    
     <div>
-    League Page
-      {/* <List /> */}
+     <Header 
+        userData={userData}
+        link_route={'home'}
+      />
+      <div className="league_page">
+        <div><h1 className="page_title">fantacy league</h1></div>
+        <UserList userList={userList} />
+      </div>
     </div>
   )
 }

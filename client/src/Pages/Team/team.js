@@ -9,6 +9,7 @@ function Team ({riderList, changeTeamName, myRoster, addToRoster, removeFromRost
     <div className="team_page"> 
       <Header 
         userData={userData}
+        link_route={'league'}
       />
       <div className="my_rider_list">
         <h1 className="list_title">{userData.team_name}</h1>

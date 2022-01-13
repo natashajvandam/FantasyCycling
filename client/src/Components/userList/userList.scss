@@ -1,0 +1,13 @@
+@import "../../Assets/_globalVar.scss";
+
+* {
+  padding: none;
+  margin: none;
+}
+
+.user_item {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  width: 85vw;
+}

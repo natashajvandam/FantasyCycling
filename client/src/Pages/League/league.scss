@@ -1,0 +1,11 @@
+@import "../../Assets/_globalVar.scss";
+
+.league_page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page_title {
+  font-size: $large_font_size;
+}

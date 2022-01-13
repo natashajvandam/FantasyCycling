@@ -1,0 +1,32 @@
+@import "../../Assets/_globalVar.scss";
+
+* {
+  padding: none;
+  margin: none;
+  font-family: $font;
+}
+.small_text {
+  font-size: 12px;
+}
+
+.user_item {
+  display: flex;
+  flex-direction: row;
+  background: $grey_color;
+  margin: 5px;
+  border-radius: 15px;
+}
+
+.user_item_score {
+  background: $orange_color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+}
+
+.user_item_name_team {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 30px;
+}

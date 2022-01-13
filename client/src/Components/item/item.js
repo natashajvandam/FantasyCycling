@@ -20,7 +20,7 @@ function Item ({rider, addToRoster, removeFromRoster, mine}) {
           </div> 
         }
         <div className="detail rider_price">value: {rider.price}</div>
-        <div class="rider_name_team">
+        <div className="rider_name_team">
           <div className="detail rider_name">{rider.name}</div>
           <div className="detail rider_team">{rider.team}</div>
         </div>

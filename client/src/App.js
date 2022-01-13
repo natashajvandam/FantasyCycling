@@ -65,7 +65,7 @@ function App() {
     <div className="routes_div">
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/team" className="path_team_page" element={<Team 
+        <Route path="/home" className="path_team_page" element={<Team 
           userData={userData}
           riderList={riderList}
           changeTeamName={changeTeamName}
@@ -75,6 +75,7 @@ function App() {
         />} />
         <Route path="league" element={<League 
           userList={userList}
+          userData={userData}
         />} />
       </Routes>
     </div>

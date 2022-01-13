@@ -17,7 +17,7 @@ export const updateAllData = async (start, end, next) => {
     .then(data => updateRiders(data))       // - 1
     .then(data => updateScores(data))       // - 2
     .then(data => updateUserScores(data))   // - 3
-    .then((data) => updatePhotoLinks(data))   // - 4 -> takes too long
+    .then(data => updatePhotoLinks(data))   // - 4 -> takes too long
     .catch(error => console.log(error));    // - errors
   await result;
   start = end + 1;
