@@ -1,4 +1,4 @@
-import './list.css';
+import './list.scss';
 import Item from '../item/item';
 
 function List ({riderList, addToRoster, removeFromRoster}) {
@@ -9,7 +9,7 @@ function List ({riderList, addToRoster, removeFromRoster}) {
     removeFromRoster={removeFromRoster}
     />) : <p>no riders</p>
   return (
-    <div>
+    <div className="list">
       {items}
     </div>
   )

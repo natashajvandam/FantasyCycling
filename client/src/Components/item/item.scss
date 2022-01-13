@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
+@import "../../Assets/_globalVar.scss";
+
+* {
+  padding: none;
+  margin: none;
+}
+
+
+.button_rider {
+  background: $blue_color;
+  border-radius: 8px;
+  border: none;
+  margin: 3px;
+
+  .rider {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-size: $small_font_size;
+    font-family: $font;
+
+    p {
+      padding: 3px;
+    }
+  }
+  
+}

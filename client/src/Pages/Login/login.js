@@ -1,4 +1,4 @@
-import './login.css';
+import './login.scss';
 //import Form from '../Form/form';
 
 function Login () {

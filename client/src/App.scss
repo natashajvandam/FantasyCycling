@@ -1,0 +1,15 @@
+
+* {
+  padding: none;
+  margin: none;
+}
+
+$blue_color: rgb(20, 33, 61);
+$orange_color: rgb(253, 168, 33);
+$grey_color: rgb(229, 229, 229);
+
+.routes_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

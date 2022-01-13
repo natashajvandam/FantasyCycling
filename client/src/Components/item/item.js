@@ -1,4 +1,4 @@
-import './item.css';
+import './item.scss';
 
 
 function Item ({rider, addToRoster, removeFromRoster}) {
@@ -11,14 +11,15 @@ function Item ({rider, addToRoster, removeFromRoster}) {
   }
 
   return (
-    <button className="rider" onClick={()=> toggleRider(3, rider.id, rider)}>
-      
-      {rider.image && 
-        <img src={rider.image}></img>
-      }
-      <p className="rider_name">name: {rider.name}</p>
-      <p className="rider_team">team: {rider.team}</p>
-      <p className="rider_price">price: {rider.price}</p>
+    <button className="button_rider" onClick={()=> toggleRider(3, rider.id, rider)}>
+      <div className="rider">
+        {/* {rider.image && rider.added_at && 
+          <img className="rider_image" src={rider.image}></img>
+        } */}
+        <p className="rider_name">{rider.name}</p>
+        <p className="rider_team">team: {rider.team}</p>
+        <p className="rider_price">price: {rider.price}</p>
+      </div>
     </button>
   )
 }

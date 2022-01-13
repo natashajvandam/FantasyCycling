@@ -1,0 +1,9 @@
+@import "../../Assets/_globalVar.scss";
+
+.team_page {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-around;
+  color: $blue_color;
+}

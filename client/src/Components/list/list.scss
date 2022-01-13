@@ -1,0 +1,15 @@
+@import "../../Assets/_globalVar.scss";
+
+* {
+  padding: none;
+  margin: none;
+}
+
+
+.list {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  overflow-y: scroll;
+  width: 80vw;
+}

@@ -1,21 +1,27 @@
-import './team.css';
+import './team.scss';
 import List from '../../Components/list/list';
 //import Form from '../Form/form';
 
 function Team ({riderList, changeTeamName, myRoster, addToRoster, removeFromRoster}) {
   
   return (
-    <div> 
-      <List 
-        riderList={myRoster}
-        addToRoster={addToRoster}
-        removeFromRoster={removeFromRoster}
-      />
-      <List
-        riderList={riderList}
-        addToRoster={addToRoster}
-        removeFromRoster={removeFromRoster}
-      />
+    <div className="team_page"> 
+      <div className="my_rider_list">
+        <h1>my team</h1>
+        {/* <List 
+          riderList={myRoster}
+          addToRoster={addToRoster}
+          removeFromRoster={removeFromRoster}
+        /> */}
+      </div>
+      <div className="full_rider_list">
+        <h1>riders</h1>
+        <List
+          riderList={riderList}
+          addToRoster={addToRoster}
+          removeFromRoster={removeFromRoster}
+        />
+      </div>
     </div>
   )
 }

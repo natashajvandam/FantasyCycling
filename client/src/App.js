@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import League from './Pages/League/league';
 import Login from './Pages/Login/login';
 import Team from './Pages/Team/team';
@@ -62,10 +62,10 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="routes_div">
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/team" element={<Team 
+        <Route path="/team" className="path_team_page" element={<Team 
           riderList={riderList}
           changeTeamName={changeTeamName}
           myRoster={myRoster}

@@ -1,4 +1,4 @@
-import './league.css';
+import './league.scss';
 //import List from '../List/list';
 //import Form from '../Form/form';
 import { useEffect, useState } from 'react';
