@@ -10,15 +10,23 @@ import {updateRiderTable, updateScoresTable, updateUserTable, insertImages} from
 import {fetchRiderNames, convertToPgDate} from '../models/helper.model.js';
 
 
-export const updateAllData = async () => {
+export const updateAllData = async (start, end, next) => {
   console.log('updating');
   // getMockData()
-  loopThroughPages(4)
+  const result = loopThroughPages(start, end)
     .then(data => updateRiders(data))       // - 1
     .then(data => updateScores(data))       // - 2
     .then(data => updateUserScores(data))   // - 3
     .then((data) => updatePhotoLinks(data))   // - 4 -> takes too long
     .catch(error => console.log(error));    // - errors
+  await result;
+  start = end + 1;
+  end = end +2;
+  if (end <= 22){
+    next(start, end, updateAllData)
+  } else {
+    console.log('complete')
+  }
 };
 // Ideally:
 // const data = await loopThroughPages(1);
@@ -31,9 +39,9 @@ export const updateAllData = async () => {
 // TEST: 2) given data from above, test updateScores(data)
 
 //---GET ALL DATA FROM WEB---------------------------------------->
-const loopThroughPages = async (num) => {
+const loopThroughPages = async (start, end) => {
   let allData = [];
-  for (let i = 0; i <= num; i++) {
+  for (let i = start; i <= end; i++) {
     //https://www.procyclingstats.com/rankings.php?date=2022-01-08&nation=&age=&zage=&page=smallerorequal&team=&offset=100&teamlevel=&filter=Filter
     const date = convertToPgDate();
     const arrayOfData = await fetchRiderData(`https://www.procyclingstats.com/rankings.php?date=${date}&nation=&age=&zage=&page=smallerorequal&team=&offset=${i}00&teamlevel=&filter=Filter`);

@@ -22,7 +22,15 @@ app.use(router);
   try {
     app.listen(PORT, () => {
       console.log(`Server running on port: http://localhost:${PORT}`)
-      updateAllData();
+      updateAllData(1, 2, updateAllData)
+        //.then((result) => updateAllData(5, 10))
+        //.then((result) => updateAllData(11, 15))
+        //.then((result) => updateAllData(16, 20))
+        //.then((result) => updateAllData(21, 22))
+        // .catch((error) => {
+        //   console.log('error at end: ', error);
+        // })
+      
     });  
   } catch (e) {
     console.log('error:', e)
