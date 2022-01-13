@@ -13,10 +13,10 @@ import {fetchRiderNames, convertToPgDate} from '../models/helper.model.js';
 export const updateAllData = async () => {
   console.log('updating');
   // getMockData()
-  loopThroughPages(1)
-    // .then(data => updateRiders(data))       // - 1
-    // .then(data => updateScores(data))       // - 2
-    // .then(data => updateUserScores(data))   // - 3
+  loopThroughPages(4)
+    .then(data => updateRiders(data))       // - 1
+    .then(data => updateScores(data))       // - 2
+    .then(data => updateUserScores(data))   // - 3
     .then((data) => updatePhotoLinks(data))   // - 4 -> takes too long
     .catch(error => console.log(error));    // - errors
 };
@@ -73,9 +73,9 @@ const updateUserScores = async (data) => {
 //---STEP 4---------------------------------------------------------> use names to update rider images
 //not using because photo takes too long to fetch
 const updatePhotoLinks = async (data) => {
-  console.log('updating photo links')
-  fetchRiderNames()
-    .then(data => splitNames(data))
+  console.log(data)
+  //fetchRiderNames()
+  splitNames(data)
     .then(names => fetchRiderPhoto(names))
     .then(array => insertImages(array))
     .catch(error => console.log(error));
@@ -83,9 +83,9 @@ const updatePhotoLinks = async (data) => {
 
 //---STEP 4 helper--------------------------------------------------> split first and last names
 //not using because photos take too long to fetch
-const splitNames = (data) => {
+const splitNames = async (data) => {
   const names = data.map(rider => {
-    const nameArray = rider.name.split(' ');
+    const nameArray = rider.rider.split(' ');
     const firstName = nameArray.pop();
     const lastNames = nameArray.join('-');
     return {firstName, lastNames, rider};

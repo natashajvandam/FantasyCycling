@@ -13,8 +13,9 @@ const fetchRiderPhoto = async (names) => {
       return {image: undefined, rider: name.rider}
     }
   });
-  console.log({linkAndName});
-  return linkAndName;
+  const loadedimages = await Promise.all(linkAndName);
+  console.log('loadedimages :', loadedimages)
+  return loadedimages;
 };
 
 const getDomElement = async (name) => {

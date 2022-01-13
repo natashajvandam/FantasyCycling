@@ -7,7 +7,7 @@ import cron from 'node-cron';
 import {updateAllData} from './controllers/updateData.controller.js'
 
 //cron.schedule('0 0 0 * * *', async () => { updateAllData() } ); // runs everyday at midnight?
-cron.schedule('0 */3 * * * *', async () => { updateAllData() } );
+//cron.schedule('0 */1 * * * *', async () => { updateAllData() } ); // runs every minute
   //proper timeline: uae tour (end of february) - il lombardia (beginning of october)
 app.use(cors());
 app.use(express.json()); // body parser
@@ -22,6 +22,7 @@ app.use(router);
   try {
     app.listen(PORT, () => {
       console.log(`Server running on port: http://localhost:${PORT}`)
+      updateAllData();
     });  
   } catch (e) {
     console.log('error:', e)

@@ -51,15 +51,10 @@ const updateUserTable = async () => {
   }
 }
 const insertImages = async (array) => {
-
   try {
-    console.log('before');
-    array = await Promise.all(array); 
-
-    console.log('after');
     array.forEach(async (riderObj) => {
       if (riderObj.image) {
-        const name = riderObj.rider.name.replaceAll("'", "''");
+        const name = riderObj.rider.rider.replaceAll("'", "''");
         const image = riderObj.image.replaceAll("'", "''");
         const res = await client.query(`
           UPDATE rider_table SET image = '${image}' 
