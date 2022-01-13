@@ -8,14 +8,15 @@
 .fullList {
   display: flex;
   flex-direction: column;
-  height: 70vh;
+  height: 40vh;
   overflow-y: scroll;
   width: 80vw;
 }
 .myList {
   display: flex;
   flex-direction: row;
-  height: 20vh;
-  overflow-x: scorll;
+  height: 30vh;
+  min-height: 160px;
+  overflow-x: scroll;
   width: 80vw;
 }

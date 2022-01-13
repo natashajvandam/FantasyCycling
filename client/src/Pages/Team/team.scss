@@ -1,9 +1,18 @@
 @import "../../Assets/_globalVar.scss";
 
+* {
+  padding: none;
+  margin: none;
+}
 .team_page {
   display: flex;
   flex-direction: column;
   align-content: center;
   justify-content: space-around;
   color: $blue_color;
+  width: 100vw;
+  overflow-x: hidden;
+}
+.my_rider_list, .full_rider_list {
+  padding: 0 20px;
 }

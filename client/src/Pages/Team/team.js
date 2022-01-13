@@ -1,13 +1,17 @@
 import './team.scss';
 import List from '../../Components/list/list';
+import Header from '../../Components/header/header';
 //import Form from '../Form/form';
 
-function Team ({riderList, changeTeamName, myRoster, addToRoster, removeFromRoster}) {
+function Team ({riderList, changeTeamName, myRoster, addToRoster, removeFromRoster, userData}) {
   
   return (
     <div className="team_page"> 
+      <Header 
+        userData={userData}
+      />
       <div className="my_rider_list">
-        <h1>my team</h1>
+        <h1 className="list_title">{userData.team_name}</h1>
         <List 
           mine={true}
           riderList={myRoster}
@@ -16,7 +20,7 @@ function Team ({riderList, changeTeamName, myRoster, addToRoster, removeFromRost
         />
       </div>
       <div className="full_rider_list">
-        <h1>riders</h1>
+        <h1 className="list_title">riders</h1>
         <List
           mine={false}
           riderList={riderList}

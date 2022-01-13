@@ -6,9 +6,23 @@
   margin: none;
 }
 
-.button_rider {
-  background: $blue_color;
-  border-radius: 8px;
+.button_myRider {
+  min-width: 280px;
+
+  .rider_image {
+    height: 140px;
+    min-width: 80px;
+    margin: 0 10px;
+    border-radius: 8px;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+  }
+
+}
+
+.button_rider, .button_myRider {
+  background: black;
+  border-radius: 10px;
   border: none;
   margin: 3px;
 
@@ -19,14 +33,15 @@
     font-size: $small_font_size;
     font-family: $font;
 
-    .rider_image {
-      height: 150px;
-      
-    }
-
     p {
       padding: 3px;
     }
   }
-  
+  .myRider {
+    background: $grey_color;
+  }
+}
+
+button:hover {
+  background: $blue_color;
 }

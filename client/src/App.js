@@ -45,7 +45,6 @@ function App() {
       .then(result => setMyRoster(result))
       .then(result => fetchUserData(userId))
       .then(result => setUserData((prev) => {
-        console.log(result);
         return {id: userId, name: prev.name, team_name: prev.team_name, score:prev.score, money: result.money}
       }));
   };
@@ -56,7 +55,6 @@ function App() {
       .then(result => setMyRoster(result))
       .then(result => fetchUserData(userId))
       .then(result => setUserData((prev) => {
-        console.log(result);
         return {id: userId, name: prev.name, team_name: prev.team_name, score:prev.score, money: result.money}
       }));
   }
@@ -66,6 +64,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/team" className="path_team_page" element={<Team 
+          userData={userData}
           riderList={riderList}
           changeTeamName={changeTeamName}
           myRoster={myRoster}
