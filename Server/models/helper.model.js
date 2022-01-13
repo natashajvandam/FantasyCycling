@@ -10,13 +10,16 @@ function convertToPgDate () {
   return `${year}-${month}-${day}`;
 }
 
-//----update-model-helpers------------------------->
-
+//----update-image-helper--------------------------->
+//not using because images take too long to fetch
 const fetchRiderNames = async () => {
-  const res = await client.query(`SELECT name FROM rider_table WHERE image is NULL AND price = 10`);
+  const res = await client.query(`SELECT name FROM rider_table WHERE image is NULL OR image = 'undefined' AND price = 10`);
+  console.log(res.rows);
   return res.rows;
 }
 
+
+//----update--helpers------------------------------->
 const getRoster = async (user) => {
   const roster = await client.query(`
     SELECT rider, end_date, start_date FROM roster_table 

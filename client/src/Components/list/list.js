@@ -2,7 +2,7 @@ import './list.css';
 import Item from '../item/item';
 
 function List ({riderList, addToRoster, removeFromRoster}) {
-  const items = (riderList.length > 0) ? riderList.map(rider => <Item 
+  const items = (riderList && riderList.length > 0) ? riderList.map(rider => <Item 
     key={rider.id}         
     rider={rider}
     addToRoster={addToRoster}

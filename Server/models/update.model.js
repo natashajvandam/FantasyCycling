@@ -50,22 +50,36 @@ const updateUserTable = async () => {
     })
   }
 }
-
 const insertImages = async (array) => {
-  array = await Promise.allSettled(array);
-  array.forEach(async (riderObj) => {
-    if (riderObj.image) {
-      const name = riderObj.rider.name.replaceAll("'", "''");
-      const image = riderObj.image.replaceAll("'", "''");
-      const res = await client.query(`
-        UPDATE rider_table SET image = '${image}' 
-        WHERE name = '${name}';`
-      );
-      console.log(res.rowCount);
-    }
-  })
+
+  try {
+    console.log('before');
+    array = await Promise.all(array); 
+
+    console.log('after');
+    array.forEach(async (riderObj) => {
+      if (riderObj.image) {
+        const name = riderObj.rider.name.replaceAll("'", "''");
+        const image = riderObj.image.replaceAll("'", "''");
+        const res = await client.query(`
+          UPDATE rider_table SET image = '${image}' 
+          WHERE name = '${name}';`
+        );
+        console.log(res.rowCount);
+      }
+    })
+  } catch (error) {
+    console.log('error inserting (insertImages):', error);
+  }
 }
 
+// const makeArraySmaller = async (array) => {
+//   const l = Math.round(array.length/2);
+//   const beginning = array.slice(0, l);
+//   const end = array.slice(l);
+//   const finished1 = Promise.allSettled(beginning).then(result => insertImages(result));
+//   const finished2 = Promise.allSettled(end).then(result => insertImages(result));
 
+// }
 
 export {updateRiderTable, updateScoresTable, updateUserTable, insertImages};

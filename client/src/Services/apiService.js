@@ -24,7 +24,7 @@ async function createUser (body) {
 async function changeNameOfTeam (userId, newName) {
   return fetchRequest(`/team/${userId}`, {
     method: 'PUT',
-    body: JSON.stringify({newName}),
+    body: `{"newName": "${newName}"}`,
     headers: {
       'Content-Type': 'application/json'
     }

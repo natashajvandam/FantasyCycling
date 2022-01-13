@@ -12,19 +12,28 @@ import {fetchRiderNames, convertToPgDate} from '../models/helper.model.js';
 
 export const updateAllData = async () => {
   console.log('updating');
-  getMockData()
-  // loopThroughPages()
-    .then(data => updateRiders(data))       // - 1
-    .then(data => updateScores(data))       // - 2
-    .then(data => updateUserScores(data))   // - 3
-    .then(data => updatePhotoLinks(data))   // - 4 
+  // getMockData()
+  loopThroughPages(1)
+    // .then(data => updateRiders(data))       // - 1
+    // .then(data => updateScores(data))       // - 2
+    // .then(data => updateUserScores(data))   // - 3
+    .then((data) => updatePhotoLinks(data))   // - 4 -> takes too long
     .catch(error => console.log(error));    // - errors
 };
+// Ideally:
+// const data = await loopThroughPages(1);
+// TEST that give 1 I get the data I want
+
+// Run loopThroughPages(1) -> store 'data'
+// TEST: 1) given data, what does updateRiders(data) return
+// data = updateRiders(data)
+
+// TEST: 2) given data from above, test updateScores(data)
 
 //---GET ALL DATA FROM WEB---------------------------------------->
-const loopThroughPages = async () => {
+const loopThroughPages = async (num) => {
   let allData = [];
-  for (let i = 0; i <= 22; i++) {
+  for (let i = 0; i <= num; i++) {
     //https://www.procyclingstats.com/rankings.php?date=2022-01-08&nation=&age=&zage=&page=smallerorequal&team=&offset=100&teamlevel=&filter=Filter
     const date = convertToPgDate();
     const arrayOfData = await fetchRiderData(`https://www.procyclingstats.com/rankings.php?date=${date}&nation=&age=&zage=&page=smallerorequal&team=&offset=${i}00&teamlevel=&filter=Filter`);
@@ -62,20 +71,18 @@ const updateUserScores = async (data) => {
 }
 
 //---STEP 4---------------------------------------------------------> use names to update rider images
-const updatePhotoLinks = async () => {
+//not using because photo takes too long to fetch
+const updatePhotoLinks = async (data) => {
   console.log('updating photo links')
   fetchRiderNames()
     .then(data => splitNames(data))
     .then(names => fetchRiderPhoto(names))
     .then(array => insertImages(array))
-    .then(finished => {
-      console.log('finished'); 
-      return finished;
-    })
     .catch(error => console.log(error));
 }
 
 //---STEP 4 helper--------------------------------------------------> split first and last names
+//not using because photos take too long to fetch
 const splitNames = (data) => {
   const names = data.map(rider => {
     const nameArray = rider.name.split(' ');

@@ -30,9 +30,9 @@ const addRiderToRoster = async (id, rider) => {
         );
       const resOfPaying = await client.query(`
         UPDATE user_table SET money = ${newMoneyAmount} 
-        WHERE id = ${id};`
+        WHERE id = ${id} RETURNING money;`
       );
-      return 'remaining: ' + newMoneyAmount;
+      return resOfPaying;
     } else { 
       return 'did not add'; 
     }
@@ -56,7 +56,7 @@ const removeRiderFromRoster = async (id, rider) => {
     )
     const resOfMoney = await client.query(`
       UPDATE user_table SET money = ${newMoneyAmount} 
-      WHERE id = ${id};`
+      WHERE id = ${id} RETURNING money;`
     )
     return resOfMoney;
   } else {

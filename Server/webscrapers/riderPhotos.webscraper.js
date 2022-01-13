@@ -3,12 +3,17 @@ import jsdom from "jsdom";
 const { JSDOM } = jsdom;
 
 const fetchRiderPhoto = async (names) => {
-  const linkAndName = await names.map(async (name) => {
-    const dom = await getDomElement(name);
-    const link = await findImageLink(dom);
-    return {image: link, rider: name.rider}
+  const linkAndName = names.map(async (name) => {
+    try {
+      const dom = await getDomElement(name);
+      const link = await findImageLink(dom);
+      console.log(link);
+      return {image: link, rider: name.rider}
+    } catch (error) {
+      return {image: undefined, rider: name.rider}
+    }
   });
-  console.log('returning linkAndName')
+  console.log({linkAndName});
   return linkAndName;
 };
 

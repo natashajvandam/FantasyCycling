@@ -29,6 +29,7 @@ const fetchUserData = async (req, res) => {
   try {
     const user = req.params.id;
     const userDetails = await getUserDetails(user);
+    res.status(201);
     res.send(userDetails);
   } catch (error) {
     console.log(error)
@@ -41,6 +42,7 @@ const changeTeamName = async (req, res) => {
     const user = req.params.id;
     const { newName } = req.body;
     const userDetails = await changeUserTeam(user, newName);
+    res.status(201);
     res.send(userDetails);
   } catch (error) {
     console.log(error);
@@ -52,6 +54,7 @@ const fetchTeam = async (req, res) => {
   try {
     const user = req.params.id;
     const rowOfRiders = await getUserRoster(user);
+    res.status(201);
     res.send(rowOfRiders);
   } catch (error) {
     console.log(error);
@@ -63,6 +66,7 @@ const addRider = async (req, res) => {
   try {
     const { id, rider } = req.params;
     const roster = await addRiderToRoster(id, rider);
+    res.status(204);
     res.send(roster); // will automatically send status 200
   } catch (error) {
     console.log(error);
@@ -74,6 +78,7 @@ const removeRider = async (req, res) => {
   try {
     const { id, rider } = req.params;
     const team = await removeRiderFromRoster(id, rider);
+    res.status(204);
     res.send(team); // will automatically send status 200
   } catch (error) {
     console.log(error);

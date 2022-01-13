@@ -20,11 +20,14 @@ import {
 function App() {
   const [riderList, setRiderList] = useState([]);
   const [myRoster, setMyRoster] = useState([]);
-  const [userData, setUserData] = useState({id:1, name:'natashajv', team_name:'a cool roster name', score:0, money:500 })
+  const [userData, setUserData] = useState({})
 
   useEffect(() => {
     getAllRiders().then(result => setRiderList(result));
+    createUser({username:'natashajv', team:'a cool roster name', password:'this' })
+      .then(result => fetchUserRoster(1).then(result => setMyRoster(result)));
   }, []);
+
 
   async function changeTeamName (userId, newName) {
     setUserData((prev) => {
@@ -39,7 +42,8 @@ function App() {
       .then(result => setMyRoster(result))
       .then(result => fetchUserData(userId))
       .then(result => setUserData((prev) => {
-        return {id: userId, name: prev.name, team_name: prev.team_name, score:prev.score, money: (prev.money - result.money)}
+        console.log(result);
+        return {id: userId, name: prev.name, team_name: prev.team_name, score:prev.score, money: result.money}
       }));
   };
 
@@ -49,7 +53,8 @@ function App() {
       .then(result => setMyRoster(result))
       .then(result => fetchUserData(userId))
       .then(result => setUserData((prev) => {
-        return {id: userId, name: prev.name, team_name: prev.team_name, score:prev.score, money: (prev.money + result.money)}
+        console.log(result);
+        return {id: userId, name: prev.name, team_name: prev.team_name, score:prev.score, money: result.money}
       }));
   }
 
