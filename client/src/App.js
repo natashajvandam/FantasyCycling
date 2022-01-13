@@ -24,8 +24,11 @@ function App() {
 
   useEffect(() => {
     getAllRiders().then(result => setRiderList(result));
-    createUser({username:'natashajv', team:'a cool roster name', password:'this' })
-      .then(result => fetchUserRoster(1).then(result => setMyRoster(result)));
+    fetchUserData(3) //hard-coded userId => {id: 3, name: 'natashajv', team_name: 'aCoolTeam', score: 0, money: 490}
+      .then(result => {
+        setUserData(result)
+        return fetchUserRoster(result.id) })
+      .then(result => setMyRoster(result));
   }, []);
 
 

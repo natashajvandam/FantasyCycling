@@ -2,18 +2,16 @@ import './item.css';
 
 
 function Item ({rider, addToRoster, removeFromRoster}) {
-  function toggleRider (userId, riderId) {
-    if (!rider.added) {
-      rider.added = true;
+  function toggleRider (userId, riderId, rider) {
+    if (!rider.added_at) {
       addToRoster(userId, riderId);
     } else {
-      rider.added = false;
       removeFromRoster(userId, riderId);
     }
   }
 
   return (
-    <button className="rider" onClick={()=> toggleRider(1, rider.id)}>
+    <button className="rider" onClick={()=> toggleRider(3, rider.id, rider)}>
       
       {rider.image && 
         <img src={rider.image}></img>

@@ -7,7 +7,6 @@ const fetchRiderPhoto = async (names) => {
     try {
       const dom = await getDomElement(name);
       const link = await findImageLink(dom);
-      console.log(link);
       return {image: link, rider: name.rider}
     } catch (error) {
       return {image: undefined, rider: name.rider}

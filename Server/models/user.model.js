@@ -13,13 +13,15 @@ const setNewUser = async (user) => {
 }
 
 const getUserDetails = async (user) => {
-  const res = await client.query(`SELECT name, team_name, score, money FROM user_table WHERE id = ${user};`);
+  const res = await client.query(`SELECT id, name, team_name, score, money FROM user_table WHERE id = ${user};`);
   return res.rows[0];
 }
 
 const getUserRoster = async (user) => {
-  const res = await client.query(`SELECT * FROM rider_table WHERE roster = ${user};`);
-  return res.rows; //rows necessary for function reliant on it.
+  if (user) {
+    const res = await client.query(`SELECT * FROM rider_table WHERE roster = ${user};`);
+    return res.rows; //rows necessary for function reliant on it.
+  }
 };
 
 const fetchAllRiders = async () => {
