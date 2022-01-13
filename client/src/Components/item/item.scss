@@ -6,7 +6,6 @@
   margin: none;
 }
 
-
 .button_rider {
   background: $blue_color;
   border-radius: 8px;
@@ -19,6 +18,11 @@
     color: white;
     font-size: $small_font_size;
     font-family: $font;
+
+    .rider_image {
+      height: 150px;
+      
+    }
 
     p {
       padding: 3px;

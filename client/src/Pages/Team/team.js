@@ -8,15 +8,17 @@ function Team ({riderList, changeTeamName, myRoster, addToRoster, removeFromRost
     <div className="team_page"> 
       <div className="my_rider_list">
         <h1>my team</h1>
-        {/* <List 
+        <List 
+          mine={true}
           riderList={myRoster}
           addToRoster={addToRoster}
           removeFromRoster={removeFromRoster}
-        /> */}
+        />
       </div>
       <div className="full_rider_list">
         <h1>riders</h1>
         <List
+          mine={false}
           riderList={riderList}
           addToRoster={addToRoster}
           removeFromRoster={removeFromRoster}

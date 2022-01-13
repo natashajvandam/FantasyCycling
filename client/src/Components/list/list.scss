@@ -5,11 +5,17 @@
   margin: none;
 }
 
-
-.list {
+.fullList {
   display: flex;
   flex-direction: column;
   height: 70vh;
   overflow-y: scroll;
+  width: 80vw;
+}
+.myList {
+  display: flex;
+  flex-direction: row;
+  height: 20vh;
+  overflow-x: scorll;
   width: 80vw;
 }
