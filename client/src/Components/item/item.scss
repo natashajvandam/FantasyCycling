@@ -6,42 +6,67 @@
   margin: none;
 }
 
-.button_myRider {
-  min-width: 280px;
-
-  .rider_image {
-    height: 140px;
-    min-width: 80px;
-    margin: 0 10px;
-    border-radius: 8px;
-    background-position: 50% 0%;
-    background-repeat: no-repeat;
-  }
-
+.rider_price {
+  color: $orange_color;
+}
+.detail {
+  padding: 1px 0;
+}
+button:hover {
+  background: black;
 }
 
-.button_rider, .button_myRider {
-  background: black;
+//--my-list-riders--------------------->
+.button_myRider {
   border-radius: 10px;
   border: none;
-  margin: 3px;
-
-  .rider {
-    display: flex;
-    flex-direction: row;
-    color: white;
-    font-size: $small_font_size;
-    font-family: $font;
-
-    p {
-      padding: 3px;
-    }
-  }
-  .myRider {
-    background: $grey_color;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  margin: 10px;
 }
 
-button:hover {
+.rider_image {
+  height: 100px;
+  width: 100px;
+  margin: 5px 0px;
+  border-radius: 8px;
+  background-position: 50% 0%;
+  background-repeat: no-repeat;
+}
+
+.button_myRider >.rider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: $small_font_size;
+  font-family: $font;
+  color: $blue_color;
+}
+
+//--full-list-riders--------------------->
+.button_rider {
   background: $blue_color;
+  margin: 3px;
+  border-radius: 10px;
+  border: none;
+}
+
+.button_rider >.rider {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  font-size: $small_font_size;
+  font-family: $font;
+  padding: 8px 5px;
+}
+.button_rider >.rider >.rider_name_team {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.button_rider >.rider >.rider_price {
+  margin-right: 50px;
 }

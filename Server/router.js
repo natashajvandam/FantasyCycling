@@ -2,11 +2,10 @@ import { Router } from 'express';
 const router = Router();
 
 //import fetchRiderData from './controllers/riderData.controller.js';
-import {fetchTeam, createNewTeam, addRider, removeRider, fetchUserData, fetchRiders, changeTeamName} from './controllers/userData.controller.js';
+import {fetchTeam, createNewTeam, addRider, removeRider, fetchUserData, fetchRiders, changeTeamName, fetchUsers} from './controllers/userData.controller.js';
 
 router.get('/allriders', fetchRiders); 
-//---needs to return name, (teamname?), price, whether on roster?, (current points?)
-
+router.get('/allUsers', fetchUsers);
 router.post('/newTeam', createNewTeam);              //{ username, team, password} = req.body; => returns {id:"1"}
 router.get('/team/details/:id', fetchUserData);      //returns {"name":"natasha", "team-name":"myTeam", "score":0, "money":500}
 router.put('/team/:id', changeTeamName);

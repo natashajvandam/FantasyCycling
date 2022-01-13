@@ -13,13 +13,17 @@ function Item ({rider, addToRoster, removeFromRoster, mine}) {
 
   return (
     <button className={button_rider_class} onClick={()=> toggleRider(3, rider.id, rider)}>
+      
       <div className='rider'>
         {rider.image && mine && 
-          <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}}></div>
+          <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}}>
+          </div> 
         }
-        <p className="rider_name">{rider.name}</p>
-        <p className="rider_team">team: {rider.team}</p>
-        <p className="rider_price">price: {rider.price}</p>
+        <div className="detail rider_price">value: {rider.price}</div>
+        <div class="rider_name_team">
+          <div className="detail rider_name">{rider.name}</div>
+          <div className="detail rider_team">{rider.team}</div>
+        </div>
       </div>
     </button>
   )

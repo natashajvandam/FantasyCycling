@@ -5,7 +5,7 @@ import Team from './Pages/Team/team';
 //import * as React from "react";
 
 import { useState, useEffect } from 'react';
-import { getAllRiders, createUser, changeNameOfTeam, addRider, removeRider, fetchUserRoster, fetchUserData} from './Services/apiService.js';
+import { getAllRiders, createUser, changeNameOfTeam, addRider, removeRider, fetchUserRoster, fetchUserData, getTheUsers} from './Services/apiService.js';
 
 import {
   Routes,
@@ -20,9 +20,11 @@ import {
 function App() {
   const [riderList, setRiderList] = useState([]);
   const [myRoster, setMyRoster] = useState([]);
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({});
+  const [userList, setUserList] = useState([]);
 
   useEffect(() => {
+    getTheUsers().then(result => setUserList(result));
     getAllRiders().then(result => setRiderList(result));
     fetchUserData(3) //hard-coded userId => {id: 3, name: 'natashajv', team_name: 'aCoolTeam', score: 0, money: 490}
       .then(result => {
@@ -71,7 +73,9 @@ function App() {
           addToRoster={addToRoster}
           removeFromRoster={removeFromRoster}
         />} />
-        <Route path="league" element={<League />} />
+        <Route path="league" element={<League 
+          userList={userList}
+        />} />
       </Routes>
     </div>
     

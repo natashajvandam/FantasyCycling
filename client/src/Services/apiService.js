@@ -11,6 +11,10 @@ async function getAllRiders () {
   return fetchRequest('/allriders');
 };
 
+async function getTheUsers () {
+  return fetchRequest('/allUsers');
+}
+
 async function createUser (body) {
   return fetchRequest('/newTeam', {
     method: 'POST',
@@ -47,4 +51,4 @@ async function fetchUserData (userId) {
   return fetchRequest(`/team/details/${userId}`);
 }
 
-export { getAllRiders, createUser, addRider, removeRider, fetchUserRoster, fetchUserData, changeNameOfTeam};
+export { getAllRiders, createUser, addRider, removeRider, fetchUserRoster, fetchUserData, changeNameOfTeam, getTheUsers};

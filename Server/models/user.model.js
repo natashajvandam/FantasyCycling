@@ -29,5 +29,10 @@ const fetchAllRiders = async () => {
   return res.rows;
 }
 
+const fetchAllUsers = async () => {
+  const res = await client.query(`SELECT * FROM user_table;`);
+  return res.rows;
+}
+ 
 
-export {getUserRoster, getUserDetails, setNewUser, fetchAllRiders}
+export {getUserRoster, getUserDetails, setNewUser, fetchAllRiders, fetchAllUsers}

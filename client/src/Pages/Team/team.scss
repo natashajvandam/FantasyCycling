@@ -4,6 +4,11 @@
   padding: none;
   margin: none;
 }
+
+.list_title {
+  font-size: $large_font_size;
+  font-family: $font;
+}
 .team_page {
   display: flex;
   flex-direction: column;
@@ -16,3 +21,4 @@
 .my_rider_list, .full_rider_list {
   padding: 0 20px;
 }
+
