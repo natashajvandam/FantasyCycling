@@ -13,9 +13,9 @@
 .detail {
   padding: 1px 0;
 }
-button:hover {
-  background: black;
-}
+// button:hover {
+//   background: black;
+// }
 
 //--my-list-riders--------------------->
 .button_myRider {
@@ -27,8 +27,14 @@ button:hover {
   justify-content: center;
   min-width: 200px;
   margin: 10px;
+  background: rgba(0, 0, 0, 0.082);
+  box-shadow:  0 0px 10px 0.5px black;
 }
 
+.button_myRider:hover{
+  background: rgb(58,69,87);
+  box-shadow: 0 0px 10px 0.5px rgba(0, 0, 0, 0.377);
+}
 
 .rider_image {
   height: 100px;
@@ -45,7 +51,7 @@ button:hover {
   align-items: center;
   font-size: $small_font_size;
   font-family: $font;
-  color: $blue_color;
+  color: black;
 }
 .button_myRider:hover >.rider {
   color: white;
@@ -56,6 +62,9 @@ button:hover {
 .button_rider {
   background: $blue_color;
 }
+.button_rider:hover {
+  background: black;
+}
 .button_rider, .taken {
   margin: 3px;
   border-radius: 10px;
@@ -65,7 +74,7 @@ button:hover {
 .rider {
   display: flex;
   flex-direction: row;
-  color: white;
+  color: rgb(255, 255, 255);
   font-size: $small_font_size;
   font-family: $font;
   padding: 8px 5px;

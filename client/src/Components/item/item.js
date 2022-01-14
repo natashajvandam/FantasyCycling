@@ -2,8 +2,6 @@ import './item.scss';
 
 
 function Item ({rider, addToRoster, removeFromRoster, mine}) {
-  // const button_rider_class = mine? 'button_myRider' : 'button_rider';
-  // const taken_class = rider.added_at? 'taken' : 'not_taken';
   let button_rider_class;
   if (mine) {
     button_rider_class = 'button_myRider';

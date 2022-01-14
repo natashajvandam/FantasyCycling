@@ -10,7 +10,7 @@ function Form({filterList}) {
 
   return (
     <form className="search_form">
-      <input placeholder="search..." className="search_input_text" type="text" value={input} onChange={handleChange}></input>
+      <input className="search_input" placeholder="search..." className="search_input_text" type="text" value={input} onChange={handleChange}></input>
     </form>
   )
 }

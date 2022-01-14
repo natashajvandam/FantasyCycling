@@ -67,9 +67,9 @@ function App() {
 
   return (
     <div className="routes_div">
-      <Routes>
+      <Routes >
         <Route path="/" element={<Login />} />
-        <Route path="/home" className="path_team_page" element={<Home 
+        <Route path="/home" className="routes_div" element={<Home 
           setSearchList={setSearchList}
           riderList={riderList}
           userData={userData}
