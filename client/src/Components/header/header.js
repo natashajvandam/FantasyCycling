@@ -7,8 +7,8 @@ function Header ({userData, link_route}) {
     <div className="header_box">
       <div className="user_header">
         <div>{userData.name}</div>
-        <div>money: {userData.money}</div>
-        <div>points: {userData.score}</div>
+        <div>&#x20AC; {userData.money}</div>
+        <div>{userData.score} pts</div>
         <div><Link className="link_league" to={link}>{link_route}</Link></div>
       </div>
     </div>

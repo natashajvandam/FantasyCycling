@@ -9,16 +9,25 @@
   font-size: 12px;
 }
 
+.road_div_grey {
+  width: 80vw;
+  height: 7px;
+  background: $grey_color;
+}
+.road_div_orange {
+  width: 80vw;
+  height: 2px;
+  background: $orange_color;
+}
+
 .user_item {
   display: flex;
   flex-direction: row;
-  background: $grey_color;
   margin: 5px;
   border-radius: 15px;
 }
 
 .user_item_score {
-  background: $orange_color;
   display: flex;
   justify-content: center;
   align-items: center;
