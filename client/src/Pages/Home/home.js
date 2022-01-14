@@ -1,9 +1,9 @@
-import './team.scss';
+import './home.scss';
 import List from '../../Components/list/list';
 import Header from '../../Components/header/header';
 //import Form from '../Form/form';
 
-function Team ({riderList, changeTeamName, myRoster, addToRoster, removeFromRoster, userData}) {
+function Home ({riderList, changeTeamName, myRoster, addToRoster, removeFromRoster, userData}) {
   
   return (
     <div className="team_page"> 
@@ -33,4 +33,4 @@ function Team ({riderList, changeTeamName, myRoster, addToRoster, removeFromRost
   )
 }
 
-export default Team;
+export default Home;

@@ -29,6 +29,7 @@ button:hover {
   margin: 10px;
 }
 
+
 .rider_image {
   height: 100px;
   width: 100px;
@@ -46,6 +47,10 @@ button:hover {
   font-family: $font;
   color: $blue_color;
 }
+.button_myRider:hover >.rider {
+  color: white;
+}
+
 
 //--full-list-riders--------------------->
 .button_rider {
@@ -63,6 +68,8 @@ button:hover {
   font-family: $font;
   padding: 8px 5px;
 }
+
+
 .button_rider >.rider >.rider_name_team {
   display: flex;
   flex-direction: column;

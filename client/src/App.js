@@ -1,7 +1,7 @@
 import './App.scss';
 import League from './Pages/League/league';
 import Login from './Pages/Login/login';
-import Team from './Pages/Team/team';
+import Home from './Pages/Home/home';
 //import * as React from "react";
 
 import { useState, useEffect } from 'react';
@@ -65,7 +65,7 @@ function App() {
     <div className="routes_div">
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" className="path_team_page" element={<Team 
+        <Route path="/home" className="path_team_page" element={<Home 
           userData={userData}
           riderList={riderList}
           changeTeamName={changeTeamName}
