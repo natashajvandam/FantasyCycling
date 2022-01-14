@@ -37,19 +37,19 @@ const updateUserTable = async () => {
   if (userList.rows.length) {
     userList.rows.forEach( async (userObj) => {
       const user = userObj.id;
-      //attempt:
       const roster = await getRoster(user);
       let userNewScore = 0;
       roster.rows.forEach( async (rider) => {
-        userNewScore += await fetchRiderScores(rider);
+        const rider_value = fetchRiderScores(rider);
+        userNewScore += await rider_value;
       })
-      //end
       if (userNewScore) {
         updateUserScore(userNewScore, user);
       }
     })
   }
 }
+
 const insertImages = async (array) => {
   try {
     array.forEach(async (riderObj) => {
@@ -67,14 +67,5 @@ const insertImages = async (array) => {
     console.log('error inserting (insertImages):', error);
   }
 }
-
-// const makeArraySmaller = async (array) => {
-//   const l = Math.round(array.length/2);
-//   const beginning = array.slice(0, l);
-//   const end = array.slice(l);
-//   const finished1 = Promise.allSettled(beginning).then(result => insertImages(result));
-//   const finished2 = Promise.allSettled(end).then(result => insertImages(result));
-
-// }
 
 export {updateRiderTable, updateScoresTable, updateUserTable, insertImages};

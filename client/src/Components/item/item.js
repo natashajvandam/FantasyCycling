@@ -1,7 +1,7 @@
 import './item.scss';
 
-
 function Item ({rider, addToRoster, removeFromRoster, mine}) {
+
   let button_rider_class;
   let rider_name_team;
   if (mine) {
@@ -16,6 +16,7 @@ function Item ({rider, addToRoster, removeFromRoster, mine}) {
   }
   
   function toggleRider (userId, riderId, rider) {
+    console.log(rider.added_at);
     if (!rider.added_at) {
       addToRoster(userId, riderId);
     } else {
