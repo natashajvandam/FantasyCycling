@@ -43,7 +43,7 @@ const addRiderToRoster = async (id, rider) => {
 const removeRiderFromRoster = async (id, rider) => {
   const newMoneyAmount = await getResultingMoney (id, rider, false);
   const resOfRemoving = await client.query(`
-    UPDATE rider_table SET roster = null 
+    UPDATE rider_table SET roster = null, added_at = null
     WHERE id = ${rider} AND roster = ${id}
     RETURNING name;`
   );
