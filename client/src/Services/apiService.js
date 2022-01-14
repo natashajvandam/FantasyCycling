@@ -1,9 +1,15 @@
 const backend = 'http://localhost:3005';
 
 const fetchRequest = async (path, options) => {
+  //use await - async syntac with try catch
+  const startTime = performance.now();
   return fetch(backend + path, options)
   .then(res => res.status < 400 ? res : Promise.reject(res)) //all errors 401, 404, 500 etc.
-  .then(res => res.status !== 204? res.json() : res) //204 is when you delete (aka, no body)
+  .then(res => {
+    const endTime = performance.now();
+    console.log(endTime - startTime);
+    return res.status !== 204? res.json() : res
+  }) //204 is when you delete (aka, no body)
   .catch(err => console.log(err));
 };
 

@@ -16,6 +16,7 @@ const addRiderToRoster = async (id, rider) => {
   const newMoneyAmount = await getResultingMoney (id, rider, true);
   const date = convertToPgDate();
   if (newMoneyAmount >= 0) {
+    //use more descriptive names
     const addRider = await client.query(`
       UPDATE rider_table SET roster = ${id}, added_at = '${date}'
       WHERE id = ${rider} AND roster IS NULL

@@ -22,10 +22,14 @@ function App() {
   const [myRoster, setMyRoster] = useState([]);
   const [userData, setUserData] = useState({});
   const [userList, setUserList] = useState([]);
+  const [searchList, setSearchList] = useState([]);
 
   useEffect(() => {
     getTheUsers().then(result => setUserList(result));
-    getAllRiders().then(result => setRiderList(result));
+    getAllRiders().then(result => {
+      setSearchList(result);
+      setRiderList(result);
+    });
     fetchUserData(3) //hard-coded userId => {id: 3, name: 'natashajv', team_name: 'aCoolTeam', score: 0, money: 490}
       .then(result => {
         setUserData(result)
@@ -66,8 +70,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" className="path_team_page" element={<Home 
-          userData={userData}
+          setSearchList={setSearchList}
           riderList={riderList}
+          userData={userData}
+          searchList={searchList}
           changeTeamName={changeTeamName}
           myRoster={myRoster}
           addToRoster={addToRoster}

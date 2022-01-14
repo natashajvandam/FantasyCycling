@@ -2,7 +2,17 @@ import './item.scss';
 
 
 function Item ({rider, addToRoster, removeFromRoster, mine}) {
-  const button_rider_class = mine? 'button_myRider' : 'button_rider';
+  // const button_rider_class = mine? 'button_myRider' : 'button_rider';
+  // const taken_class = rider.added_at? 'taken' : 'not_taken';
+  let button_rider_class;
+  if (mine) {
+    button_rider_class = 'button_myRider';
+  } else if (rider.added_at) {
+    button_rider_class = 'taken';
+  } else {
+    button_rider_class = 'button_rider';
+  }
+  
   function toggleRider (userId, riderId, rider) {
     if (!rider.added_at) {
       addToRoster(userId, riderId);

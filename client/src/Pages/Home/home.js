@@ -1,10 +1,18 @@
 import './home.scss';
 import List from '../../Components/list/list';
 import Header from '../../Components/header/header';
-//import Form from '../Form/form';
+import Form from '../../Components/form/form';
+import { useState } from 'react';
 
-function Home ({riderList, changeTeamName, myRoster, addToRoster, removeFromRoster, userData}) {
-  
+function Home ({riderList, changeTeamName, myRoster, addToRoster, removeFromRoster, userData, setSearchList, searchList}) {
+
+  const filterList = (query) => {
+    if (query) {
+      const filteredList = riderList.filter(rider => rider.name.toLowerCase().includes(query.toLowerCase()));
+      setSearchList(filteredList);
+    } 
+  } 
+
   return (
     <div className="team_page"> 
       <Header 
@@ -20,11 +28,15 @@ function Home ({riderList, changeTeamName, myRoster, addToRoster, removeFromRost
           removeFromRoster={removeFromRoster}
         />
       </div>
+      
       <div className="full_rider_list">
-        <h1 className="list_title">riders</h1>
+        <div className="full_rider_list_heading">
+          <h1 className="list_title">riders</h1>
+          <Form filterList={filterList} />
+        </div>
         <List
           mine={false}
-          riderList={riderList}
+          riderList={searchList}
           addToRoster={addToRoster}
           removeFromRoster={removeFromRoster}
         />

@@ -5,6 +5,13 @@
   margin: none;
 }
 
+.full_rider_list_heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85vw;
+}
+
 .list_title {
   font-size: $large_font_size;
   font-family: $font;

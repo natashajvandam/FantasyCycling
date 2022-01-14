@@ -8,16 +8,16 @@
   display: flex;
   justify-content: space-between;
   width: 80vw;
-  padding-top: 3px;
 }
 .header_box {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100vw;
   overflow-x: hidden;
   background: white;
   box-shadow: 0 2px 20px 4px $grey_color;
-  height: 5vh;
+  height: 8vh;
 }
 .link_league {
   color: $orange_color;

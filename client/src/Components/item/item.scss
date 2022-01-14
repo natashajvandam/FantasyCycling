@@ -55,12 +55,14 @@ button:hover {
 //--full-list-riders--------------------->
 .button_rider {
   background: $blue_color;
+}
+.button_rider, .taken {
   margin: 3px;
   border-radius: 10px;
   border: none;
 }
 
-.button_rider >.rider {
+.rider {
   display: flex;
   flex-direction: row;
   color: white;
@@ -69,12 +71,20 @@ button:hover {
   padding: 8px 5px;
 }
 
-
-.button_rider >.rider >.rider_name_team {
+.rider >.rider_name_team {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-.button_rider >.rider >.rider_price {
+
+.rider >.rider_price {
   margin-right: 50px;
+}
+
+//------taken class----------------------
+.taken {
+  background: $orange_color;
+}
+.taken:hover {
+  background: $orange_color;
 }
