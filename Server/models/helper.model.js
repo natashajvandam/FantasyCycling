@@ -58,7 +58,7 @@ const updateUserScore = async (newScore, user) => {
   return res;
 }
 
-const findPrice = async (rank) => {
+const findPrice = (rank) => {
   if (rank >= 100) {return 10};
   return valueLibrary[rank];
 }

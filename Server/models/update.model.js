@@ -6,7 +6,8 @@ import {convertToPgDate, getRoster, fetchRiderScores, updateUserScore, findPrice
 const updateRiderTable = async (rider, rank, team) => {
   rider = rider.replaceAll("'", "''");
   team = team.replaceAll("'", "''");
-  const value = await findPrice(rank);
+  const value = findPrice(rank);
+  console.log(value);
   const res = await client.query(`
     INSERT into rider_table (name, price, team) 
     VALUES ('${rider}', ${value}, '${team}') 

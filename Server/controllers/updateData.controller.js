@@ -64,7 +64,7 @@ const updateScores = async (data) => {
   console.log('updating scores');
   data.forEach(async (obj) => {
     const riderScore = {};
-    riderScore.score = +obj.score;
+    riderScore.score = parseInt(obj.score);
     riderScore.rider = obj.rider;
     const res = await updateScoresTable(riderScore);
   });
