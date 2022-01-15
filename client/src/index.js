@@ -12,6 +12,8 @@ ReactDOM.render(
       domain="dev-874owraq.us.auth0.com"
       clientId="HDmFTvFE2h0tUm4r0N1qzUbMB6Ck1BqA"
       redirectUri="http://localhost:3000/home"
+      audience="https://dev-874owraq.us.auth0.com/api/v2/"
+      scope="read:current_user update:current_user_metadata"
       >
       <BrowserRouter>
         <App />
