@@ -25,6 +25,13 @@
   box-shadow: 0 0px 20px 1px rgba(0, 0, 0, 0.123);
   height: 8vh;
 }
+
+.user_header_details {
+  display: flex;
+  justify-content: space-around;
+  width: 30vw;
+}
+
 .link_league {
   color: $orange_color;
   text-decoration: none;
