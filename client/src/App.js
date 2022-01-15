@@ -2,12 +2,8 @@ import './App.scss';
 import League from './Pages/League/league';
 import Login from './Pages/Login/login';
 import Home from './Pages/Home/home';
-//import * as React from "react";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
-
 import { useState, useEffect } from 'react';
 import { getAllRiders, createUser, changeNameOfTeam, addRider, removeRider, fetchUserRoster, fetchUserData, getTheUsers} from './Services/apiService.js';
-
 import {
   Routes,
   Route,
@@ -17,6 +13,7 @@ import {
   Navigate,
   Outlet
 } from "react-router-dom";
+
 
 function App() {
   const [riderList, setRiderList] = useState([]);
