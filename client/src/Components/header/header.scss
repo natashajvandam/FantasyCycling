@@ -4,6 +4,19 @@
   padding: none;
   margin: none;
 }
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start
+}
+.logo_img {
+  background-image: scr('./logoColor.jpg');
+  height: 40px;
+  width: 40px;
+  background-position: center;
+  background-size: cover;
+}
 .user_header {
   display: flex;
   justify-content: space-between;

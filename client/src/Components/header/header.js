@@ -6,6 +6,10 @@ function Header ({userData, link_route}) {
   return (
     <div className="header_box">
       <div className="user_header">
+      <div className="logo">
+        {/* eventually a logo */}
+        <div>Granny Gear Groupetto</div>
+      </div>
         <div>{userData.name}</div>
         <div>&#x20AC; {userData.money}</div>
         <div>{userData.score} pts</div>
