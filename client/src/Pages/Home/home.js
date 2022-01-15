@@ -14,7 +14,7 @@ function Home ({riderList, changeTeamName, myRoster, addToRoster, removeFromRost
   } 
 
   return (
-    <div className="team_page"> 
+    <div className="home_page"> 
     <div>
     <Header 
         userData={userData}
