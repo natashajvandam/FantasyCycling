@@ -34,12 +34,15 @@ const findImageLink = async (response) => {
   }
 }
 
-// const findLis = async (response) => {
-//   const dom = new JSDOM(request.body);
-//   let points = [...document.getElementsByClassName('pnt')];
-//   for (let i = 0 ; i < points.length; i++) {
-
-//   }
-// }
+const findPoints = (response) => {
+  const dom = new JSDOM(request.body);
+  let points = [...document.getElementsByClassName('pnt')];
+  const pointsArray = [];
+  for (let i = 0; i < points.length; i++) {
+    console.log(points[i].textContent);
+    pointsArray.push(points[i].textContent);
+  }
+  return pointsArray;
+}
 
 export default fetchRiderPhoto;
