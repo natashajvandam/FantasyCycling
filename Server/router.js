@@ -6,7 +6,7 @@ import {fetchTeam, createNewTeam, addRider, removeRider, fetchUserData, fetchRid
 
 router.get('/', (req, res) => {
   console.log(req.oidc.isAuthenticated())
-  res.render("index", { title: "express Demo" });
+  res.render("index", { title: "express Demo", isAuthenticated: req.oidc.isAuthenticated() });
 })
 router.get('/allriders', fetchRiders); 
 router.get('/allUsers', fetchUsers);

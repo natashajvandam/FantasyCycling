@@ -20,9 +20,9 @@ cron.schedule('0 0 0 * * *', async () => { updateAllData(0, 2, updateAllData) } 
 app.use(cors());
 app.use(express.json()); // body parser
 
-app.use(auth(config));
+// app.use(auth(config));
 
-app.use(router);
+app.use('/', router);
 
 (async function () {
   try {
