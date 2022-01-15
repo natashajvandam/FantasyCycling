@@ -55,7 +55,7 @@ const removeRiderFromRoster = async (id, rider) => {
       UPDATE roster_table SET end_date = '${date}' 
       WHERE roster = ${id} AND rider = '${riderName}';`
     )
-    await client.query(`
+    const resOfMoney = await client.query(`
       UPDATE user_table SET money = ${newMoneyAmount} 
       WHERE id = ${id} RETURNING money;`
     )
