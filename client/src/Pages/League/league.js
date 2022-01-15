@@ -1,6 +1,5 @@
 import './league.scss';
 import UserList from '../../Components/userList/userList.js';
-import { useEffect, useState } from 'react';
 import Header from '../../Components/header/header';
 
 function League ({userList, userData}) {

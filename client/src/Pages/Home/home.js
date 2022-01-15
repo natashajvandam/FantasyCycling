@@ -2,7 +2,6 @@ import './home.scss';
 import List from '../../Components/list/list';
 import Header from '../../Components/header/header';
 import Form from '../../Components/form/form';
-import { useState } from 'react';
 
 function Home ({riderList, changeTeamName, myRoster, addToRoster, removeFromRoster, userData, setSearchList, searchList}) {
 

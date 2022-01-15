@@ -5,16 +5,16 @@ import Home from './Pages/Home/home';
 //import * as React from "react";
 
 import { useState, useEffect } from 'react';
-import { getAllRiders, createUser, changeNameOfTeam, addRider, removeRider, fetchUserRoster, fetchUserData, getTheUsers} from './Services/apiService.js';
+import { getAllRiders, changeNameOfTeam, addRider, removeRider, fetchUserRoster, fetchUserData, getTheUsers} from './Services/apiService.js';
 
 import {
   Routes,
   Route,
-  Link,
-  useNavigate,
-  useLocation,
-  Navigate,
-  Outlet
+  // Link,
+  // useNavigate,
+  // useLocation,
+  // Navigate,
+  // Outlet
 } from "react-router-dom";
 
 function App() {

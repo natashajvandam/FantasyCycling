@@ -19,8 +19,8 @@ app.use(router);
     });  
   } catch (e) {
     console.log('error:', e)
-  };
-})();;
+  }
+})();
 
 
 

@@ -1,6 +1,6 @@
 export default function getMockData () {
   return new Promise(resolve => (resolve(mockData)));
-};
+}
 
 const mockData = [
   {

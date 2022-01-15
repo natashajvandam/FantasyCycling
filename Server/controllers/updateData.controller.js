@@ -1,5 +1,4 @@
-//for testing
-import getMockData from '../tests/mock.data.js';
+// import getMockData from '../tests/mock.data.js'; //for testing
 
 
 //webscrapers
@@ -70,7 +69,7 @@ const updatePhotoLinks = async (data) => {
     const riderAndImageArray = await fetchRiderPhoto(riderAndNamesArray)  //-> web scraper for images
     await insertImages(riderAndImageArray)
   } catch (err) {
-    console.log(error);
+    console.log(err);
   }
   return data;
 }
