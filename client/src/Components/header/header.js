@@ -8,7 +8,7 @@ function Header ({userData, link_route}) {
       <div className="user_header">
       <div className="logo">
         {/* eventually a logo */}
-        <div>Granny Gear Groupetto</div>
+        <div className="logo_name">Granny Gear Groupetto</div>
       </div>
         <div>{userData.name}</div>
         <div>&#x20AC; {userData.money}</div>
