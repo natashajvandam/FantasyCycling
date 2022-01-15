@@ -4,6 +4,10 @@ const router = Router();
 //import fetchRiderData from './controllers/riderData.controller.js';
 import {fetchTeam, createNewTeam, addRider, removeRider, fetchUserData, fetchRiders, changeTeamName, fetchUsers} from './controllers/userData.controller.js';
 
+router.get('/', (req, res) => {
+  console.log(req.oidc.isAuthenticated())
+  res.render("index", { title: "express Demo" });
+})
 router.get('/allriders', fetchRiders); 
 router.get('/allUsers', fetchUsers);
 router.post('/newTeam', createNewTeam);              //{ username, team, password} = req.body; => returns {id:"1"}

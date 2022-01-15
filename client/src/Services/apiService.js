@@ -1,4 +1,4 @@
-const backend = 'http://localhost:3005';
+const backend = 'https://localhost:3005';
 
 const fetchRequest = async (path, options) => {
   //use await - async syntac with try catch

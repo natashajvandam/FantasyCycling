@@ -68,7 +68,7 @@ function App() {
   return (
     <div className="routes_div">
       <Routes >
-        <Route path="/" element={<Login />} />
+        {/* <Route path="/" element={<Login />} /> */}
         <Route path="/home" className="routes_div" element={<Home 
           setSearchList={setSearchList}
           riderList={riderList}
