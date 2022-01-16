@@ -28,7 +28,7 @@ app.use('/', router);
   try {
     app.listen(PORT, () => {
       console.log(`Server running on port: https://localhost:${PORT}`)
-      // updateAllData(0, 2, updateAllData); // -> to update instantly for development
+      // updateAllData(0, 1, updateAllData); // -> to update instantly for development
     });  
   } catch (e) {
     console.log('error:', e)

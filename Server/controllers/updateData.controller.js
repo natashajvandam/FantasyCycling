@@ -89,7 +89,7 @@ const splitNames = async (data) => {
 //--STEP 5-----------------------------------------------------------> repeats updateAllData on next batch of pages
 const callAgain = (start, end, next) => {
   start = end + 1; // - changing "start" and "end" to run functions again on the next patch of pages then update...
-  end = end +2;
+  end = end +1;
   if (end <= 22){
     next(start, end, updateAllData)
   } else {
