@@ -14,7 +14,7 @@ function Header ({userData, link_route}) {
         <div className="logo_name">Granny Gear Groupetto</div>
       </div>
       <div className="user_header_details">
-        <div>{userData.name}</div>
+        <div>{userData.nickname}</div>
         <div>&#x20AC; {userData.money}</div>
         <div>{userData.score} pts</div>
       </div>
