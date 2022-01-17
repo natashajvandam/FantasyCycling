@@ -53,15 +53,22 @@ const updateUserTable = async () => {
 const insertImages = async (array) => {
   try {
     array.forEach(async (riderObj) => {
+      const name = riderObj.rider.rider.replaceAll("'", "''");
+      let image = undefined;
+      let nextRace = undefined;
       if (riderObj.image) {
-        const name = riderObj.rider.rider.replaceAll("'", "''");
-        const image = riderObj.image.replaceAll("'", "''");
-        const res = await client.query(`
-          UPDATE rider_table SET image = '${image}' 
-          WHERE name = '${name}';`
-        );
-        console.log(res.rowCount);
+        image = riderObj.image.replaceAll("'", "''");
       }
+      if (riderObj.nextRace) {
+        nextRace = riderObj.nextRace.replaceAll("'", "''");
+      }
+      const res = await client.query(`
+        UPDATE rider_table SET image = '${image}', classic_pnts = ${parseInt(riderObj.pnts[0]) | 0}, 
+        gc_pnts = ${parseInt(riderObj.pnts[1]) | 0}, tt_pnts = ${parseInt(riderObj.pnts[2]) | 0}, 
+        sprint_pnts = ${parseInt(riderObj.pnts[3]) | 0}, climb_pnts = ${parseInt(riderObj.pnts[4]) | 0},
+        next_race = '${nextRace}' WHERE name = '${name}';`
+      );
+      console.log(res.rowCount);
     })
   } catch (error) {
     console.log('error inserting (insertImages):', error);

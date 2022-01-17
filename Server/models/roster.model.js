@@ -6,7 +6,7 @@ import {convertToPgDate} from './helper.model.js';
 const changeUserTeam = async (id, newName) => { //--takes: userId, new team name | returns: { id: userId }
   newName = newName.replaceAll("'", "''");
   const user = await client.query(`
-  UPDATE user_table SET team_name = '${newName}' 
+  UPDATE user_table SET nickname = '${newName}' 
   WHERE id = ${id};`
   )
   return user;

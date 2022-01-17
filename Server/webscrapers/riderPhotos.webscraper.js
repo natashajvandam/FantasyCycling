@@ -7,13 +7,15 @@ const fetchRiderPhoto = async (names) => {
     try {
       const dom = await getDomElement(name);
       const link = await findImageLink(dom);
-      return {image: link, rider: name.rider}
+      const pnts = await findPoints(dom);
+      const nextRace = await findUpComing(dom);
+      return {image: link, rider: name.rider, pnts: pnts, nextRace: nextRace}
     } catch (error) {
-      return {image: undefined, rider: name.rider}
+      console.log('error fetching riderPhoto', error);
+      return {image: image, rider: name.rider, pnts: pnts, nextRace: nextRace}
     }
   });
   const loadedimages = await Promise.all(linkAndName);
-  console.log('loadedimages :', loadedimages)
   return loadedimages;
 };
 
@@ -29,6 +31,28 @@ const findImageLink = async (response) => {
   if (photoLink.length) {
     const image = photoLink[0];
     return image.src;
+  } else {
+    return undefined;
+  }
+}
+
+const findPoints = async (response) => {
+  const dom = new JSDOM(response.body);
+  let points = [...dom.window.document.getElementsByClassName('pnt')];
+  const pointsArray = [];
+  for (let i = 0; i < points.length; i++) {
+    // console.log(points[i].textContent)
+    pointsArray.push(points[i].textContent);
+  }
+  return pointsArray;
+}
+
+const findUpComing = async (response) => {
+  const dom = new JSDOM(response.body);
+  let upcoming = [...dom.window.document.getElementsByClassName('ellipsis')];
+  if (upcoming.length) {
+    console.log(upcoming[0].textContent);
+    return upcoming[0].textContent;
   } else {
     return undefined;
   }

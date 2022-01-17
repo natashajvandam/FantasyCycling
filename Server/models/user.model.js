@@ -4,16 +4,16 @@ import client from './index.model.js';
 
 const setNewUser = async (user) => { 
   const res = await client.query(`
-    INSERT INTO user_table (name, team_name, password, score)
+    INSERT INTO user_table (email, nickname, password, score)
     VALUES ('${user.username}', '${user.team}', '${user.password}', ${user.score})
-    ON CONFLICT (team_name) DO NOTHING
+    ON CONFLICT (nickname) DO NOTHING
     RETURNING id;`
   );
   return (res.rows.length)? res.rows[0] : res;  
 }
 
 const getUserDetails = async (user) => {
-  const res = await client.query(`SELECT id, name, team_name, score, money FROM user_table WHERE id = ${user};`);
+  const res = await client.query(`SELECT id, email, nickname, score, money FROM user_table WHERE id = ${user};`);
   return res.rows[0];
 }
 
@@ -25,7 +25,7 @@ const getUserRoster = async (user) => {
 };
 
 const fetchAllRiders = async () => {
-  const res = await client.query(`SELECT * FROM rider_table;`);
+  const res = await client.query(`SELECT * FROM rider_table WHERE price > 10;`); //temporary 'WHERE' statement to help load faster
   return res.rows;
 }
 

@@ -4,19 +4,21 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
-// import { Auth0Provider } from '@auth0/auth0-react';
+import { Auth0Provider } from "@auth0/auth0-react";
 
 ReactDOM.render(
     <React.StrictMode>
+      <Auth0Provider
+      domain="dev-874owraq.us.auth0.com"
+      clientId="HDmFTvFE2h0tUm4r0N1qzUbMB6Ck1BqA"
+      redirectUri="http://localhost:3000/home"
+      audience="https://dev-874owraq.us.auth0.com/api/v2/"
+      scope="read:current_user update:current_user_metadata"
+      >
       <BrowserRouter>
-        {/* <Auth0Provider
-        domain="http://dev-874owraq.us.auth0.com"
-        clientId="HDmFTvFE2h0tUm4r0N1qzUbMB6Ck1BqA"
-        redirectUri={window.location.origin}
-        > */}
         <App />
-        {/* </Auth0Provider> */}
       </BrowserRouter>
+      </Auth0Provider>
     </React.StrictMode>,
   
   document.getElementById('root')
