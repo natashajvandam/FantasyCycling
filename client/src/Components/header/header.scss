@@ -11,11 +11,12 @@
   justify-content: flex-start
 }
 .logoImg {
-  width: 25px;
-  height: 25px;
-  background-image: url('./download.png');
+  width: 40px;
+  height: 40px;
+  background-image: url('./logoOrange.jpg');
   background-size: cover;
   margin-right: 2px;
+  background-position: 0% 50%;
 }
 
 .user_header {

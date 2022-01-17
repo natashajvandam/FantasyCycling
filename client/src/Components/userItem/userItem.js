@@ -4,7 +4,7 @@ import './userItem.scss';
 //210
 //2
 function userItem ({user, topScore, userData}) {
-  const persent = (user.score * 90)/topScore;
+  const persent = (user.score * 85)/topScore;
   return (
     <div className="league_page">
      
@@ -17,7 +17,7 @@ function userItem ({user, topScore, userData}) {
       <div className='user_item'>
         <div className="user_item_score"><span className="small_text">pts: </span>{user.score}</div>
         <div className="user_item_name_team">
-          <div className="user_item_name">{user.nickname}
+          <div className="user_item_name" >{user.nickname}
           </div>
         </div>
       </div>
