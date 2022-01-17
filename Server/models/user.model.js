@@ -25,7 +25,7 @@ const getUserRoster = async (user) => {
 };
 
 const fetchAllRiders = async () => {
-  const res = await client.query(`SELECT * FROM rider_table;`);
+  const res = await client.query(`SELECT * FROM rider_table WHERE price > 10;`); //temporary 'WHERE' statement to help load faster
   return res.rows;
 }
 
