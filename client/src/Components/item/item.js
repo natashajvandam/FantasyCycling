@@ -67,7 +67,7 @@ function Item ({rider, addToRoster, removeFromRoster, mine}) {
           <div className="my_rider_buttons">
             <button className="SellRider" onClick={() => toggleRider(3, rider.id, rider)}>sell: &#x20AC; {rider.price}</button>
             {/* <div className="detail rider_race">upcoming race: {rider.next_race}</div> */}
-            <button className="SellRider More_button" onClick={toggleBackView}>&#43;</button>
+            <button className="SellRider More_button" onClick={toggleBackView}>i</button>
           </div>
             }
         </div>

@@ -1,5 +1,6 @@
 @import "../../Assets/_globalVar.scss";
 
+
 .league_page {
   display: flex;
   flex-direction: column;
@@ -7,5 +8,9 @@
 }
 
 .page_title {
-  font-size: $large_font_size;
+  font-size: $small_font_size;
+  letter-spacing: 5px;
+}
+.flex_box_title {
+  width: 95vw;
 }

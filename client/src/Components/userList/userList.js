@@ -7,11 +7,11 @@ function userList ({userList, userData}) {
   if (sortedList && sortedList.length) {
     topScore = sortedList[0].score;
   }
-  const users = (userList && userList.length > 0) ? userList.map(user => <UserItem 
+  const users = (userList && userList.length > 0) ? userList.sort((a, b) => b.score - a.score).map(user => <UserItem 
     key={user.id}
+    self={user.id === userData.id}
     topScore={topScore}         
     user={user}
-    userData={userData}
     />) : 'loading...';
 
   return (

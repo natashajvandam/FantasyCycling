@@ -9,16 +9,16 @@ function Header ({userData, link_route}) {
   return (
     <div className="header_box">
       <div className="user_header">
-      <div className="logo">
-        <div className="logoImg"></div>
-        <div className="logo_name">Granny Gear Groupetto</div>
-      </div>
-      <div className="user_header_details">
-        <div><Link className="link_league" to='/home'>{userData.nickname}</Link></div>
-        <div>&#x20AC; {userData.money}</div>
-        <div>{userData.score} pts</div>
-      </div>
-        <div><Link className="link_league" to={link}>{link_route}</Link></div>
+        <div className="logo">
+          <div className="logoImg"></div>
+          <div className="logo_name">Granny Gear Groupetto</div>
+        </div>
+        <div className="user_header_details">
+          <div><Link className="link_league" to='/home'>{userData.nickname}</Link></div>
+          <div>&#x20AC; {userData.money}</div>
+          <div>{userData.score} pts</div>
+        </div>
+        <Link className="link_league" to={link}>{link_route}</Link>
         <button className="logOutButton" onClick={() => logout({ returnTo:"http://localhost:3000/login" })}>Log Out</button>
       </div>
     </div>
