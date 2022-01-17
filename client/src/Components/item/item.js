@@ -48,9 +48,13 @@ function Item ({rider, addToRoster, removeFromRoster, mine}) {
           {rider.image && mine && !backView &&
         <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}}></div> 
           }
-          {!mine && !taken && !rider.added_at && !backView &&
-        <div className="detail rider_price">&#x20AC; {rider.price}
+          {!mine && !backView &&
+        <div className="detail rider_price">{!mine && !taken && !rider.added_at && !backView &&
+          <div>
+          &#x20AC; {rider.price}
         <button className="BuyRider" onClick={() => toggleRider(3, rider.id, rider)}>buy</button>
+          </div>
+        }
         </div>
           }
         <div className={rider_name_team}>

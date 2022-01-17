@@ -13,7 +13,7 @@ function League ({userList, userData}) {
       />
       <div className="league_page">
         <div><h1 className="page_title">fantacy league</h1></div>
-        <UserList userList={userList} />
+        <UserList userList={userList} userData={userData}/>
       </div>
     </div>
   )

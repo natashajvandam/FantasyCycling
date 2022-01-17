@@ -31,7 +31,7 @@ function Home ({riderList, myRoster, addToRoster, removeFromRoster, userData, se
     </div>
     <div className="body_home_page">
       <div className="my_rider_list">
-        <h1 className="list_title">{userData.team_name}</h1>
+        <h1 className="list_title">{userData.nickname}</h1>
         {/* <h2>{user.email}</h2> */}
         <List 
           mine={true}
@@ -41,11 +41,11 @@ function Home ({riderList, myRoster, addToRoster, removeFromRoster, userData, se
         />
       </div>
       
-      <div className="full_rider_list">
         <div className="full_rider_list_heading">
-          <h1 className="list_title">riders</h1>
+          <h1 className="list_title">pro cycling riders</h1>
           <Form filterList={filterList} />
         </div>
+      <div className="full_rider_list">
         <List
           mine={false}
           riderList={searchList}

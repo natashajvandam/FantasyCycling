@@ -37,6 +37,97 @@
 }
 
 
+
+
+
+//--full-list-riders--------------------->
+
+.BuyRider {
+  background: white;
+  border: none;
+  color: white;
+  height: 30px;
+  width: 30px;
+  margin: 0 10px;
+  border-radius: 50%;
+  text-align: center;
+  padding: 2px;
+}
+
+.button_rider {
+  border: 1px solid $blue_color;
+  box-shadow:  0 0px 8px 0.2px rgba(0, 0, 0, 0.315);
+}
+.button_rider:hover {
+  background: $blue_color;
+}
+.button_rider:hover .BuyRider {
+  background: $orange_color;
+}
+.button_rider:hover .rider {
+  color: white;
+}
+
+.BuyRider:hover {
+  cursor: pointer;
+  box-shadow: 0 0px 10px 0.5px rgb(0, 0, 0);
+}
+.button_rider, .taken {
+  margin: 3px;
+  border-radius: 10px;
+  border: none;
+}
+
+.rider {
+  display: flex;
+  flex-direction: row;
+  color: $blue_color;
+  font-size: $small_font_size;
+  font-family: $font;
+  padding: 8px 5px;
+}
+
+.rider >.name_team {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 50%;
+}
+
+
+.rider >.rider_price {
+  width: 25%;
+  font-size: $large_font_size;
+  display: flex;
+  align-items: center;
+}
+
+.rider_points {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: $small_font_size;
+}
+.toggleRiderInfo {
+  background: white;
+  color: white;
+  border: none;
+  border-radius: 30px;
+}
+.toggleRiderInfo:hover{
+  cursor: pointer;
+  box-shadow: 0 0px 10px 0.5px rgba(0, 0, 0, 0.87);
+}
+.button_rider:hover .toggleRiderInfo {
+  background: rgb(58,69,87);
+}
+.nextRace {
+  font-weight: bold;
+}
+.pnts {
+  padding: 10px 0px;
+}
+
 //--my-list-riders--------------------->
 .button_myRider {
   border-radius: 10px;
@@ -47,6 +138,7 @@
   justify-content: center;
   min-width: 200px;
   margin: 10px;
+  padding: 0px 10px;
   background: rgba(0, 0, 0, 0);
   box-shadow:  0 0px 10px 0.5px rgba(0, 0, 0, 0.315);
 }
@@ -110,89 +202,4 @@
 }
 .button_myRider:hover >.rider {
   color: white;
-}
-
-
-//--full-list-riders--------------------->
-
-.BuyRider {
-  background: white;
-  border: none;
-  color: white;
-  height: 30px;
-  width: 30px;
-  margin: 0 10px;
-  border-radius: 50%;
-  text-align: center;
-  padding: 2px;
-}
-
-.button_rider {
-  border: 1px solid $blue_color;
-  box-shadow:  0 0px 8px 0.2px rgba(0, 0, 0, 0.315);
-}
-.button_rider:hover {
-  background: $blue_color;
-}
-.button_rider:hover .BuyRider {
-  background: $orange_color;
-}
-.button_rider:hover .rider {
-  color: white;
-}
-
-.BuyRider:hover {
-  cursor: pointer;
-  box-shadow: 0 0px 10px 0.5px rgb(0, 0, 0);
-}
-.button_rider, .taken {
-  margin: 3px;
-  border-radius: 10px;
-  border: none;
-}
-
-.rider {
-  display: flex;
-  flex-direction: row;
-  color: $blue_color;
-  font-size: $small_font_size;
-  font-family: $font;
-  padding: 8px 5px;
-}
-
-.rider >.name_team {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 50%;
-}
-
-.rider >.rider_price {
-  width: 25%;
-}
-
-.rider_points {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-size: $small_font_size;
-}
-.toggleRiderInfo {
-  background: white;
-  color: white;
-  border: none;
-  border-radius: 30px;
-}
-.toggleRiderInfo:hover{
-  cursor: pointer;
-  box-shadow: 0 0px 10px 0.5px rgba(0, 0, 0, 0.87);
-}
-.button_rider:hover .toggleRiderInfo {
-  background: rgb(58,69,87);
-}
-.nextRace {
-  font-weight: bold;
-}
-.pnts {
-  padding: 10px 0px;
 }

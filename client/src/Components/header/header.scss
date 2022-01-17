@@ -10,11 +10,19 @@
   align-items: center;
   justify-content: flex-start
 }
+.logoImg {
+  width: 25px;
+  height: 25px;
+  background-image: url('./download.png');
+  background-size: cover;
+  margin-right: 2px;
+}
 
 .user_header {
   display: flex;
   justify-content: space-between;
   width: 95vw;
+  color: black;
 }
 .header_box {
   display: flex;
@@ -23,7 +31,8 @@
   width: 100vw;
   overflow-x: hidden;
   box-shadow: 0 0px 20px 1px rgba(0, 0, 0, 0.123);
-  height: 8vh;
+  height: 6vh;
+  margin-bottom: 3vh;
 }
 
 .user_header_details {
@@ -38,4 +47,16 @@
 }
 .link_league:hover {
   color: $blue_color;
+}
+.logOutButton {
+  border-radius: 15px;
+  border: 0.2px solid $orange_color;
+  padding: 5px;
+  background: white;
+  color: $orange_color;
+}
+.logOutButton:hover {
+  cursor: pointer;
+  color: $blue_color;
+  border-color: $blue_color;
 }

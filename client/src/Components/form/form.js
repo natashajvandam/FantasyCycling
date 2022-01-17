@@ -5,7 +5,7 @@ function Form({filterList}) {
   const [input, setInput] = useState('');
   function handleChange (e) {
     setInput(e.target.value);
-    filterList(input); 
+    filterList(e.target.value); 
   }
 
   return (

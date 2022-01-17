@@ -20,9 +20,11 @@
 }
 
 .list_title {
-  font-size: $large_font_size;
+  font-size: $small_font_size;
   font-family: $font;
-  color: black;
+  color: $blue_color;
+  letter-spacing: 5px;
+  padding-left: 3px;
 }
 .home_page {
   display: flex;

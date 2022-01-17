@@ -1,12 +1,19 @@
 import './userList.scss';
 import UserItem from '../userItem/userItem';
 
-function userList ({userList}) {
-  const users = (userList && userList.length > 0) ? userList.sort((user1, user2) => user1.score - user2.score).map(user => <UserItem 
-    key={user.id}         
+function userList ({userList, userData}) {
+  let sortedList = userList.sort((b, a) =>  a.score - b.score);
+  let topScore = 0;
+  if (sortedList && sortedList.length) {
+    topScore = sortedList[0].score;
+  }
+  const users = (userList && userList.length > 0) ? userList.map(user => <UserItem 
+    key={user.id}
+    topScore={topScore}         
     user={user}
+    userData={userData}
     />) : 'loading...';
-  
+
   return (
     <div className="user_list">
       {users}

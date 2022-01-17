@@ -5,9 +5,10 @@
   margin: none;
   font-family: $font;
 }
-.small_text {
-  font-size: 12px;
-}
+
+// .small_text {
+//   font-size: $small_font_size;
+// }
 
 .road_div_grey {
   width: 100vw;
@@ -15,15 +16,24 @@
   background: $grey_color;
 }
 .road_div_orange {
-  width: 80vw;
+  width: 100vw;
   height: 2px;
+  
 }
-
+.road_rider_image {
+  background-image: url('./logoColor.jpg');
+  height: 50px;
+  width: 50px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: -1;
+}
 .user_item {
   display: flex;
   flex-direction: row;
-  margin: 5px;
-  border-radius: 15px;
+  transform: translateY(-12px);
+  color: $blue_color;
 }
 
 .user_item_score {
@@ -31,10 +41,16 @@
   justify-content: center;
   align-items: center;
   width: 100px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
+.user_item_name {
+  font-size: 18px;
+  font-weight: 500;
+}
 .user_item_name_team {
   display: flex;
   flex-direction: column;
-  padding: 5px 30px;
+  padding: 0px 30px;
 }
