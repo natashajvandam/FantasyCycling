@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function Home ({riderList, myRoster, addToRoster, removeFromRoster, userData, setSearchList, searchList}) {
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
 
   const filterList = (query) => {
     if (query) {
