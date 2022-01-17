@@ -7,18 +7,19 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function Home ({riderList, myRoster, addToRoster, removeFromRoster, userData, setSearchList, searchList}) {
 
-  const { isAuthenticated, isLoading } = useAuth0();
-
   const filterList = (query) => {
     if (query) {
       const filteredList = riderList.filter(rider => rider.name.toLowerCase().includes(query.toLowerCase()));
       setSearchList(filteredList);
     } 
   } 
-
+  
+//--------------------------------------------------------MOVE TO PARENT COMPENTENT AND PASS TO CHILDREN
+  const { user, isAuthenticated, isLoading } = useAuth0();
   if (isLoading) {
     return <div>loading...</div>
   }
+//--------------------------------------------------------MOVE TO PARENT COMPENTENT AND PASS TO CHILDREN
 
   return (
     (isAuthenticated &&

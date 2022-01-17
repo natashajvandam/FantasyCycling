@@ -7,6 +7,15 @@ import cron from 'node-cron';
 import {updateAllData} from './controllers/updateData.controller.js';
 import { auth } from 'express-openid-connect';
 
+//socket.io
+// import { createServer } from "http";
+// import { Server } from "socket.io";
+
+// const httpServer = createServer();
+
+// const io = new Server(httpServer, {});
+// //end socket.io
+
 const config = {
   authRequired: false,
   auth0Logout: true,
@@ -23,6 +32,11 @@ app.use(express.json()); // body parser
 // app.use(auth(config));
 
 app.use('/', router);
+
+// io.on('connection', (socket) => {
+//   console.log('a user connected');
+// });
+
 
 (async function () {
   try {

@@ -4,16 +4,11 @@ import Login from './Pages/Login/login';
 import Home from './Pages/Home/home';
 import { useState, useEffect } from 'react';
 import { getAllRiders, changeNameOfTeam, addRider, removeRider, fetchUserRoster, fetchUserData, getTheUsers} from './Services/apiService.js';
-
+// import { io } from "socket.io-client";
 
 import {
   Routes,
   Route,
-  // Link,
-  // useNavigate,
-  // useLocation,
-  // Navigate,
-  // Outlet
 } from "react-router-dom";
 
 
@@ -23,6 +18,18 @@ function App() {
   const [userData, setUserData] = useState({});
   const [userList, setUserList] = useState([]);
   const [searchList, setSearchList] = useState([]);
+  // const [socket, setSocket] = useState(null);
+
+  // const socket = io();
+  // socket.on("connect", () => {
+  //   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+  // });
+
+  // useEffect(() => {
+  //   const newSocket = io(`http://${window.location.hostname}:3000`);
+  //   setSocket(newSocket);
+  //   return () => newSocket.close();
+  // }, [setSocket]);
 
   useEffect(() => {
     getTheUsers().then(result => setUserList(result));
@@ -37,9 +44,6 @@ function App() {
       .then(result => setMyRoster(result));
   }, []);
 
-  useEffect(() => {
-
-  })
 
   //new use Effect to get REAL user info!
   // const [userMetadata, setUserMetadata] = useState(null);

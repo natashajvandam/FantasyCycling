@@ -9,7 +9,9 @@
     "jsdom": "^19.0.0",
     "mongoose": "^6.1.4",
     "node-cron": "^3.0.0",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "socket.io": "^4.4.1",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.4.0"
   },
   "devDependencies": {
     "eslint": "^8.6.0",
