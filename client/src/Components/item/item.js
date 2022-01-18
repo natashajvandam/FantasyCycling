@@ -1,9 +1,9 @@
 import './item.scss';
 import { useState
  } from 'react';
-function Item ({user, rider, addToRoster, removeFromRoster, mine, userData}) {
+function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, booleanObj, setBooleanObj}) {
   const [showInfo, setShowInfo] = useState(false);
-  const [taken, setTaken] = useState(false);
+  // const [taken, setTaken] = useState(false);
   const [backView, setBackView] = useState(false);
 
   let button_rider_class;
@@ -20,13 +20,19 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData}) {
     if (!rider.added_at) {
       const result = await addToRoster(userData.id, riderId);
       if (result.ok) {
-        setTaken(true);
+        // setTaken(true);
+        setBooleanObj(prev => ({
+          ...prev,
+          [riderId]: true
+        }))
       }
     } else {
       removeFromRoster(userData.id, riderId);
-      console.log('gets here: removed', taken);
-      setTaken(false);
-      console.log(taken);
+      console.log('gets here: removed');
+      setBooleanObj((prev) => ({
+        ...prev,
+        [riderId]: false
+      }))
     }
   }
 
@@ -53,7 +59,7 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData}) {
         <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}}></div> 
           }
           {!mine && !backView &&
-        <div className="detail rider_price">{!taken && 
+        <div className="detail rider_price">{!booleanObj[rider.id] && 
           <div>
           &#x20AC; {rider.price}
         <button className="BuyRider" onClick={() => toggleRider(rider.id, rider)}>buy</button>

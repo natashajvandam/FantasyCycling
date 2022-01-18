@@ -3,11 +3,11 @@ import List from '../../Components/list/list';
 import Header from '../../Components/header/header';
 import Form from '../../Components/form/form';
 import { useState, useEffect } from 'react';
-import {fetchUserRoster, changeNameOfTeam, addRider, fetchUserData, removeRider, fetchUser} from '../../Services/apiService.js';
+import {fetchUserRoster, changeNameOfTeam, addRider, fetchUserData, removeRider} from '../../Services/apiService.js';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-function Home ({riderList, setSearchList, searchList}) {
+function Home ({riderList, setSearchList, searchList, booleanObj, setBooleanObj}) {
   const { user, isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [token, setToken] = useState(null);
   const [myRoster, setMyRoster] = useState([]);
@@ -70,6 +70,10 @@ function Home ({riderList, setSearchList, searchList}) {
     await removeRider(userId, riderId, token)
     fetchUserData(user.nickname).then(result => setUserData((prev) => { return {id: prev.id, nickname: prev.nickname, email: prev.email, score:prev.score, money: result.money}}));
     fetchUserRoster(userData.id).then(result => { setMyRoster(result)})
+    // setBooleanObj(prev => {
+    //   prev[riderId] = false
+    //   return {...prev};
+    // })
   }
   
   if (isLoading) {
@@ -95,6 +99,8 @@ function Home ({riderList, setSearchList, searchList}) {
           removeFromRoster={removeFromRoster}
           user={user}
           userData={userData}
+          booleanObj={booleanObj}
+          setBooleanObj={setBooleanObj}
         />
       </div>
       
@@ -110,6 +116,8 @@ function Home ({riderList, setSearchList, searchList}) {
           removeFromRoster={removeFromRoster}
           user={user}
           userData={userData}
+          booleanObj={booleanObj}
+          setBooleanObj={setBooleanObj}
         />
       </div>
 

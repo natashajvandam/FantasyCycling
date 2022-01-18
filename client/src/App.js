@@ -18,6 +18,7 @@ function App() {
   const [riderList, setRiderList] = useState([]);
   const [userList, setUserList] = useState([]);
   const [searchList, setSearchList] = useState([]);
+  const [booleanObj, setBooleanObj] = useState([]);
   // const [socket, setSocket] = useState(null);
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
@@ -37,8 +38,13 @@ function App() {
     getAllRiders().then(result => {
       setSearchList(result);
       setRiderList(result);
+      const newBoolObj = {};
+      result.forEach(el => {
+        newBoolObj[el.id] = el.added_at? true : false;
+      })
+      console.log(newBoolObj)
+      setBooleanObj(newBoolObj);
     });
-
   }, []);
 
 
@@ -52,6 +58,8 @@ function App() {
           setSearchList={setSearchList}
           riderList={riderList}
           searchList={searchList}
+          booleanObj={booleanObj}
+          setBooleanObj={setBooleanObj}
         />)} />
         <Route path="league" element={<League 
           userList={userList}
