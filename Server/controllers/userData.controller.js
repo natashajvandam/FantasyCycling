@@ -27,8 +27,8 @@ const createNewTeam = async (req, res) => {
 
 const fetchUserData = async (req, res) => {
   try {
-    const user = req.params.id;
-    const userDetails = await getUserDetails(user);
+    const nickname = req.params.nickname;
+    const userDetails = await getUserDetails(nickname);
     res.status(201);
     res.send(userDetails);
   } catch (error) {

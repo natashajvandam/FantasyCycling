@@ -1,7 +1,7 @@
 import './item.scss';
 import { useState
  } from 'react';
-function Item ({rider, addToRoster, removeFromRoster, mine}) {
+function Item ({user, rider, addToRoster, removeFromRoster, mine, userData}) {
   const [showInfo, setShowInfo] = useState(false);
   const [taken, setTaken] = useState(false);
   const [backView, setBackView] = useState(false);
@@ -16,13 +16,13 @@ function Item ({rider, addToRoster, removeFromRoster, mine}) {
     rider_name_team = 'name_team';
   }
   
-  function toggleRider (userId, riderId, rider) {
+  function toggleRider (riderId, rider) {
     if (!rider.added_at) {
       setTaken(true);
-      addToRoster(userId, riderId);
+      addToRoster(userData.id, riderId);
     } else {
       setTaken(false);
-      removeFromRoster(userId, riderId);
+      removeFromRoster(userData.id, riderId);
     }
   }
 
@@ -52,7 +52,7 @@ function Item ({rider, addToRoster, removeFromRoster, mine}) {
         <div className="detail rider_price">{!mine && !taken && !rider.added_at && !backView &&
           <div>
           &#x20AC; {rider.price}
-        <button className="BuyRider" onClick={() => toggleRider(3, rider.id, rider)}>buy</button>
+        <button className="BuyRider" onClick={() => toggleRider(rider.id, rider)}>buy</button>
           </div>
         }
         </div>
@@ -65,7 +65,7 @@ function Item ({rider, addToRoster, removeFromRoster, mine}) {
           } */}
             {mine && !backView &&
           <div className="my_rider_buttons">
-            <button className="SellRider" onClick={() => toggleRider(3, rider.id, rider)}>sell: &#x20AC; {rider.price}</button>
+            <button className="SellRider" onClick={() => toggleRider(rider.id, rider)}>sell: &#x20AC; {rider.price}</button>
             {/* <div className="detail rider_race">upcoming race: {rider.next_race}</div> */}
             <button className="SellRider More_button" onClick={toggleBackView}>i</button>
           </div>

@@ -2,12 +2,9 @@ const backend = 'http://127.0.0.1:3005';
 
 const fetchRequest = async (path, options) => {
   //use await - async syntac with try catch
-  const startTime = performance.now();
   return fetch(backend + path, options)
   .then(res => res.status < 400 ? res : Promise.reject(res)) //all errors 401, 404, 500 etc.
   .then(res => {
-    const endTime = performance.now();
-    console.log(endTime - startTime);
     return res.status !== 204? res.json() : res
   }) //204 is when you delete (aka, no body)
   .catch(err => console.log(err));
@@ -41,20 +38,30 @@ async function changeNameOfTeam (userId, newName) {
   })
 }
 
-async function addRider (userId, riderId) {
-  return fetchRequest(`/team/add/${userId}/${riderId}`, {method: 'PUT'});
+async function addRider (userId, riderId, token) {
+  return fetchRequest(`/team/add/${userId}/${riderId}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
-async function removeRider (userId, riderId) {
-  return fetchRequest(`/team/delete/${userId}/${riderId}`, {method: 'PUT'});
+async function removeRider (userId, riderId, token) {
+  return fetchRequest(`/team/delete/${userId}/${riderId}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  });
 }
 
 async function fetchUserRoster (userId) {
   return fetchRequest(`/team/${userId}`);
 }
 
-async function fetchUserData (userId) {
-  return fetchRequest(`/team/details/${userId}`);
+async function fetchUserData (nickname) {
+  return fetchRequest(`/team/details/${nickname}`);
 }
 
 export { getAllRiders, createUser, addRider, removeRider, fetchUserRoster, fetchUserData, changeNameOfTeam, getTheUsers};

@@ -35,7 +35,7 @@ const addRiderToRoster = async (id, rider) => { //--takes: userId, riderId | ret
       );
       return resOfPaying;
     } else { 
-      return 'did not add'; 
+      return addRider; 
     }
   }
   return 'not enough'

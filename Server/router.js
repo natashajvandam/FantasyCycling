@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 router.get('/allriders', fetchRiders); 
 router.get('/allUsers', fetchUsers);
 router.post('/newTeam', createNewTeam);              //{ username, team, password} = req.body; => returns {id:"1"}
-router.get('/team/details/:id', fetchUserData);      //returns {"name":"natasha", "team-name":"myTeam", "score":0, "money":500}
+router.get('/team/details/:nickname', fetchUserData);      //returns {"name":"natasha", "team-name":"myTeam", "score":0, "money":500}
 router.put('/team/:id', changeTeamName);
 router.get('/team/:id', fetchTeam);                  //returns [{"name":"Hendrik"},{"name":"Wout"},...]
 router.put('/team/add/:id/:rider', addRider);        //currently both id numbers(userId, riderId)

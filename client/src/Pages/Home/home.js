@@ -2,15 +2,16 @@ import './home.scss';
 import List from '../../Components/list/list';
 import Header from '../../Components/header/header';
 import Form from '../../Components/form/form';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import {fetchUserRoster, changeNameOfTeam, addRider, fetchUserData, removeRider} from '../../Services/apiService.js';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-function Home ({riderList, myRoster, addToRoster, removeFromRoster, userData, setSearchList, searchList}) {
+function Home ({riderList, setSearchList, searchList}) {
   const { user, isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0();
-  const [userMetadata, setUserMetadata] = useState(null);
-
-
+  const [token, setToken] = useState(null);
+  const [myRoster, setMyRoster] = useState([]);
+  const [userData, setUserData] = useState({});
 
   const filterList = (query) => {
     if (query) {
@@ -19,14 +20,55 @@ function Home ({riderList, myRoster, addToRoster, removeFromRoster, userData, se
     } 
   } 
 
-   
+  useEffect(() => {
+    fetchUserData(user.nickname) //hard-coded userId => {id: 3, name: 'natashajv', team_name: 'aCoolTeam', score: 0, money: 490}
+    .then(result => {
+      setUserData(result)
+      return fetchUserRoster(result.id) })
+    .then(result => setMyRoster(result));
+  }, [])
+
+  useEffect(() => {
+    const getUserMetadata = async () => {
+      const domain = "dev-874owraq.us.auth0.com";
+      try {
+        const accessToken = await getAccessTokenSilently({
+          audience: `https://${domain}/api/v2/`,
+          scope: "read:current_user",
+        });
+        setToken(accessToken);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getUserMetadata();
+  }, [getAccessTokenSilently, user?.sub])
+
+
+  async function changeTeamName (userId, newName) {
+    setUserData((prev) => {
+      return {id: userId, name: prev.name, team_name: newName, score: prev.score, money: prev.money}
+    });
+    changeNameOfTeam();
+  }
+
+  async function addToRoster (userId, riderId) {
+    await addRider(userId, riderId, token)
+    fetchUserData(user.nickname).then(result => setUserData((prev) => { return {id: prev.id, nickname: prev.nickname, email: prev.email, score:prev.score, money: result.money}}));
+    fetchUserRoster(userData.id).then(result => { setMyRoster(result)})
+  };
+
+  //not updated yet =>
+  async function removeFromRoster (userId, riderId) {
+    await removeRider(userId, riderId, token)
+    fetchUserData(user.nickname).then(result => setUserData((prev) => { return {id: prev.id, nickname: prev.nickname, email: prev.email, score:prev.score, money: result.money}}));
+    fetchUserRoster(userData.id).then(result => { setMyRoster(result)})
+  }
   
-
-
-
   if (isLoading) {
     return <div>loading...</div>
   }
+ 
   return (
     (isAuthenticated &&
     <div className="home_page"> 
@@ -44,6 +86,8 @@ function Home ({riderList, myRoster, addToRoster, removeFromRoster, userData, se
           riderList={myRoster}
           addToRoster={addToRoster}
           removeFromRoster={removeFromRoster}
+          user={user}
+          userData={userData}
         />
       </div>
       
@@ -57,6 +101,8 @@ function Home ({riderList, myRoster, addToRoster, removeFromRoster, userData, se
           riderList={searchList}
           addToRoster={addToRoster}
           removeFromRoster={removeFromRoster}
+          user={user}
+          userData={userData}
         />
       </div>
 

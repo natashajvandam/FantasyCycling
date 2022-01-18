@@ -12,8 +12,8 @@ const setNewUser = async (user) => {
   return (res.rows.length)? res.rows[0] : res;  
 }
 
-const getUserDetails = async (user) => {
-  const res = await client.query(`SELECT id, email, nickname, score, money FROM user_table WHERE id = ${user};`);
+const getUserDetails = async (nickname) => {
+  const res = await client.query(`SELECT id, email, nickname, score, money FROM user_table WHERE nickname = '${nickname}';`);
   return res.rows[0];
 }
 
