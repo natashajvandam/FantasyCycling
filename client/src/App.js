@@ -37,11 +37,11 @@ function App() {
       setSearchList(result);
       setRiderList(result);
     });
-    fetchUserData(3) //hard-coded userId => {id: 3, name: 'natashajv', team_name: 'aCoolTeam', score: 0, money: 490}
-      .then(result => {
-        setUserData(result)
-        return fetchUserRoster(result.id) })
-      .then(result => setMyRoster(result));
+    fetchUserData(1) //hard-coded userId => {id: 3, name: 'natashajv', team_name: 'aCoolTeam', score: 0, money: 490}
+    .then(result => {
+      setUserData(result)
+      return fetchUserRoster(result.id) })
+    .then(result => setMyRoster(result));
   }, []);
 
 
@@ -67,7 +67,8 @@ function App() {
   //       console.log(e.message);
   //     }
   //   };
-  //   getUserMetadata();
+  // getUserMetadata();
+
   // }, [getAccessTokenSilently, user?.sub]);
   //------------end of use effect
 
@@ -98,6 +99,8 @@ function App() {
         return {id: userId, name: prev.name, team_name: prev.team_name, score:prev.score, money: result.money}
       }));
   }
+
+
 
   return (
     <div className="routes_div">

@@ -2,10 +2,15 @@ import './home.scss';
 import List from '../../Components/list/list';
 import Header from '../../Components/header/header';
 import Form from '../../Components/form/form';
+import { useState } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
 function Home ({riderList, myRoster, addToRoster, removeFromRoster, userData, setSearchList, searchList}) {
+  const { user, isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const [userMetadata, setUserMetadata] = useState(null);
+
+
 
   const filterList = (query) => {
     if (query) {
@@ -13,14 +18,15 @@ function Home ({riderList, myRoster, addToRoster, removeFromRoster, userData, se
       setSearchList(filteredList);
     } 
   } 
+
+   
   
-//--------------------------------------------------------MOVE TO PARENT COMPENTENT AND PASS TO CHILDREN
-  const { user, isAuthenticated, isLoading } = useAuth0();
+
+
+
   if (isLoading) {
     return <div>loading...</div>
   }
-//--------------------------------------------------------MOVE TO PARENT COMPENTENT AND PASS TO CHILDREN
-
   return (
     (isAuthenticated &&
     <div className="home_page"> 
@@ -32,8 +38,7 @@ function Home ({riderList, myRoster, addToRoster, removeFromRoster, userData, se
     </div>
     <div className="body_home_page">
       <div className="my_rider_list">
-        <h1 className="list_title">{userData.nickname}</h1>
-        {/* <h2>{user.email}</h2> */}
+        <h1 className="list_title">{user.nickname}</h1>
         <List 
           mine={true}
           riderList={myRoster}
