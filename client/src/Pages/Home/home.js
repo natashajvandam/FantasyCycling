@@ -3,7 +3,7 @@ import List from '../../Components/list/list';
 import Header from '../../Components/header/header';
 import Form from '../../Components/form/form';
 import { useState, useEffect } from 'react';
-import {fetchUserRoster, changeNameOfTeam, addRider, fetchUserData, removeRider} from '../../Services/apiService.js';
+import {fetchUserRoster, changeNameOfTeam, addRider, fetchUserData, removeRider, fetchUser} from '../../Services/apiService.js';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -20,13 +20,14 @@ function Home ({riderList, setSearchList, searchList}) {
     } 
   } 
 
-  useEffect(() => {
-    fetchUserData(user.nickname) //hard-coded userId => {id: 3, name: 'natashajv', team_name: 'aCoolTeam', score: 0, money: 490}
-    .then(result => {
-      setUserData(result)
-      return fetchUserRoster(result.id) })
-    .then(result => setMyRoster(result));
-  }, [])
+  // useEffect(() => {
+  //   console.log(user);
+  //   fetchUserData(user.nickname) //hard-coded userId => {id: 3, name: 'natashajv', team_name: 'aCoolTeam', score: 0, money: 490}
+  //   .then(result => {
+  //     setUserData(result)
+  //     return fetchUserRoster(result.id) })
+  //   .then(result => setMyRoster(result));
+  // }, [])
 
   useEffect(() => {
     const getUserMetadata = async () => {
@@ -37,6 +38,11 @@ function Home ({riderList, setSearchList, searchList}) {
           scope: "read:current_user",
         });
         setToken(accessToken);
+        fetchUserData(user.nickname).then((response) => {
+          setUserData(response)
+          return fetchUserRoster(response.id)
+        }).then(result => {
+          setMyRoster(result)})
       } catch (err) {
         console.log(err);
       }
@@ -53,9 +59,10 @@ function Home ({riderList, setSearchList, searchList}) {
   }
 
   async function addToRoster (userId, riderId) {
-    await addRider(userId, riderId, token)
+    const res = await addRider(userId, riderId, token)
     fetchUserData(user.nickname).then(result => setUserData((prev) => { return {id: prev.id, nickname: prev.nickname, email: prev.email, score:prev.score, money: result.money}}));
     fetchUserRoster(userData.id).then(result => { setMyRoster(result)})
+    return res;
   };
 
   //not updated yet =>
@@ -70,7 +77,7 @@ function Home ({riderList, setSearchList, searchList}) {
   }
  
   return (
-    (isAuthenticated &&
+    (isAuthenticated && 
     <div className="home_page"> 
     <div>
     <Header 

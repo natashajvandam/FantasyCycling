@@ -5,7 +5,7 @@ import client from './index.model.js';
 const setNewUser = async (user) => { 
   const res = await client.query(`
     INSERT INTO user_table (email, nickname, password, score)
-    VALUES ('${user.username}', '${user.team}', '${user.password}', ${user.score})
+    VALUES ('${user.username}', '${user.nickname}', '${user.password}', ${user.score})
     ON CONFLICT (nickname) DO NOTHING
     RETURNING id;`
   );
@@ -14,6 +14,7 @@ const setNewUser = async (user) => {
 
 const getUserDetails = async (nickname) => {
   const res = await client.query(`SELECT id, email, nickname, score, money FROM user_table WHERE nickname = '${nickname}';`);
+  console.log('model', res);
   return res.rows[0];
 }
 

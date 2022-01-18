@@ -7,7 +7,7 @@ function userItem ({user, topScore, self}) {
     <div className="league_page">
      
       <div className="road">
-        <div className="road_rider_image" style={{transform: `translate(${persent}vw, 10px)`}}></div>
+        <div className="road_rider_image" style={{transform: `translate(${persent | 0}vw, 10px)`}}></div>
         <div className="road_div_grey"></div>
         <div className="road_div_orange"></div>
         <div className="road_div_grey"></div>

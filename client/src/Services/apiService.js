@@ -1,14 +1,24 @@
+
 const backend = 'http://127.0.0.1:3005';
 
 const fetchRequest = async (path, options) => {
   //use await - async syntac with try catch
   return fetch(backend + path, options)
   .then(res => res.status < 400 ? res : Promise.reject(res)) //all errors 401, 404, 500 etc.
-  .then(res => {
-    return res.status !== 204? res.json() : res
-  }) //204 is when you delete (aka, no body)
+  .then(res => res.status !== 204? res.json() : res) //204 is when you delete (aka, no body)
   .catch(err => console.log(err));
 };
+
+const fetchUser = async (token) => {
+  return fetch('https://dev-874owraq.us.auth0.com/userinfo', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  .then(res => res.status < 400 ? res: Promise.reject(res))
+  .catch(err => console.log(err))
+}
 
 async function getAllRiders () {
   return fetchRequest('/allriders');
@@ -64,4 +74,4 @@ async function fetchUserData (nickname) {
   return fetchRequest(`/team/details/${nickname}`);
 }
 
-export { getAllRiders, createUser, addRider, removeRider, fetchUserRoster, fetchUserData, changeNameOfTeam, getTheUsers};
+export { getAllRiders, createUser, addRider, removeRider, fetchUserRoster, fetchUserData, changeNameOfTeam, getTheUsers, fetchUser};

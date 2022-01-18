@@ -16,13 +16,15 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData}) {
     rider_name_team = 'name_team';
   }
   
-  function toggleRider (riderId, rider) {
+  async function toggleRider (riderId, rider) {
     if (!rider.added_at) {
-      setTaken(true);
-      addToRoster(userData.id, riderId);
+      const result = await addToRoster(userData.id, riderId);
+      if (result.ok) {
+        setTaken(true);
+      }
     } else {
-      setTaken(false);
       removeFromRoster(userData.id, riderId);
+      setTaken(false);
     }
   }
 
@@ -49,7 +51,7 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData}) {
         <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}}></div> 
           }
           {!mine && !backView &&
-        <div className="detail rider_price">{!mine && !taken && !rider.added_at && !backView &&
+        <div className="detail rider_price">{!taken && 
           <div>
           &#x20AC; {rider.price}
         <button className="BuyRider" onClick={() => toggleRider(rider.id, rider)}>buy</button>

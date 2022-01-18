@@ -3,7 +3,7 @@ import League from './Pages/League/league';
 import Login from './Pages/Login/login';
 import Home from './Pages/Home/home';
 import { useState, useEffect } from 'react';
-import { getAllRiders, changeNameOfTeam, addRider, removeRider, fetchUserRoster, fetchUserData, getTheUsers} from './Services/apiService.js';
+import { getAllRiders, getTheUsers} from './Services/apiService.js';
 import { useAuth0 } from "@auth0/auth0-react";
 
 // import { io } from "socket.io-client";
@@ -50,22 +50,22 @@ function App() {
 
 
   return (
-    (isAuthenticated && 
     <div className="routes_div">
       <Routes >
         <Route path="/login" element={<Login />} />
-        <Route path="/home" className="routes_div" element={<Home 
+    
+        <Route path="/home" className="routes_div" element={ (isAuthenticated && user && <Home 
           setSearchList={setSearchList}
           riderList={riderList}
           searchList={searchList}
-        />} />
+        />)} />
         <Route path="league" element={<League 
           userList={userList}
           // userData={userData}
         />} />
+      
       </Routes>
     </div>
-    )
   );
 }
 

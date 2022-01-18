@@ -38,7 +38,7 @@ const addRiderToRoster = async (id, rider) => { //--takes: userId, riderId | ret
       return addRider; 
     }
   }
-  return 'not enough'
+  return false;
 };
 
 const removeRiderFromRoster = async (id, rider) => {

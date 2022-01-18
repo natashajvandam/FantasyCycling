@@ -28,9 +28,15 @@ const createNewTeam = async (req, res) => {
 const fetchUserData = async (req, res) => {
   try {
     const nickname = req.params.nickname;
+    console.log('nickname in control', nickname);
     const userDetails = await getUserDetails(nickname);
-    res.status(201);
-    res.send(userDetails);
+    if (!userDetails.rowCount) {
+      res.status(201);
+      res.send(userDetails);
+    } else {
+      console.log('problem getting user: doesnt exist')
+      res.sendStatus(500);
+    }
   } catch (error) {
     console.log(error)
     res.sendStatus(500);
@@ -77,8 +83,12 @@ const addRider = async (req, res) => {
   try {
     const { id, rider } = req.params;
     const roster = await addRiderToRoster(id, rider);
-    res.status(204);
-    res.send(roster); // will automatically send status 200
+    if (roster) {
+      res.status(204);
+      res.send(roster); // will automatically send status 200
+    } else {
+      res.sendStatus(405);
+    }
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
