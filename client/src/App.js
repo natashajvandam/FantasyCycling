@@ -16,12 +16,10 @@ import {
 
 function App() {
   const [riderList, setRiderList] = useState([]);
-  // const [myRoster, setMyRoster] = useState([]);
-  // const [userData, setUserData] = useState({});
   const [userList, setUserList] = useState([]);
   const [searchList, setSearchList] = useState([]);
   // const [socket, setSocket] = useState(null);
-  const { user, isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   // const socket = io();
   // socket.on("connect", () => {
@@ -40,11 +38,7 @@ function App() {
       setSearchList(result);
       setRiderList(result);
     });
-    // fetchUserData(1) //hard-coded userId => {id: 3, name: 'natashajv', team_name: 'aCoolTeam', score: 0, money: 490}
-    // .then(result => {
-    //   setUserData(result)
-    //   return fetchUserRoster(result.id) })
-    // .then(result => setMyRoster(result));
+
   }, []);
 
 
@@ -61,7 +55,6 @@ function App() {
         />)} />
         <Route path="league" element={<League 
           userList={userList}
-          // userData={userData}
         />} />
       
       </Routes>

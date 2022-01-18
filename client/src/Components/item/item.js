@@ -24,7 +24,9 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData}) {
       }
     } else {
       removeFromRoster(userData.id, riderId);
+      console.log('gets here: removed', taken);
       setTaken(false);
+      console.log(taken);
     }
   }
 
