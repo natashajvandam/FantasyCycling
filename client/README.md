@@ -56,3 +56,28 @@ CREATE TABLE roster_table (
 		FOREIGN KEY (rider)
 			REFERENCES rider_table(name)
 );
+
+# this is the layout of an example user in Auth0
+
+{
+    "created_at": "2022-01-17T19:51:28.347Z",
+    "email": "natashajvandam@outlook.com",
+    "identities": [
+        {
+            "connection": "user-table",
+            "provider": "auth0",
+            "user_id": 1,
+            "isSocial": false
+        }
+    ],
+    "name": "natashajvandam@outlook.com",
+    "nickname": "natasha",
+    "picture": "https://s.gravatar.com/avatar/d778680553a12b9b5d5a573eb85973e0?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fna.png",
+    "updated_at": "2022-01-18T16:18:58.723Z",
+    "user_id": "auth0|1",
+    "last_ip": "2001:1c05:1405:9900:ed:23ba:fb06:8274",
+    "last_login": "2022-01-18T16:18:58.723Z",
+    "logins_count": 2,
+    "blocked_for": [],
+    "guardian_authenticators": []
+}
