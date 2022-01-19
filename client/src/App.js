@@ -42,7 +42,6 @@ function App() {
       result.forEach(el => {
         newBoolObj[el.id] = el.added_at? true : false;
       })
-      console.log(newBoolObj)
       setBooleanObj(newBoolObj);
     });
   }, []);

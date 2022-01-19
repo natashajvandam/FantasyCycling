@@ -20,7 +20,6 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
     if (!rider.added_at) {
       const result = await addToRoster(userData.id, riderId);
       if (result.ok) {
-        // setTaken(true);
         setBooleanObj(prev => ({
           ...prev,
           [riderId]: true
@@ -28,7 +27,6 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
       }
     } else {
       removeFromRoster(userData.id, riderId);
-      console.log('gets here: removed');
       setBooleanObj((prev) => ({
         ...prev,
         [riderId]: false
@@ -76,7 +74,6 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
             {mine && !backView &&
           <div className="my_rider_buttons">
             <button className="SellRider" onClick={() => toggleRider(rider.id, rider)}>sell: &#x20AC; {rider.price}</button>
-            {/* <div className="detail rider_race">upcoming race: {rider.next_race}</div> */}
             <button className="SellRider More_button" onClick={toggleBackView}>i</button>
           </div>
             }

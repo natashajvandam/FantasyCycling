@@ -65,15 +65,10 @@ function Home ({riderList, setSearchList, searchList, booleanObj, setBooleanObj}
     return res;
   };
 
-  //not updated yet =>
   async function removeFromRoster (userId, riderId) {
     await removeRider(userId, riderId, token)
     fetchUserData(user.nickname).then(result => setUserData((prev) => { return {id: prev.id, nickname: prev.nickname, email: prev.email, score:prev.score, money: result.money}}));
     fetchUserRoster(userData.id).then(result => { setMyRoster(result)})
-    // setBooleanObj(prev => {
-    //   prev[riderId] = false
-    //   return {...prev};
-    // })
   }
   
   if (isLoading) {
