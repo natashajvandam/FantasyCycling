@@ -10,7 +10,7 @@ const fetchRequest = async (path, options) => {
 };
 
 const fetchUser = async (token) => {
-  return fetch('https://dev-874owraq.us.auth0.com/userinfo', {
+  return fetch('https:/dev-sfbx-116.us.auth0.com/userinfo', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`
@@ -70,7 +70,8 @@ async function fetchUserRoster (userId) {
   return fetchRequest(`/team/${userId}`);
 }
 
-async function fetchUserData (nickname) {
+async function fetchUserData (mail) {
+  const nickname = mail.split("@")[0]
   return fetchRequest(`/team/details/${nickname}`);
 }
 
