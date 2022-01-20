@@ -5,25 +5,6 @@ const PORT = 3005;
 import router from './router.js';
 import cron from 'node-cron';
 import { updateAllData } from './controllers/updateData.controller.js';
-import { auth } from 'express-openid-connect';
-
-//socket.io
-// import { createServer } from "http";
-// import { Server } from "socket.io";
-
-// const httpServer = createServer();
-
-// const io = new Server(httpServer, {});
-// //end socket.io
-
-const config = {
-  authRequired: false,
-  auth0Logout: true,
-  secret: 'ZH2CPYnScrWWn8S_C_x2n_ifpDcT4X319Nrfx0VkH_R_GV-Hcc7xtINZZip7seuN',
-  baseURL: 'http://localhost:3005',
-  clientID: 'B6YeOn4XZ1Er8FtD0bgKh5atqOhGaJoG',
-  issuerBaseURL: 'https://dev-874owraq.us.auth0.com',
-};
 
 cron.schedule('0 0 0 * * *', async () => {
   updateAllData(0, 2, updateAllData);
@@ -31,13 +12,7 @@ cron.schedule('0 0 0 * * *', async () => {
 app.use(cors());
 app.use(express.json()); // body parser
 
-app.use(auth(config));
-
 app.use('/', router);
-
-// io.on('connection', (socket) => {
-//   console.log('a user connected');
-// });
 
 (async function () {
   try {
