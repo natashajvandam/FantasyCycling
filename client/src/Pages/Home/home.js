@@ -46,14 +46,15 @@ function Home({
 
   useEffect(() => {
     const getUserMetadata = async () => {
-      const domain = 'dev-874owraq.us.auth0.com';
+      const domain = process.env.REACT_APP_AUTH0_DOMAIN;
       try {
         const accessToken = await getAccessTokenSilently({
           audience: `https://${domain}/api/v2/`,
           scope: 'read:current_user',
         });
         setToken(accessToken);
-        fetchUserData('taressa')
+        console.log('user ', user);
+        fetchUserData(user.nickname)
           .then((response) => {
             setUserData(response);
             return fetchUserRoster(response.id);

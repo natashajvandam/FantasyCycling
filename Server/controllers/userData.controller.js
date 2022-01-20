@@ -37,16 +37,20 @@ const createNewTeam = async (req, res) => {
 
 const fetchUserData = async (req, res) => {
   try {
-    const nickname = req.params.nickname;
+    const nickname = req.body.nickname;
+    const email = req.body.email;
     console.log('nickname in control', nickname);
-    const userDetails = await getUserDetails(nickname);
+    let userDetails = await getUserDetails(nickname, email);
     console.log(userDetails);
+    if (!userDetails) {
+      userDetails = await setNewUser(req.body);
+    }
     if (!userDetails.rowCount) {
       res.status(201);
       res.send(userDetails);
     } else {
       console.log('problem getting user: doesnt exist');
-      res.sendStatus(500);
+      res.sendStatus(204);
     }
   } catch (error) {
     console.log(error);
