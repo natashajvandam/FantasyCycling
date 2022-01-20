@@ -1,12 +1,13 @@
 'use strict';
 
-// const databaseName = "cyclingfantacyteam" 
+// const databaseName = "cyclingfantacyteam"
 
 import pkg from 'pg';
 
 const { Client } = pkg;
 // const DATABASE_URL = `postgres://@localhost:5432/${databaseName}`;
-const DATABASE_URL = 'postgres://sogkqgly:obh0RJXY1MmzzU7WcJry9mpsslP_DxH_@tyke.db.elephantsql.com/sogkqgly';
+const DATABASE_URL =
+  'postgres://frphrmax:EVcF4G-94OsicdBuKzEIPaIEoMOHquD2@kandula.db.elephantsql.com/frphrmax';
 
 const client = new Client({
   connectionString: DATABASE_URL,
@@ -15,5 +16,3 @@ const client = new Client({
 client.connect();
 
 export default client;
-
-
