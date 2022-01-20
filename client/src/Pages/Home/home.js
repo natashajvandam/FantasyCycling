@@ -9,6 +9,7 @@ import {
   addRider,
   fetchUserData,
   removeRider,
+  createUser,
 } from "../../Services/apiService.js";
 
 import { useAuth0 } from "@auth0/auth0-react";
@@ -53,7 +54,7 @@ function Home({
           scope: "read:current_user",
         });
         setToken(accessToken);
-        console.log({ ...user, password: "" });
+        createUser({ ...user, password: "" })
         fetchUserData(user.nickname)
           .then((response) => {
             setUserData(response);

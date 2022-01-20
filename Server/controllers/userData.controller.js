@@ -1,6 +1,16 @@
-'use strict';
-import { getUserRoster, setNewUser, getUserDetails, fetchAllRiders, fetchAllUsers } from '../models/user.model.js';
-import { addRiderToRoster, removeRiderFromRoster, changeUserTeam} from '../models/roster.model.js';
+"use strict";
+import {
+  getUserRoster,
+  setNewUser,
+  getUserDetails,
+  fetchAllRiders,
+  fetchAllUsers,
+} from "../models/user.model.js";
+import {
+  addRiderToRoster,
+  removeRiderFromRoster,
+  changeUserTeam,
+} from "../models/roster.model.js";
 
 const fetchRiders = async (req, res) => {
   try {
@@ -11,37 +21,43 @@ const fetchRiders = async (req, res) => {
     console.log(error);
     res.sendStatus(500);
   }
-}
+};
 
-const createNewTeam = async (req, res) => {
+const createNewUser = async (req, res) => {
   try {
-    const { username, team, password} = req.body;
-    const newUser = await setNewUser({ username, team, password, score:0 });
-    res.status(201);
-    res.send(newUser);
+    const { email, nickname, password } = req.body;
+    const exist = await getUserDetails(nickname);
+    if (!exist) {
+      const newUser = await setNewUser({
+        email,
+        nickname,
+        password,
+        score: 0,
+        money: 500,
+      });
+      res.status(201);
+      res.send(newUser);
+    }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.sendStatus(500);
   }
-}
+};
 
 const fetchUserData = async (req, res) => {
   try {
     const nickname = req.params.nickname;
-    console.log('nickname in control', nickname);
+    console.log("nickname in control", nickname);
     const userDetails = await getUserDetails(nickname);
-    if (!userDetails.rowCount) {
+    if (userDetails) {
       res.status(201);
       res.send(userDetails);
-    } else {
-      console.log('problem getting user: doesnt exist')
-      res.sendStatus(500);
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.sendStatus(500);
   }
-}
+};
 
 const changeTeamName = async (req, res) => {
   try {
@@ -54,7 +70,7 @@ const changeTeamName = async (req, res) => {
     console.log(error);
     res.sendStatus(500);
   }
-}
+};
 
 const fetchTeam = async (req, res) => {
   try {
@@ -66,7 +82,7 @@ const fetchTeam = async (req, res) => {
     console.log(error);
     res.sendStatus(500);
   }
-}
+};
 
 const fetchUsers = async (req, res) => {
   try {
@@ -77,7 +93,7 @@ const fetchUsers = async (req, res) => {
     console.log(error);
     res.sendStatus(500);
   }
-}
+};
 
 const addRider = async (req, res) => {
   try {
@@ -93,7 +109,7 @@ const addRider = async (req, res) => {
     console.log(error);
     res.sendStatus(500);
   }
-}
+};
 
 const removeRider = async (req, res) => {
   try {
@@ -105,6 +121,15 @@ const removeRider = async (req, res) => {
     console.log(error);
     res.sendStatus(500);
   }
-}
+};
 
-export {fetchTeam, fetchUserData, createNewTeam, addRider, removeRider, fetchRiders, changeTeamName, fetchUsers}
+export {
+  fetchTeam,
+  fetchUserData,
+  createNewUser,
+  addRider,
+  removeRider,
+  fetchRiders,
+  changeTeamName,
+  fetchUsers,
+};
