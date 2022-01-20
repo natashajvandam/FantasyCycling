@@ -12,6 +12,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import LoginDenied from './Pages/LoginDenied/loginDenied';
 
 
 function App() {
@@ -52,18 +53,18 @@ function App() {
     <div className="routes_div">
       <Routes >
         <Route path="/login" element={<Login />} />
-    
-        <Route path="/home" className="routes_div" element={ (isAuthenticated && user && <Home 
+
+        <Route path="/home" className="routes_div" element={ (isAuthenticated && user ? <Home
           setSearchList={setSearchList}
           riderList={riderList}
           searchList={searchList}
           booleanObj={booleanObj}
           setBooleanObj={setBooleanObj}
-        />)} />
-        <Route path="league" element={<League 
+        /> : <LoginDenied/>)} />
+        <Route path="league" element={<League
           userList={userList}
         />} />
-      
+
       </Routes>
     </div>
   );
