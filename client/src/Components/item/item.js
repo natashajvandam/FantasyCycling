@@ -6,16 +6,9 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
   // const [taken, setTaken] = useState(false);
   const [backView, setBackView] = useState(false);
 
-  let button_rider_class;
-  let rider_name_team;
-  if (mine) {
-    button_rider_class = 'button_myRider';
-    rider_name_team = 'my_name_team'
-  } else {
-    button_rider_class = 'button_rider';
-    rider_name_team = 'name_team';
-  }
-  
+  const button_rider_class = mine ? 'button_myRider' : 'button_rider';
+  const  rider_name_team = mine ? 'my_name_team' : 'name_team'
+
   async function toggleRider (riderId, rider) {
     if (!rider.added_at) {
       const result = await addToRoster(userData.id, riderId);
@@ -34,9 +27,9 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
     }
   }
 
-  function toggleRiderInfo (e) {
+  function toggleRiderInfo () {
     if (!showInfo) {
-      setShowInfo(true); 
+      setShowInfo(true);
     } else {
       setShowInfo(false);
     }
@@ -53,51 +46,60 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
   return (
     <div className={button_rider_class} >
       <div className='rider'>
-          {rider.image && mine && !backView &&
-        <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}}></div> 
-          }
-          {!mine && !backView &&
-        <div className="detail rider_price">{!booleanObj[rider.id] && 
-          <div>
-          &#x20AC; {rider.price}
-        <button className="BuyRider" onClick={() => toggleRider(rider.id, rider)}>buy</button>
-          </div>
+          {rider.image && mine && !backView
+         ? <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}}></div>
+          : <>No image found</>
         }
-        </div>
+
+          {!mine && !backView
+            ? <div className="detail rider_price">
+              {!booleanObj[rider.id]
+                ? <div>
+                    &#x20AC; {rider.price}
+                    <button className="BuyRider" onClick={() => toggleRider(rider.id, rider)}>buy</button>
+                   </div>
+                : null
+              }
+            </div>
+            : null
           }
+
         <div className={rider_name_team}>
           <div className="detail rider_name">{rider.name}</div>
           <div className="detail rider_team">{rider.team}</div>
           {/* {showInfo &&
-            <div>rider.nationality</div> 
+            <div>rider.nationality</div>
           } */}
-            {mine && !backView &&
-          <div className="my_rider_buttons">
-            <button className="SellRider" onClick={() => toggleRider(rider.id, rider)}>sell: &#x20AC; {rider.price}</button>
-            <button className="SellRider More_button" onClick={toggleBackView}>i</button>
+          {mine && !backView
+            ? <div className="my_rider_buttons">
+                <button className="SellRider" onClick={() => toggleRider(rider.id, rider)}>sell: &#x20AC; {rider.price}</button>
+                <button className="SellRider More_button" onClick={toggleBackView}>i</button>
+              </div>
+            : null
+          }
+        </div>
+
+          {!mine && !showInfo ?
+          <button className="toggleRiderInfo" onClick={toggleRiderInfo}>show more</button>
+          : null
+          }
+        { (showInfo || backView )
+          ? <div className="detail rider_points">
+              <><span className="pnts green_text">One-day Race Pnts: </span>{rider.classic_pnts}</>
+              <><span className="pnts red_text">GC Pnts: </span>{rider.gc_pnts}</>
+              <><span className="pnts blue_text">Time Trial Pnts: </span>{rider.tt_pnts}</>
+              <><span className="pnts purple_text">Climbing Pnts: </span>{rider.climb_pnts}</>
+              <><span className="pnts pink_text">Sprint Pnts: </span>{rider.sprint_pnts}</>
+              {rider.next_race !== 'undefined'
+                ? <div className="pnts nextRace">next race: {rider.next_race}</div>
+                : <div className="pnts nextRace">next race: unknown</div>
+              }
+              {!backView
+                ? <button className="toggleRiderInfo" onClick={toggleRiderInfo}>show less</button>
+                : <button className="SellRider" onClick={toggleBackView}>back</button>
+              }
           </div>
-            }
-        </div>
-          {!mine && !showInfo &&
-        <button className="toggleRiderInfo" onClick={toggleRiderInfo}>show more</button>
-          }
-        { (showInfo || backView ) && 
-       <div className="detail rider_points">
-          <div><span className="pnts green_text">One-day Race Pnts: </span>{rider.classic_pnts}</div>
-          <div><span className="pnts red_text">GC Pnts: </span>{rider.gc_pnts}</div>
-          <div><span className="pnts blue_text">Time Trial Pnts: </span>{rider.tt_pnts}</div>
-          <div><span className="pnts purple_text">Climbing Pnts: </span>{rider.climb_pnts}</div>
-          <div><span className="pnts pink_text">Sprint Pnts: </span>{rider.sprint_pnts}</div> 
-          {rider.next_race != 'undefined' &&
-          <div className="pnts nextRace">next race: {rider.next_race}</div>
-          }
-          {!backView &&
-          <button className="toggleRiderInfo" onClick={toggleRiderInfo}>show less</button>
-          }
-        </div>
-          }
-          {backView && 
-          <button className="SellRider" onClick={toggleBackView}>back</button>
+          : <div className="detail rider_points">Cannot get points</div>
           }
           <div className="detail rider_race"></div>
       </div>

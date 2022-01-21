@@ -5,7 +5,7 @@ import Form from '../../Components/form/form';
 import { useState, useEffect } from 'react';
 import {
   fetchUserRoster,
-  changeNameOfTeam,
+  //changeNameOfTeam,
   addRider,
   fetchUserData,
   removeRider,
@@ -69,18 +69,18 @@ function Home({
     getUserMetadata();
   }, [getAccessTokenSilently, user?.sub]);
 
-  async function changeTeamName(userId, newName) {
-    setUserData((prev) => {
-      return {
-        id: userId,
-        name: prev.name,
-        team_name: newName,
-        score: prev.score,
-        money: prev.money,
-      };
-    });
-    changeNameOfTeam();
-  }
+  // async function changeTeamName(userId, newName) {
+  //   setUserData((prev) => {
+  //     return {
+  //       id: userId,
+  //       name: prev.name,
+  //       team_name: newName,
+  //       score: prev.score,
+  //       money: prev.money,
+  //     };
+  //   });
+  //   changeNameOfTeam();
+  // }
 
   async function addToRoster(userId, riderId) {
     const res = await addRider(userId, riderId, token);
@@ -119,50 +119,52 @@ function Home({
     });
   }
 
-  if (isLoading) {
-    return <div>loading...</div>;
-  }
-
   return (
-    isAuthenticated && (
-      <div className='home_page'>
-        <div>
-          <Header userData={userData} link_route={'league'} />
-        </div>
-        <div className='body_home_page'>
-          <div className='my_rider_list'>
-            <h1 className='list_title'>{user.nickname}</h1>
-            <List
-              mine={true}
-              riderList={myRoster}
-              addToRoster={addToRoster}
-              removeFromRoster={removeFromRoster}
-              user={user}
-              userData={userData}
-              booleanObj={booleanObj}
-              setBooleanObj={setBooleanObj}
-            />
-          </div>
+    <>
+      {isLoading
+        ? <>loading...</>
+        : null}
 
-          <div className='full_rider_list_heading'>
-            <h1 className='list_title'>pro cycling riders</h1>
-            <Form filterList={filterList} />
-          </div>
-          <div className='full_rider_list'>
-            <List
-              mine={false}
-              riderList={searchList}
-              addToRoster={addToRoster}
-              removeFromRoster={removeFromRoster}
-              user={user}
-              userData={userData}
-              booleanObj={booleanObj}
-              setBooleanObj={setBooleanObj}
-            />
+      {isAuthenticated
+        ? <div className='home_page'>
+          <>
+            <Header userData={userData} link_route={'league'} />
+          </>
+          <div className='body_home_page'>
+            <div className='my_rider_list'>
+              <h1 className='list_title'>{user.nickname}</h1>
+              <List
+                mine={true}
+                riderList={myRoster}
+                addToRoster={addToRoster}
+                removeFromRoster={removeFromRoster}
+                user={user}
+                userData={userData}
+                booleanObj={booleanObj}
+                setBooleanObj={setBooleanObj}
+              />
+            </div>
+
+            <div className='full_rider_list_heading'>
+              <h1 className='list_title'>pro cycling riders</h1>
+              <Form filterList={filterList} />
+            </div>
+            <div className='full_rider_list'>
+              <List
+                mine={false}
+                riderList={searchList}
+                addToRoster={addToRoster}
+                removeFromRoster={removeFromRoster}
+                user={user}
+                userData={userData}
+                booleanObj={booleanObj}
+                setBooleanObj={setBooleanObj}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    )
+        : <h2>User not authenticated</h2>}
+      </>
   );
 }
 
