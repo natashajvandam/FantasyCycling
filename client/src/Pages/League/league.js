@@ -13,7 +13,7 @@ function League ({userList}) {
   useEffect(() => {
     const getUserMetadata = async () => {
       try {
-        fetchUserData(user.nickname).then((response) => {
+        fetchUserData(user).then((response) => {
           setUserData(response)
         });
       } catch (err) {
@@ -25,9 +25,9 @@ function League ({userList}) {
 
 
   return (
-    
+
     <div className="league_page">
-     <Header 
+     <Header
         userData={userData}
         link_route={'home'}
       />
