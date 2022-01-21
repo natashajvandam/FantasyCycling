@@ -3,17 +3,13 @@ import League from './Pages/League/league';
 import Login from './Pages/Login/login';
 import Home from './Pages/Home/home';
 import { useState, useEffect } from 'react';
-import { getAllRiders, getTheUsers} from './Services/apiService.js';
-import { useAuth0 } from "@auth0/auth0-react";
+import { getAllRiders, getTheUsers } from './Services/apiService.js';
+import { useAuth0 } from '@auth0/auth0-react';
 
 // import { io } from "socket.io-client";
 
-import {
-  Routes,
-  Route,
-} from "react-router-dom";
+import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginDenied from './Pages/LoginDenied/loginDenied';
-
 
 function App() {
   const [riderList, setRiderList] = useState([]);
@@ -35,36 +31,42 @@ function App() {
   // }, [setSocket]);
 
   useEffect(() => {
-    getTheUsers().then(result => setUserList(result));
-    getAllRiders().then(result => {
+    getTheUsers().then((result) => setUserList(result));
+    getAllRiders().then((result) => {
       setSearchList(result);
       setRiderList(result);
       const newBoolObj = {};
-      result.forEach(el => {
-        newBoolObj[el.id] = el.added_at? true : false;
-      })
+      result.forEach((el) => {
+        newBoolObj[el.id] = el.added_at ? true : false;
+      });
       setBooleanObj(newBoolObj);
     });
   }, []);
 
-
-
   return (
-    <div className="routes_div">
-      <Routes >
-        <Route path="/login" element={<Login />} />
+    <div className='routes_div'>
+      <Routes>
+        <Route path='/' element={<Navigate to='/login' />} />
+        <Route path='/login' element={<Login />} />
 
-        <Route path="/home" className="routes_div" element={ (isAuthenticated && user ? <Home
-          setSearchList={setSearchList}
-          riderList={riderList}
-          searchList={searchList}
-          booleanObj={booleanObj}
-          setBooleanObj={setBooleanObj}
-        /> : <LoginDenied/>)} />
-        <Route path="league" element={<League
-          userList={userList}
-        />} />
-
+        <Route
+          path='/home'
+          className='routes_div'
+          element={
+            isAuthenticated && user ? (
+              <Home
+                setSearchList={setSearchList}
+                riderList={riderList}
+                searchList={searchList}
+                booleanObj={booleanObj}
+                setBooleanObj={setBooleanObj}
+              />
+            ) : (
+              <LoginDenied />
+            )
+          }
+        />
+        <Route path='league' element={<League userList={userList} />} />
       </Routes>
     </div>
   );

@@ -83,7 +83,7 @@ function Home({
 
   async function addToRoster(userId, riderId) {
     const res = await addRider(userId, riderId, token);
-    fetchUserData(user).then((result) =>
+    fetchUserData(userData).then((result) =>
       setUserData((prev) => {
         return {
           id: prev.id,
@@ -102,7 +102,7 @@ function Home({
 
   async function removeFromRoster(userId, riderId) {
     await removeRider(userId, riderId, token);
-    fetchUserData(user).then((result) =>
+    fetchUserData(userData).then((result) =>
       setUserData((prev) => {
         return {
           id: prev.id,
