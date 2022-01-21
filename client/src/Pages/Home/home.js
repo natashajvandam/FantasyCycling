@@ -53,8 +53,7 @@ function Home({
           scope: 'read:current_user',
         });
         setToken(accessToken);
-        console.log('user ', user);
-        fetchUserData(user.nickname)
+        fetchUserData(user)
           .then((response) => {
             setUserData(response);
             return fetchUserRoster(response.id);
@@ -84,7 +83,7 @@ function Home({
 
   async function addToRoster(userId, riderId) {
     const res = await addRider(userId, riderId, token);
-    fetchUserData(user.nickname).then((result) =>
+    fetchUserData(user).then((result) =>
       setUserData((prev) => {
         return {
           id: prev.id,
@@ -103,7 +102,7 @@ function Home({
 
   async function removeFromRoster(userId, riderId) {
     await removeRider(userId, riderId, token);
-    fetchUserData(user.nickname).then((result) =>
+    fetchUserData(user).then((result) =>
       setUserData((prev) => {
         return {
           id: prev.id,
@@ -121,12 +120,10 @@ function Home({
 
   return (
     <>
-      {isLoading
-        ? <>loading...</>
-        : null}
+      {isLoading ? <>loading...</> : null}
 
-      {isAuthenticated
-        ? <div className='home_page'>
+      {isAuthenticated ? (
+        <div className='home_page'>
           <>
             <Header userData={userData} link_route={'league'} />
           </>
@@ -163,8 +160,10 @@ function Home({
             </div>
           </div>
         </div>
-        : <h2>User not authenticated</h2>}
-      </>
+      ) : (
+        <h2>User not authenticated</h2>
+      )}
+    </>
   );
 }
 
