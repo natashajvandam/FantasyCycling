@@ -1,40 +1,31 @@
-import "./home.scss";
-import List from "../../Components/list/list";
-import Header from "../../Components/header/header";
-import Form from "../../Components/form/form";
-import { useState, useEffect } from "react";
+import './home.scss'
+import React, { useState, useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
+import List from '../../Components/list/list'
+import Header from '../../Components/header/header'
+import Form from '../../Components/form/form'
 import {
   fetchUserRoster,
-  changeNameOfTeam,
   addRider,
   fetchUserData,
   removeRider,
-  createUser,
-} from "../../Services/apiService.js";
+  createUser
+} from '../../Services/apiService'
 
-import { useAuth0 } from "@auth0/auth0-react";
-
-function Home({
-  riderList,
-  setSearchList,
-  searchList,
-  booleanObj,
-  setBooleanObj,
-}) {
-  const { user, isLoading, isAuthenticated, getAccessTokenSilently } =
-    useAuth0();
-  const [token, setToken] = useState(null);
-  const [myRoster, setMyRoster] = useState([]);
-  const [userData, setUserData] = useState({});
+function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj }) {
+  const { user, isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const [token, setToken] = useState(null)
+  const [myRoster, setMyRoster] = useState([])
+  const [userData, setUserData] = useState({})
 
   const filterList = (query) => {
     if (query) {
       const filteredList = riderList.filter((rider) =>
         rider.name.toLowerCase().includes(query.toLowerCase())
-      );
-      setSearchList(filteredList);
+      )
+      setSearchList(filteredList)
     }
-  };
+  }
 
   // useEffect(() => {
   //   console.log(user);
@@ -47,28 +38,28 @@ function Home({
 
   useEffect(() => {
     const getUserMetadata = async () => {
-      const domain = "dev-sfbx-116.us.auth0.com";
+      const domain = 'dev-sfbx-116.us.auth0.com'
       try {
         const accessToken = await getAccessTokenSilently({
           audience: `https://${domain}/api/v2/`,
-          scope: "read:current_user",
-        });
-        setToken(accessToken);
-        createUser({ ...user, password: "" })
+          scope: 'read:current_user'
+        })
+        setToken(accessToken)
+        createUser({ ...user, password: '' })
         fetchUserData(user.nickname)
           .then((response) => {
-            setUserData(response);
-            return fetchUserRoster(response.id);
+            setUserData(response)
+            return fetchUserRoster(response.id)
           })
           .then((result) => {
-            setMyRoster(result);
-          });
+            setMyRoster(result)
+          })
       } catch (err) {
-        console.log(err);
+        throw new Error(err)
       }
-    };
-    getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
+    }
+    getUserMetadata()
+  }, [getAccessTokenSilently, user?.sub])
 
   // async function changeTeamName(userId, newName) {
   //   setUserData((prev) => {
@@ -83,58 +74,54 @@ function Home({
   //   changeNameOfTeam();
   // }
 
-  async function addToRoster(userId, riderId) {
-    const res = await addRider(userId, riderId, token);
+  const addToRoster = async (userId, riderId) => {
+    const res = await addRider(userId, riderId, token)
     fetchUserData(user.nickname).then((result) =>
-      setUserData((prev) => {
-        return {
-          id: prev.id,
-          nickname: prev.nickname,
-          email: prev.email,
-          score: prev.score,
-          money: result.money,
-        };
-      })
-    );
+      setUserData((prev) => ({
+        id: prev.id,
+        nickname: prev.nickname,
+        email: prev.email,
+        score: prev.score,
+        money: result.money
+      }))
+    )
     fetchUserRoster(userData.id).then((result) => {
-      setMyRoster(result);
-    });
-    return res;
+      setMyRoster(result)
+    })
+    return res
   }
 
-  async function removeFromRoster(userId, riderId) {
-    await removeRider(userId, riderId, token);
+  const removeFromRoster = async (userId, riderId) => {
+    await removeRider(userId, riderId, token)
     fetchUserData(user.nickname).then((result) =>
-      setUserData((prev) => {
-        return {
-          id: prev.id,
-          nickname: prev.nickname,
-          email: prev.email,
-          score: prev.score,
-          money: result.money,
-        };
-      })
-    );
+      setUserData((prev) => ({
+        id: prev.id,
+        nickname: prev.nickname,
+        email: prev.email,
+        score: prev.score,
+        money: result.money
+      }))
+    )
     fetchUserRoster(userData.id).then((result) => {
-      setMyRoster(result);
-    });
+      setMyRoster(result)
+    })
   }
 
   if (isLoading) {
-    return <div>loading...</div>;
+    return <div>loading...</div>
   }
 
   return (
     isAuthenticated && (
       <div className="home_page">
         <div>
-          <Header userData={userData} link_route={"league"} />
+          <Header userData={userData} linkRoute="league" />
         </div>
         <div className="body_home_page">
           <div className="my_rider_list">
             <h1 className="list_title">{user.nickname}</h1>
             <List
-              mine={true}
+              mine
               riderList={myRoster}
               addToRoster={addToRoster}
               removeFromRoster={removeFromRoster}
@@ -164,7 +151,7 @@ function Home({
         </div>
       </div>
     )
-  );
+  )
 }
 
-export default Home;
+export default Home

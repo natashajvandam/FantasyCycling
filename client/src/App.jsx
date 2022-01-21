@@ -1,22 +1,21 @@
-import "./App.scss";
-import League from "./Pages/League/league";
-import Login from "./Pages/Login/login";
-import Home from "./Pages/Home/home";
-import { useState, useEffect } from "react";
-import { getAllRiders, getTheUsers } from "./Services/apiService.js";
-import { useAuth0 } from "@auth0/auth0-react";
+import './App.scss'
+import React, { useState, useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
+import { Routes, Route } from 'react-router-dom'
+import League from './Pages/League/league'
+import Login from './Pages/Login/login'
+import Home from './Pages/Home/home'
+import { getAllRiders, getTheUsers } from './Services/apiService'
 
 // import { io } from "socket.io-client";
 
-import { Routes, Route } from "react-router-dom";
-
 function App() {
-  const [riderList, setRiderList] = useState([]);
-  const [userList, setUserList] = useState([]);
-  const [searchList, setSearchList] = useState([]);
-  const [booleanObj, setBooleanObj] = useState([]);
+  const [riderList, setRiderList] = useState([])
+  const [userList, setUserList] = useState([])
+  const [searchList, setSearchList] = useState([])
+  const [booleanObj, setBooleanObj] = useState([])
   // const [socket, setSocket] = useState(null);
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated } = useAuth0()
 
   // const socket = io();
   // socket.on("connect", () => {
@@ -30,17 +29,17 @@ function App() {
   // }, [setSocket]);
 
   useEffect(() => {
-    getTheUsers().then((result) => setUserList(result));
+    getTheUsers().then((result) => setUserList(result))
     getAllRiders().then((result) => {
-      setSearchList(result);
-      setRiderList(result);
-      const newBoolObj = {};
+      setSearchList(result)
+      setRiderList(result)
+      const newBoolObj = {}
       result.forEach((el) => {
-        newBoolObj[el.id] = el.added_at ? true : false;
-      });
-      setBooleanObj(newBoolObj);
-    });
-  }, []);
+        newBoolObj[el.id] = !!el.added_at
+      })
+      setBooleanObj(newBoolObj)
+    })
+  }, [])
 
   return (
     <div className="routes_div">
@@ -67,7 +66,7 @@ function App() {
         <Route path="league" element={<League userList={userList} />} />
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

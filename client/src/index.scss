@@ -1,12 +1,10 @@
-@import "./Assets/_globalVar.scss";
+@import './Assets/_globalVar.scss';
 
 body {
   padding: none;
-  margin: none;  
+  margin: none;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-

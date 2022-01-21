@@ -1,5 +1,6 @@
-import "./list.scss";
-import Item from "../item/item";
+import './list.scss'
+import React from 'react'
+import Item from '../item/item'
 
 function List({
   user,
@@ -9,9 +10,9 @@ function List({
   removeFromRoster,
   userData,
   booleanObj,
-  setBooleanObj,
+  setBooleanObj
 }) {
-  const class_name = mine ? "myList" : "fullList";
+  const className = mine ? 'myList' : 'fullList'
   const riders =
     riderList && riderList.length > 0
       ? riderList
@@ -29,9 +30,9 @@ function List({
               setBooleanObj={setBooleanObj}
             />
           ))
-      : "no riders...";
+      : 'no riders...'
 
-  return <div className={class_name}>{riders}</div>;
+  return <div className={className}>{riders}</div>
 }
 
-export default List;
+export default List

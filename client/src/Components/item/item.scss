@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
-@import "../../Assets/_globalVar.scss";
+@import '../../Assets/_globalVar.scss';
 
 * {
   padding: none;
@@ -36,10 +36,6 @@
   color: pink;
 }
 
-
-
-
-
 //--full-list-riders--------------------->
 
 .BuyRider {
@@ -56,7 +52,7 @@
 
 .button_rider {
   border: 1px solid $blue_color;
-  box-shadow:  0 0px 8px 0.2px rgba(0, 0, 0, 0.315);
+  box-shadow: 0 0px 8px 0.2px rgba(0, 0, 0, 0.315);
 }
 .button_rider:hover {
   background: $blue_color;
@@ -72,7 +68,8 @@
   cursor: pointer;
   box-shadow: 0 0px 10px 0.5px rgb(0, 0, 0);
 }
-.button_rider, .taken {
+.button_rider,
+.taken {
   margin: 3px;
   border-radius: 10px;
   border: none;
@@ -87,15 +84,14 @@
   padding: 8px 5px;
 }
 
-.rider >.name_team {
+.rider > .name_team {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 50%;
 }
 
-
-.rider >.rider_price {
+.rider > .rider_price {
   width: 25%;
   font-size: $large_font_size;
   display: flex;
@@ -114,12 +110,12 @@
   border: none;
   border-radius: 30px;
 }
-.toggleRiderInfo:hover{
+.toggleRiderInfo:hover {
   cursor: pointer;
   box-shadow: 0 0px 10px 0.5px rgba(0, 0, 0, 0.87);
 }
 .button_rider:hover .toggleRiderInfo {
-  background: rgb(58,69,87);
+  background: rgb(58, 69, 87);
 }
 .nextRace {
   font-weight: bold;
@@ -140,17 +136,17 @@
   margin: 10px;
   padding: 0px 10px;
   background: rgba(0, 0, 0, 0);
-  box-shadow:  0 0px 10px 0.5px rgba(0, 0, 0, 0.315);
+  box-shadow: 0 0px 10px 0.5px rgba(0, 0, 0, 0.315);
 }
 
-.button_myRider:hover{
-  background: rgb(58,69,87);
+.button_myRider:hover {
+  background: rgb(58, 69, 87);
   box-shadow: 0 0px 10px 0.5px rgba(0, 0, 0, 0.377);
 }
 
-.SellRider{
+.SellRider {
   border: none;
-  background: rgb(58,69,87);
+  background: rgb(58, 69, 87);
   // background: $blue_color;
   color: white;
   width: 70px;
@@ -176,7 +172,7 @@
   font-size: 12px;
   font-weight: 500;
   margin-left: 30px;
-  border: 1px solid rgb(58,69,87);
+  border: 1px solid rgb(58, 69, 87);
 }
 .More_button:hover {
   cursor: pointer;
@@ -192,7 +188,7 @@
   background-repeat: no-repeat;
 }
 
-.button_myRider >.rider {
+.button_myRider > .rider {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -200,6 +196,6 @@
   font-family: $font;
   color: black;
 }
-.button_myRider:hover >.rider {
+.button_myRider:hover > .rider {
   color: white;
 }
