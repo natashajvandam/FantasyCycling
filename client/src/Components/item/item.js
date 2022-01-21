@@ -48,7 +48,7 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
       <div className='rider'>
           {rider.image && mine && !backView
          ? <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}}></div>
-          : <>No image found</>
+          : null
         }
 
           {!mine && !backView
@@ -99,7 +99,7 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
                 : <button className="SellRider" onClick={toggleBackView}>back</button>
               }
           </div>
-          : <div className="detail rider_points">Cannot get points</div>
+          : null
           }
           <div className="detail rider_race"></div>
       </div>
