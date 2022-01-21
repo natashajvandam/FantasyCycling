@@ -19,7 +19,7 @@ function Header({ userData, link_route }) {
               {userData.nickname}
             </Link>
           </div>
-          <div>&#x20AC; {userData.money}</div>
+          <div className='money'>&#x20AC; {userData.money}</div>
           <div>{userData.score} pts</div>
         </div>
         <Link className="link_league" to={link}>
