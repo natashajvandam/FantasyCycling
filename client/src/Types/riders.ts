@@ -12,7 +12,7 @@ export interface Rider {
   sprint_pnts: number
   climb_pnts: number
   next_race: string
-  ok: boolean
+  ok?: boolean
 }
 
 export type RiderList = Rider[]

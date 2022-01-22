@@ -1,9 +1,11 @@
+/* eslint-disable import/extensions */
 import './home.scss'
 import React, { useState, useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import List from '../../Components/list/list'
-import Header from '../../Components/header/header.tsx'
-import Form from '../../Components/form/form.tsx'
+import Header from '../../Components/header/header'
+import Form from '../../Components/form/form'
+import { RiderList, Rider } from '../../Types/riders'
 import {
   fetchUserRoster,
   addRider,
@@ -11,14 +13,23 @@ import {
   removeRider,
   createUser
 } from '../../Services/apiService'
+import { User } from '../../Types/users'
 
-function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj }) {
+type homePropTypes = {
+  riderList: RiderList
+  setSearchList: React.Dispatch<React.SetStateAction<Rider[]>>
+  searchList: Rider[]
+  booleanObj: { [id: number]: boolean }
+  setBooleanObj: React.Dispatch<React.SetStateAction<{ [id: number]: boolean }>>
+}
+
+function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj }: homePropTypes) {
   const { user, isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0()
-  const [token, setToken] = useState(null)
-  const [myRoster, setMyRoster] = useState([])
-  const [userData, setUserData] = useState({})
+  const [token, setToken] = useState('')
+  const [myRoster, setMyRoster] = useState([] as RiderList)
+  const [userData, setUserData] = useState({} as User)
 
-  const filterList = (query) => {
+  const filterList = (query: string) => {
     if (query) {
       const filteredList = riderList.filter((rider) =>
         rider.name.toLowerCase().includes(query.toLowerCase())
@@ -46,16 +57,16 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
         })
         setToken(accessToken)
         createUser({ ...user, password: '' })
-        fetchUserData(user.nickname)
-          .then((response) => {
+        fetchUserData(user?.nickname)
+          .then((response: User) => {
             setUserData(response)
             return fetchUserRoster(response.id)
           })
-          .then((result) => {
+          .then((result: RiderList) => {
             setMyRoster(result)
           })
       } catch (err) {
-        throw new Error(err)
+        throw new Error(`${err}`)
       }
     }
     getUserMetadata()
@@ -74,9 +85,9 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
   //   changeNameOfTeam();
   // }
 
-  const addToRoster = async (userId, riderId) => {
+  const addToRoster = async (userId: number, riderId: number): Promise<Rider> => {
     const res = await addRider(userId, riderId, token)
-    fetchUserData(user.nickname).then((result) =>
+    fetchUserData(user?.nickname).then((result: User) =>
       setUserData((prev) => ({
         id: prev.id,
         nickname: prev.nickname,
@@ -85,15 +96,15 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
         money: result.money
       }))
     )
-    fetchUserRoster(userData.id).then((result) => {
+    fetchUserRoster(userData?.id).then((result: RiderList) => {
       setMyRoster(result)
     })
     return res
   }
 
-  const removeFromRoster = async (userId, riderId) => {
+  const removeFromRoster = async (userId: number, riderId: number) => {
     await removeRider(userId, riderId, token)
-    fetchUserData(user.nickname).then((result) =>
+    fetchUserData(user?.nickname).then((result: User) =>
       setUserData((prev) => ({
         id: prev.id,
         nickname: prev.nickname,
@@ -102,7 +113,7 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
         money: result.money
       }))
     )
-    fetchUserRoster(userData.id).then((result) => {
+    fetchUserRoster(userData?.id).then((result: RiderList) => {
       setMyRoster(result)
     })
   }
@@ -119,7 +130,7 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
         </div>
         <div className="body_home_page">
           <div className="my_rider_list">
-            <h1 className="list_title">{user.nickname}</h1>
+            <h1 className="list_title">{user?.nickname}</h1>
             <List
               mine
               riderList={myRoster}

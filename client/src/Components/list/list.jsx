@@ -1,6 +1,6 @@
 import './list.scss'
 import React from 'react'
-import Item from '../item/item'
+import Item from '../item/item.tsx'
 
 function List({
   user,
