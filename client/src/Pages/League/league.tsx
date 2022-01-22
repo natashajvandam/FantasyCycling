@@ -1,22 +1,28 @@
+/* eslint-disable import/extensions */
 import './league.scss'
 import { useAuth0 } from '@auth0/auth0-react'
 import React, { useState, useEffect } from 'react'
 import UserList from '../../Components/userList/userList'
 import Header from '../../Components/header/header.tsx'
 import { fetchUserData } from '../../Services/apiService'
+import { User } from '../../Types/users'
 
-function League({ userList }) {
+type leaguePropTypes = {
+  userList: UserList
+}
+
+function League({ userList }: leaguePropTypes) {
   const { user, getAccessTokenSilently } = useAuth0()
   const [userData, setUserData] = useState({})
 
   useEffect(() => {
     const getUserMetadata = async () => {
       try {
-        fetchUserData(user.nickname).then((response) => {
+        fetchUserData(user?.nickname).then((response: User) => {
           setUserData(response)
         })
       } catch (err) {
-        throw new Error(err)
+        throw new Error(`${err}`)
       }
     }
     getUserMetadata()
