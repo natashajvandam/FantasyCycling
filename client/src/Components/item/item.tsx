@@ -1,7 +1,28 @@
+/* eslint-disable import/extensions */
 import './item.scss'
 import React, { useState } from 'react'
+import { Rider } from '../../Types/riders'
+import { User } from '../../Types/users'
 
-function Item({ rider, addToRoster, removeFromRoster, mine, userData, booleanObj, setBooleanObj }) {
+type itemProps = {
+  rider: Rider
+  addToRoster: (userId: number, riderId: number) => Promise<Rider>
+  removeFromRoster: (userId: number, riderId: number) => Promise<void>
+  mine: boolean
+  userData: User
+  booleanObj: { [id: number]: boolean }
+  setBooleanObj: React.Dispatch<React.SetStateAction<{ [id: number]: boolean }>>
+}
+
+function Item({
+  rider,
+  addToRoster,
+  removeFromRoster,
+  mine,
+  userData,
+  booleanObj,
+  setBooleanObj
+}: itemProps) {
   const [showInfo, setShowInfo] = useState(false)
   // const [taken, setTaken] = useState(false);
   const [backView, setBackView] = useState(false)
@@ -16,7 +37,7 @@ function Item({ rider, addToRoster, removeFromRoster, mine, userData, booleanObj
     riderNameTeam = 'name_team'
   }
 
-  async function toggleRider(riderId, riderParam) {
+  async function toggleRider(riderId: number, riderParam: Rider): Promise<void> {
     if (!riderParam.added_at) {
       const result = await addToRoster(userData.id, riderId)
       if (result.ok) {
@@ -51,7 +72,7 @@ function Item({ rider, addToRoster, removeFromRoster, mine, userData, booleanObj
   }
 
   return (
-    <div id={rider.id} className={buttonRiderClass}>
+    <div id={rider.id.toString()} className={buttonRiderClass}>
       <div className="rider">
         {rider.image && mine && !backView && (
           <div className="rider_image" style={{ backgroundImage: `url(${rider.image})` }} />
