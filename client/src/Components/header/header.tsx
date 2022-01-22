@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import React from 'react'
 
-function Header({ userData, linkRoute }) {
+type headerProps = {
+  userData: any
+  linkRoute: any
+}
+
+function Header({ userData, linkRoute }: headerProps) {
   const link = `/${linkRoute}`
   const { logout } = useAuth0()
 

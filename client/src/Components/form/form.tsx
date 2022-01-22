@@ -1,9 +1,13 @@
 import './form.scss'
 import React, { useState } from 'react'
 
-function Form({ filterList }) {
+type formProps = {
+  filterList: any
+}
+
+function Form({ filterList }: formProps) {
   const [input, setInput] = useState('')
-  function handleChange(e) {
+  function handleChange(e: any) {
     setInput(e.target.value)
     filterList(e.target.value)
   }
