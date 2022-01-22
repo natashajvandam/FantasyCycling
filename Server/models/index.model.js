@@ -1,5 +1,3 @@
-"use strict";
-
 // const databaseName = "cyclingfantacyteam"
 
 import pkg from "pg";

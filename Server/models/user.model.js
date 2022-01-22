@@ -1,5 +1,3 @@
-"use strict";
-
 import client from "./index.model.js";
 
 const setNewUser = async (user) => {
@@ -15,7 +13,6 @@ const getUserDetails = async (nickname) => {
   const res = await client.query(
     `SELECT id, email, nickname, score, money FROM user_table WHERE nickname = '${nickname}';`
   );
-  console.log("model", res);
   return res.rows[0];
 };
 
@@ -24,12 +21,13 @@ const getUserRoster = async (user) => {
     const res = await client.query(
       `SELECT * FROM rider_table WHERE roster = ${user};`
     );
-    return res.rows; //rows necessary for function reliant on it.
+    return res.rows; // rows necessary for function reliant on it.
   }
+  return null;
 };
 
 const fetchAllRiders = async () => {
-  const res = await client.query(`SELECT * FROM rider_table WHERE price > 10;`); //temporary 'WHERE' statement to help load faster
+  const res = await client.query(`SELECT * FROM rider_table WHERE price > 10;`); // temporary 'WHERE' statement to help load faster
   return res.rows;
 };
 

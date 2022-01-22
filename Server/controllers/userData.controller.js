@@ -1,4 +1,3 @@
-"use strict";
 import {
   getUserRoster,
   setNewUser,
@@ -18,8 +17,8 @@ const fetchRiders = async (req, res) => {
     res.status(200);
     res.send(fullList);
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    res.status(500);
+    throw new Error(error);
   }
 };
 
@@ -39,23 +38,22 @@ const createNewUser = async (req, res) => {
       res.send(newUser);
     }
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    res.status(500);
+    throw new Error(error);
   }
 };
 
 const fetchUserData = async (req, res) => {
   try {
-    const nickname = req.params.nickname;
-    console.log("nickname in control", nickname);
+    const { nickname } = req.params;
     const userDetails = await getUserDetails(nickname);
     if (userDetails) {
       res.status(201);
       res.send(userDetails);
     }
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    res.status(500);
+    throw new Error(error);
   }
 };
 
@@ -67,8 +65,8 @@ const changeTeamName = async (req, res) => {
     res.status(201);
     res.send(userDetails);
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    res.status(500);
+    throw new Error(error);
   }
 };
 
@@ -79,8 +77,8 @@ const fetchTeam = async (req, res) => {
     res.status(201);
     res.send(rowOfRiders);
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    res.status(500);
+    throw new Error(error);
   }
 };
 
@@ -90,8 +88,8 @@ const fetchUsers = async (req, res) => {
     res.status(201);
     res.send(users);
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    res.status(500);
+    throw new Error(error);
   }
 };
 
@@ -106,8 +104,8 @@ const addRider = async (req, res) => {
       res.sendStatus(405);
     }
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    res.status(500);
+    throw new Error(error);
   }
 };
 
@@ -118,8 +116,8 @@ const removeRider = async (req, res) => {
     res.status(204);
     res.send(team); // will automatically send status 200
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    res.status(500);
+    throw new Error(error);
   }
 };
 
