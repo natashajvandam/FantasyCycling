@@ -136,6 +136,7 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
               riderList={myRoster}
               addToRoster={addToRoster}
               removeFromRoster={removeFromRoster}
+              user={user}
               userData={userData}
               booleanObj={booleanObj}
               setBooleanObj={setBooleanObj}
@@ -152,6 +153,7 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
               riderList={searchList}
               addToRoster={addToRoster}
               removeFromRoster={removeFromRoster}
+              user={user}
               userData={userData}
               booleanObj={booleanObj}
               setBooleanObj={setBooleanObj}
