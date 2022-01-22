@@ -1,7 +1,15 @@
 import React from 'react'
 import './userItem.scss'
+/* eslint-disable import/extensions */
+import { User } from '../../Types/users'
 
-function userItem({ user, topScore, self }) {
+type userItemProps = {
+  user: User
+  topScore: number
+  self: boolean
+}
+
+function userItem({ user, topScore, self }: userItemProps) {
   const persent = (user.score * 85) / topScore
   const nameClass = !self ? 'user_item_name' : 'user_item_myName'
   return (
