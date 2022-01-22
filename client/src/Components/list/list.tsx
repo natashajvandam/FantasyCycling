@@ -1,9 +1,10 @@
+/* eslint-disable import/extensions */
 import './list.scss'
 import React from 'react'
-import Item from '../item/item.tsx'
+import Item from '../item/item'
+import { ListProps } from '../../Types/props'
 
 function List({
-  user,
   mine,
   riderList,
   addToRoster,
@@ -11,7 +12,7 @@ function List({
   userData,
   booleanObj,
   setBooleanObj
-}) {
+}: ListProps) {
   const className = mine ? 'myList' : 'fullList'
   const riders =
     riderList && riderList.length > 0
@@ -24,7 +25,6 @@ function List({
               rider={rider}
               addToRoster={addToRoster}
               removeFromRoster={removeFromRoster}
-              user={user}
               userData={userData}
               booleanObj={booleanObj}
               setBooleanObj={setBooleanObj}
