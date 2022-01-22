@@ -18,7 +18,7 @@ const fetchRiders = async (req, res) => {
     res.send(fullList);
   } catch (error) {
     res.status(500);
-    throw new Error(error);
+    res.send(error);
   }
 };
 
@@ -39,7 +39,7 @@ const createNewUser = async (req, res) => {
     }
   } catch (error) {
     res.status(500);
-    throw new Error(error);
+    res.send(error);
   }
 };
 
@@ -53,7 +53,7 @@ const fetchUserData = async (req, res) => {
     }
   } catch (error) {
     res.status(500);
-    throw new Error(error);
+    res.send(error);
   }
 };
 
@@ -66,7 +66,7 @@ const changeTeamName = async (req, res) => {
     res.send(userDetails);
   } catch (error) {
     res.status(500);
-    throw new Error(error);
+    res.send(error);
   }
 };
 
@@ -78,7 +78,7 @@ const fetchTeam = async (req, res) => {
     res.send(rowOfRiders);
   } catch (error) {
     res.status(500);
-    throw new Error(error);
+    res.send(error);
   }
 };
 
@@ -89,7 +89,7 @@ const fetchUsers = async (req, res) => {
     res.send(users);
   } catch (error) {
     res.status(500);
-    throw new Error(error);
+    res.send(error);
   }
 };
 
@@ -105,7 +105,7 @@ const addRider = async (req, res) => {
     }
   } catch (error) {
     res.status(500);
-    throw new Error(error);
+    res.send(error);
   }
 };
 
@@ -117,7 +117,7 @@ const removeRider = async (req, res) => {
     res.send(team); // will automatically send status 200
   } catch (error) {
     res.status(500);
-    throw new Error(error);
+    res.send(error);
   }
 };
 
