@@ -9,7 +9,7 @@ import {
   addRider,
   fetchUserData,
   removeRider,
-  createUser
+  createUser,
 } from '../../Services/apiService'
 
 function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj }) {
@@ -42,7 +42,7 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
       try {
         const accessToken = await getAccessTokenSilently({
           audience: `https://${domain}/api/v2/`,
-          scope: 'read:current_user'
+          scope: 'read:current_user',
         })
         setToken(accessToken)
         createUser({ ...user, password: '' })
@@ -82,7 +82,7 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
         nickname: prev.nickname,
         email: prev.email,
         score: prev.score,
-        money: result.money
+        money: result.money,
       }))
     )
     fetchUserRoster(userData.id).then((result) => {
@@ -99,7 +99,7 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
         nickname: prev.nickname,
         email: prev.email,
         score: prev.score,
-        money: result.money
+        money: result.money,
       }))
     )
     fetchUserRoster(userData.id).then((result) => {
