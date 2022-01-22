@@ -2,16 +2,10 @@
 import './item.scss'
 import React, { useState } from 'react'
 import { Rider } from '../../Types/riders'
-import { User } from '../../Types/users'
+import { ListProps } from '../../Types/props'
 
-type itemProps = {
+interface ItemProps extends ListProps {
   rider: Rider
-  addToRoster: (userId: number, riderId: number) => Promise<Rider>
-  removeFromRoster: (userId: number, riderId: number) => Promise<void>
-  mine: boolean
-  userData: User
-  booleanObj: { [id: number]: boolean }
-  setBooleanObj: React.Dispatch<React.SetStateAction<{ [id: number]: boolean }>>
 }
 
 function Item({
@@ -22,7 +16,7 @@ function Item({
   userData,
   booleanObj,
   setBooleanObj
-}: itemProps) {
+}: ItemProps) {
   const [showInfo, setShowInfo] = useState(false)
   // const [taken, setTaken] = useState(false);
   const [backView, setBackView] = useState(false)
