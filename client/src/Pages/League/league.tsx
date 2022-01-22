@@ -3,7 +3,7 @@ import './league.scss'
 import { useAuth0 } from '@auth0/auth0-react'
 import React, { useState, useEffect } from 'react'
 import UserList from '../../Components/userList/userList'
-import Header from '../../Components/header/header.tsx'
+import Header from '../../Components/header/header'
 import { fetchUserData } from '../../Services/apiService'
 import { User } from '../../Types/users'
 
