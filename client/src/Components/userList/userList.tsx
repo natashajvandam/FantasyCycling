@@ -1,8 +1,15 @@
+/* eslint-disable import/extensions */
 import './userList.scss'
 import React from 'react'
 import UserItem from '../userItem/userItem'
+import { User } from '../../Types/users'
 
-function UserList({ userList, userData }) {
+type UserList = {
+  userList: User[]
+  userData: User
+}
+
+function UserList({ userList, userData }: UserList) {
   const sortedList = userList.sort((b, a) => a.score - b.score)
   let topScore = 0
   if (sortedList && sortedList.length) {
