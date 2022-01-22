@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import React from 'react'
 // eslint-disable-next-line import/extensions
-import { User } from '../../Types/Users'
+import { User } from '../../Types/users'
 
 type headerProps = {
   userData: User
