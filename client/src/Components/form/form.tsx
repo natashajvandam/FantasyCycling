@@ -1,13 +1,13 @@
 import './form.scss'
-import React, { useState } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 
 type formProps = {
-  filterList: any
+  filterList: (val: string) => void
 }
 
 function Form({ filterList }: formProps) {
   const [input, setInput] = useState('')
-  function handleChange(e: any) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setInput(e.target.value)
     filterList(e.target.value)
   }
