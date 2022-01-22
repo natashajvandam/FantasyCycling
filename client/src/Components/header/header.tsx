@@ -2,10 +2,12 @@ import './header.scss'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import React from 'react'
+// eslint-disable-next-line import/extensions
+import { User } from '../../Types/Users'
 
 type headerProps = {
-  userData: any
-  linkRoute: any
+  userData: User
+  linkRoute: string
 }
 
 function Header({ userData, linkRoute }: headerProps) {
