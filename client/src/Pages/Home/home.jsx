@@ -2,8 +2,8 @@ import './home.scss'
 import React, { useState, useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import List from '../../Components/list/list'
-import Header from '../../Components/header/header'
-import Form from '../../Components/form/form'
+import Header from '../../Components/header/header.tsx'
+import Form from '../../Components/form/form.tsx'
 import {
   fetchUserRoster,
   addRider,
