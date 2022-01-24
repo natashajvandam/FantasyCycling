@@ -17,7 +17,7 @@ function App() {
   const [searchList, setSearchList] = useState([]);
   const [booleanObj, setBooleanObj] = useState([]);
   // const [socket, setSocket] = useState(null);
-  const { user, isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
 
   console.log('Authenticated', isAuthenticated);
   console.log('Loading ', isLoading);
