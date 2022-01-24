@@ -20,14 +20,14 @@ const fetchRiderNames = async () => {
 };
 
 // ----update--helpers------------------------------->
-const getRoster = async (user) => {
+const getRoster = async (user: string) => {
   const roster = await client.query(`
     SELECT rider, end_date, start_date FROM roster_table 
     WHERE roster = ${user};`);
   return roster;
 };
 
-const fetchRiderScores = async (rider) => {
+const fetchRiderScores = async (rider: {rider: string, start_date: string, end_date: string}) => {
   const startScore = await client.query(`
     SELECT score FROM score_table WHERE rider='${rider.rider}' 
     AND updated_at <= TO_DATE('${rider.start_date}', 'Dy Mon DD YYYY');`);
@@ -47,13 +47,13 @@ const fetchRiderScores = async (rider) => {
   return endingScore - startingScore;
 };
 
-const updateUserScore = async (newScore, user) => {
+const updateUserScore = async (newScore: number, user: string) => {
   const res = await client.query(`
     UPDATE user_table SET score = ${newScore} WHERE id = ${user};`);
   return res;
 };
 
-const findPrice = (rank) => {
+const findPrice = (rank: number) => {
   if (rank >= 100) {
     return 10;
   }
