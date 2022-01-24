@@ -1,5 +1,6 @@
-import client from "./index.model.js";
-import riderPrices from "./valueLibrary.js";
+/* eslint-disable import/no-unresolved */
+import client from "./index.model";
+import riderPrices from "./valueLibrary";
 // ----global-helper-------------------------------->
 function convertToPgDate() {
   const date = new Date();
@@ -27,7 +28,11 @@ const getRoster = async (user: string) => {
   return roster;
 };
 
-const fetchRiderScores = async (rider: {rider: string, start_date: string, end_date: string}) => {
+const fetchRiderScores = async (rider: {
+  rider: string;
+  start_date: string;
+  end_date: string;
+}) => {
   const startScore = await client.query(`
     SELECT score FROM score_table WHERE rider='${rider.rider}' 
     AND updated_at <= TO_DATE('${rider.start_date}', 'Dy Mon DD YYYY');`);
