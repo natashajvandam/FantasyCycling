@@ -98,12 +98,12 @@ describe('Pro list items:', () => {
       booleanObj={mock.booleanObj}
       setBooleanObj={mock.setBooleanObj}
     />, { wrapper: MemoryRouter });
-    fireEvent.click(screen.getByRole('button', { name: "buy" }))
+    await fireEvent.click(screen.getByRole('button', { name: "buy" }))
     rerender(<Item user={mock.user} rider={mock.rider} addToRoster={mock.addToRoster} removeFromRoster={mock.removeFromRoster} mine={false} userData={mock.userData}
       booleanObj={mock.booleanObj}
         setBooleanObj={mock.setBooleanObj}
     />, { wrapper: MemoryRouter });
-    //await waitForElementToBeRemoved(()=>screen.queryByRole('button', { name: "buy" }))
+      //await waitForElementToBeRemoved(()=>screen.queryByRole('button', { name: "buy" }))
     expect(screen.queryByRole('button', { name: "buy" })).not.toBeInTheDocument()
   })
 
@@ -112,12 +112,12 @@ describe('Pro list items:', () => {
       booleanObj={mock.booleanObj}
       setBooleanObj={mock.setBooleanObj}
     />, { wrapper: MemoryRouter });
-    fireEvent.click(screen.getByRole('button', { name: "buy" }))
+    await fireEvent.click(screen.getByRole('button', { name: "buy" }))
     rerender(<Item user={mock.user} rider={mock.rider} addToRoster={mock.addToRoster} removeFromRoster={mock.removeFromRoster} mine={false} userData={mock.userData}
       booleanObj={mock.booleanObj}
         setBooleanObj={mock.setBooleanObj}
         />, { wrapper: MemoryRouter });
-    expect(screen.queryByText(`${mock.rider.price}`)).not.toBeInTheDocument()
+    expect(screen.queryByText(`€ ${mock.rider.price}`)).not.toBeInTheDocument()
   })
 
   it('should have a team name', () => {
