@@ -14,30 +14,6 @@ import {
 import { Request, Response } from 'express';
 import { QueryResult } from 'pg';
 
-interface User {
-  id: number;
-  email: string;
-  nickname: string;
-  score: number;
-  money: number;
-}
-
-interface Rider {
-  id: number;
-  name: string;
-  price: number;
-  roster: number;
-  added_at: Date;
-  team: string;
-  image: string;
-  classic_pnts: number;
-  gc_pnts: number;
-  tt_pnts: number;
-  sprint_pnts: number;
-  climb_pnts: number;
-  next_race: string;
-}
-
 const fetchRiders = async (req: Request, res: Response) => {
   try {
     const fullList: Rider[] = await fetchAllRiders();
@@ -49,26 +25,26 @@ const fetchRiders = async (req: Request, res: Response) => {
   }
 };
 
-const createNewTeam = async (req: Request, res: Response) => {
-  try {
-    const {
-      username,
-      team,
-      password,
-    }: { username: string; team: string; password: string } = req.body;
-    const newUser: User = await setNewUser({
-      username,
-      team,
-      password,
-      score: 0,
-    });
-    res.status(201);
-    res.send(newUser);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-};
+// const createNewTeam = async (req: Request, res: Response) => {
+//   try {
+//     const {
+//       username,
+//       team,
+//       password,
+//     }: { username: string; team: string; password: string } = req.body;
+//     const newUser: User = await setNewUser({
+//       username,
+//       team,
+//       password,
+//       score: 0,
+//     });
+//     res.status(201);
+//     res.send(newUser);
+//   } catch (error) {
+//     console.log(error);
+//     res.sendStatus(500);
+//   }
+// };
 
 const fetchUserData = async (req: Request, res: Response) => {
   try {
@@ -166,7 +142,7 @@ const removeRider = async (
 export {
   fetchTeam,
   fetchUserData,
-  createNewTeam,
+  // createNewTeam,
   addRider,
   removeRider,
   fetchRiders,

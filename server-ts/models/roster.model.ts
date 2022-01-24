@@ -5,7 +5,7 @@ import { convertToPgDate } from './helper.model.js';
 import { QueryResult } from 'pg';
 
 const changeUserTeam = async (id: string, newName: string) => {
-  //--takes: userId, new team name | returns: { id: userId }
+  // --takes: userId, new team name | returns: { id: userId }
   newName = newName.replaceAll("'", "''");
   const user: QueryResult = await client.query(`
   UPDATE user_table SET nickname = '${newName}'
@@ -14,18 +14,18 @@ const changeUserTeam = async (id: string, newName: string) => {
 };
 
 const addRiderToRoster = async (id: string, rider: string) => {
-  //--takes: userId, riderId | returns: whether successful
+  // --takes: userId, riderId | returns: whether successful
   const newMoneyAmount: number = await getResultingMoney(id, rider, true);
   const date: string = convertToPgDate();
   if (newMoneyAmount >= 0) {
-    //- if enough money, attempt to add userId and added_at to rider_table
-    //use more descriptive names
+    // - if enough money, attempt to add userId and added_at to rider_table
+    // use more descriptive names
     const addRider: QueryResult = await client.query(`
       UPDATE rider_table SET roster = ${id}, added_at = '${date}'
       WHERE id = ${rider} AND roster IS NULL
       RETURNING name;`);
     if (addRider.rowCount > 0) {
-      //- if successful, add rider name, userId, start_date to roster_table AND update user_table money
+      // - if successful, add rider name, userId, start_date to roster_table AND update user_table money
       const riderName: string = addRider.rows[0].name;
       await client.query(`
         INSERT INTO roster_table (roster, rider, start_date)
@@ -63,7 +63,7 @@ const removeRiderFromRoster = async (id: string, rider: string) => {
   }
 };
 
-//-helper
+// -helper
 const getResultingMoney = async (
   id: string,
   rider: string,

@@ -3,7 +3,7 @@
 import { QueryResult } from 'pg';
 import client from './index.model.js';
 
-const setNewUser = async (user: NewUser) => {
+const setNewUser = async (user: User) => {
   const res: QueryResult = await client.query(`
     INSERT INTO user_table (email, nickname)
     VALUES ('${user.email}', '${user.nickname}')
@@ -25,14 +25,14 @@ const getUserRoster = async (user: string) => {
     const res: QueryResult = await client.query(
       `SELECT * FROM rider_table WHERE roster = ${user};`
     );
-    return res.rows; //rows necessary for function reliant on it.
+    return res.rows; // rows necessary for function reliant on it.
   }
 };
 
 const fetchAllRiders = async () => {
   const res: QueryResult = await client.query(
     `SELECT * FROM rider_table WHERE price > 10;`
-  ); //temporary 'WHERE' statement to help load faster
+  ); // temporary 'WHERE' statement to help load faster
   return res.rows;
 };
 

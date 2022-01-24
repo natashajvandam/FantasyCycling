@@ -35,3 +35,27 @@ interface NewUser {
   email_verified: boolean;
   sub: string;
 }
+
+interface User extends NewUser {
+  id: number;
+  email: string;
+  nickname: string;
+  score: number;
+  money: number;
+}
+
+interface Rider {
+  id: number;
+  name: string;
+  price: number;
+  roster: number;
+  added_at: Date;
+  team: string;
+  image: string;
+  classic_pnts: number;
+  gc_pnts: number;
+  tt_pnts: number;
+  sprint_pnts: number;
+  climb_pnts: number;
+  next_race: string;
+}

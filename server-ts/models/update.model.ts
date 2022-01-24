@@ -10,7 +10,7 @@ import {
   findPrice,
 } from './helper.model.js';
 
-const updateRiderTable = async (rider: string, rank: string, team: string) => {
+const updateRiderTable = async (rider: string, rank: any, team: string) => {
   rider = rider.replaceAll("'", "''");
   team = team.replaceAll("'", "''");
   const value: number | string = findPrice(rank);

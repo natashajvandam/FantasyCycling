@@ -27,15 +27,15 @@ async function getTheUsers() {
   return fetchRequest('/allUsers');
 }
 
-async function createUser(body) {
-  return fetchRequest('/newTeam', {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-}
+// async function createUser(body) {
+//   return fetchRequest('/newTeam', {
+//     method: 'POST',
+//     body: JSON.stringify(body),
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   });
+// }
 
 async function changeNameOfTeam(userId, newName) {
   return fetchRequest(`/team/${userId}`, {
@@ -81,7 +81,7 @@ async function fetchUserData(user) {
 
 export {
   getAllRiders,
-  createUser,
+  // createUser,
   addRider,
   removeRider,
   fetchUserRoster,

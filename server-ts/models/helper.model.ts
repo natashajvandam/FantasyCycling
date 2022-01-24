@@ -2,7 +2,7 @@
 
 import client from './index.model.js';
 import { QueryResult } from 'pg';
-//----global-helper-------------------------------->
+// ----global-helper-------------------------------->
 function convertToPgDate() {
   const date: Date = new Date();
   const year: number = date.getFullYear();
@@ -11,8 +11,8 @@ function convertToPgDate() {
   return `${year}-${month}-${day}`;
 }
 
-//----update-image-helper--------------------------->
-//not using because images take too long to fetch
+// ----update-image-helper--------------------------->
+// not using because images take too long to fetch
 const fetchRiderNames = async () => {
   const res: QueryResult = await client.query(
     `SELECT name FROM rider_table WHERE image is NULL OR image = 'undefined' AND price = 10`
@@ -21,7 +21,7 @@ const fetchRiderNames = async () => {
   return res.rows;
 };
 
-//----update--helpers------------------------------->
+// ----update--helpers------------------------------->
 const getRoster = async (user: number) => {
   const roster: QueryResult = await client.query(`
     SELECT rider, end_date, start_date FROM roster_table
@@ -56,7 +56,7 @@ const updateUserScore = async (newScore: number, user: number) => {
   return res;
 };
 
-const findPrice = (rank: number) => {
+const findPrice = (rank: any) => {
   if (rank >= 100) {
     return 10;
   }
