@@ -1,6 +1,6 @@
 import client from "./index.model.js";
 
-const setNewUser = async (user) => {
+const setNewUser = async (user: {email: string, nickname: string, password: string, score: number, money: number}) => {
   const res = await client.query(`
     INSERT INTO user_table (email, nickname, password, score, money)
     VALUES ('${user.email}', '${user.nickname}', '${user.password}', ${user.score}, ${user.money})
@@ -9,14 +9,14 @@ const setNewUser = async (user) => {
   return res.rows.length ? res.rows[0] : res;
 };
 
-const getUserDetails = async (nickname) => {
+const getUserDetails = async (nickname: string) => {
   const res = await client.query(
     `SELECT id, email, nickname, score, money FROM user_table WHERE nickname = '${nickname}';`
   );
   return res.rows[0];
 };
 
-const getUserRoster = async (user) => {
+const getUserRoster = async (user: string) => {
   if (user) {
     const res = await client.query(
       `SELECT * FROM rider_table WHERE roster = ${user};`
