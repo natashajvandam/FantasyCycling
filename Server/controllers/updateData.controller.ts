@@ -1,7 +1,8 @@
+/* eslint-disable import/no-unresolved */
 // import getMockData from '../tests/mock.data.js'; //for testing
 
 // webscrapers
-import fetchRiderData from "../webscrapers/riderData.webscraper.js";
+import fetchRiderData from "../webscrapers/riderData.webscraper";
 import fetchRiderPhoto from "../webscrapers/riderPhotos.webscraper.js";
 
 import {
