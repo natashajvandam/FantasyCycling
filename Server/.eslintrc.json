@@ -16,7 +16,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "import/extensions": [0, { "<js>": "always" }],
+    "import/extensions": [0, { ".ts": "always" }],
     "prettier/prettier": ["error"]
   }
 }
