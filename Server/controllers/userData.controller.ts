@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { Request, Response } from "express";
 
 import {
@@ -63,7 +64,7 @@ const changeTeamName = async (req: Request, res: Response) => {
   try {
     const user = req.params.id;
     const { newName } = req.body;
-    const userDetails = await changeUserTeam(user, newName);
+    const userDetails = await changeUserTeam(parseInt(user, 10), newName);
     res.status(201);
     res.send(userDetails);
   } catch (error) {
@@ -98,7 +99,7 @@ const fetchUsers = async (req: Request, res: Response) => {
 const addRider = async (req: Request, res: Response) => {
   try {
     const { id, rider } = req.params;
-    const roster = await addRiderToRoster(id, rider);
+    const roster = await addRiderToRoster(parseInt(id, 10), JSON.parse(rider));
     if (roster) {
       res.status(204);
       res.send(roster); // will automatically send status 200
@@ -114,7 +115,10 @@ const addRider = async (req: Request, res: Response) => {
 const removeRider = async (req: Request, res: Response) => {
   try {
     const { id, rider } = req.params;
-    const team = await removeRiderFromRoster(id, rider);
+    const team = await removeRiderFromRoster(
+      parseInt(id, 10),
+      JSON.parse(rider)
+    );
     res.status(204);
     res.send(team); // will automatically send status 200
   } catch (error) {
