@@ -8,12 +8,12 @@ import { fetchUserData } from '../../Services/apiService'
 import { User } from '../../Types/users'
 
 type leaguePropTypes = {
-  userList: UserList
+  userList: User[]
 }
 
 function League({ userList }: leaguePropTypes) {
   const { user, getAccessTokenSilently } = useAuth0()
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({} as User)
 
   useEffect(() => {
     const getUserMetadata = async () => {
@@ -30,7 +30,7 @@ function League({ userList }: leaguePropTypes) {
 
   return (
     <div className="league_page">
-      <Header userData={userData} link_route="home" />
+      <Header userData={userData} linkRoute="home" />
       <div className="flex_box_title">
         <h1 className="page_title">fantacy league</h1>
       </div>
