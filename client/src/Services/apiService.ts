@@ -1,5 +1,4 @@
 /* eslint-disable import/extensions */
-import { User } from '../Types/users'
 
 const backend = 'http://127.0.0.1:3005'
 
@@ -40,7 +39,7 @@ async function getTheUsers() {
   return fetchRequest('/allUsers')
 }
 
-async function createUser(body: User) {
+async function createUser(body: { email?: string; nickname?: string; password: string }) {
   return fetchRequest('/newTeam', {
     method: 'POST',
     body: JSON.stringify(body),
@@ -85,8 +84,7 @@ async function fetchUserRoster(userId: number) {
   return fetchRequest(`/team/${userId}`)
 }
 
-async function fetchUserData(mail: string) {
-  const nickname = mail.split('@')[0]
+async function fetchUserData(nickname?: string) {
   return fetchRequest(`/team/details/${nickname}`)
 }
 
