@@ -66,7 +66,7 @@ describe('Pro cycling rider list items:', () => {
     })
 
     it('should have a buy button', () => {
-      const view = render(<Item className="button_rider" user={mock.user} rider={mock.rider} addToRoster={mock.addToRoster} removeFromRoster={mock.removeFromRoster} mine={false} userData={mock.userData}
+      const view = render(<Item  user={mock.user} rider={mock.rider} addToRoster={mock.addToRoster} removeFromRoster={mock.removeFromRoster} mine={false} userData={mock.userData}
         booleanObj={mock.booleanObj}
         setBooleanObj={mock.setBooleanObj}
       />, { wrapper: MemoryRouter });
