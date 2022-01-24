@@ -1,13 +1,15 @@
-import client from "./index.model.js";
+/* eslint-disable import/no-unresolved */
+import { RiderStats } from "types/names";
+import client from "./index.model";
 import {
   convertToPgDate,
   getRoster,
   fetchRiderScores,
   updateUserScore,
   findPrice,
-} from "./helper.model.js";
+} from "./helper.model";
 
-const updateRiderTable = async (rider, rank, team) => {
+const updateRiderTable = async (rider: string, rank: number, team: string) => {
   const formattedRider = rider.replaceAll("'", "''");
   const formattedTeam = team.replaceAll("'", "''");
   const value = findPrice(rank);
@@ -19,7 +21,7 @@ const updateRiderTable = async (rider, rank, team) => {
   return res.rows;
 };
 
-const updateScoresTable = async (obj) => {
+const updateScoresTable = async (obj: { score: number; rider: string }) => {
   const rider = obj.rider.replaceAll("'", "''");
   const date = convertToPgDate();
   const prevScore = await client.query(`
@@ -53,7 +55,14 @@ const updateUserTable = async () => {
   }
 };
 
-const insertImages = async (array) => {
+const insertImages = async (
+  array: {
+    image: string;
+    rider: RiderStats;
+    pnts: string[];
+    nextRace: string;
+  }[]
+) => {
   try {
     array.forEach(async (riderObj) => {
       const name = riderObj.rider.rider.replaceAll("'", "''");
@@ -78,7 +87,7 @@ const insertImages = async (array) => {
         next_race = '${nextRace}' WHERE name = '${name}';`);
     });
   } catch (error) {
-    throw new Error("error inserting (insertImages):", error);
+    throw new Error(`error inserting (insertImages): ${error}`);
   }
 };
 
