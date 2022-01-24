@@ -44,7 +44,6 @@ function App() {
 
       const newBoolObj: ObjectBool = {}
       result.forEach((el: Rider) => {
-
         newBoolObj[el.id] = !!el.added_at
       })
       setBooleanObj(newBoolObj)
@@ -58,7 +57,6 @@ function App() {
 
         <Route
           path="/home"
-
           element={
             isAuthenticated &&
             user && (
