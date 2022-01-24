@@ -2,6 +2,7 @@
   "type": "module",
   "dependencies": {
     "@types/got": "^9.6.12",
+    "@types/react": "^17.0.38",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "express-openid-connect": "^2.5.2",
