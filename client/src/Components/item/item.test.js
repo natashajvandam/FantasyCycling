@@ -1,5 +1,5 @@
-import { expect, test } from '@jest/globals';
-import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { expect } from '@jest/globals';
+import { fireEvent, render, screen } from '@testing-library/react';
 import {MemoryRouter} from 'react-router-dom'
 import Item from './item.js'
 
@@ -49,18 +49,15 @@ addToRoster : () => {
     "97": false
     },
   setBooleanObj: () => {
-    console.log('im here')
-    console.log(mock.booleanObj["97"])
-    if (mock.booleanObj["97"] === false) {
-      mock.booleanObj["97"] = true
-      console.log(mock.booleanObj["97"])
+    if (mock.booleanObj[mock.rider.id] === false) {
+      mock.booleanObj[mock.rider.id] = true
     } else {
-      mock.booleanObj["97"] = false}
+      mock.booleanObj[mock.rider.id] = false}
 
     }
 }
 
-describe('Pro list items:', () => {
+describe('Pro cycling rider list items:', () => {
 
   beforeEach(() => {
     mock.booleanObj["97"] = false
@@ -81,7 +78,7 @@ describe('Pro list items:', () => {
       setBooleanObj={mock.setBooleanObj}
     />, { wrapper: MemoryRouter });
 
-    expect(view.container).toHaveTextContent(`${mock.rider.price}`)
+    expect(view.container).toHaveTextContent(`€ ${mock.rider.price}`)
   })
 
   it('should have riders name', () => {
@@ -103,7 +100,6 @@ describe('Pro list items:', () => {
       booleanObj={mock.booleanObj}
         setBooleanObj={mock.setBooleanObj}
     />, { wrapper: MemoryRouter });
-      //await waitForElementToBeRemoved(()=>screen.queryByRole('button', { name: "buy" }))
     expect(screen.queryByRole('button', { name: "buy" })).not.toBeInTheDocument()
   })
 
@@ -148,5 +144,72 @@ describe('Pro list items:', () => {
     expect(screen.getByRole('button', {name:"show less"})).toBeInTheDocument(view.container)
   })
 
+  it('should show one day points in overview if expanded', () => {
+
+    const view = render(<Item user={mock.user} rider={mock.rider} addToRoster={mock.addToRoster} removeFromRoster={mock.removeFromRoster} mine={false} userData={mock.userData}
+      booleanObj={mock.booleanObj}
+      setBooleanObj={mock.setBooleanObj}
+    />, { wrapper: MemoryRouter });
+    fireEvent.click(screen.getByRole('button', {name:"show more"}))
+    expect(screen.getByText(`One-day Race Pnts:`)).toBeInTheDocument(view.container)
+    expect(screen.getByText(mock.rider.classic_pnts)).toBeInTheDocument(view.container)
+  })
+
+  it('should show GC points in overview if expanded', () => {
+
+    const view = render(<Item user={mock.user} rider={mock.rider} addToRoster={mock.addToRoster} removeFromRoster={mock.removeFromRoster} mine={false} userData={mock.userData}
+      booleanObj={mock.booleanObj}
+      setBooleanObj={mock.setBooleanObj}
+    />, { wrapper: MemoryRouter });
+    fireEvent.click(screen.getByRole('button', {name:"show more"}))
+    expect(screen.getByText(`GC Pnts:`)).toBeInTheDocument(view.container)
+    expect(screen.getByText(mock.rider.gc_pnts)).toBeInTheDocument(view.container)
+  })
+
+  it('should show time trial points in overview if expanded', () => {
+
+    const view = render(<Item user={mock.user} rider={mock.rider} addToRoster={mock.addToRoster} removeFromRoster={mock.removeFromRoster} mine={false} userData={mock.userData}
+      booleanObj={mock.booleanObj}
+      setBooleanObj={mock.setBooleanObj}
+    />, { wrapper: MemoryRouter });
+    fireEvent.click(screen.getByRole('button', {name:"show more"}))
+    expect(screen.getByText(`Time Trial Pnts:`)).toBeInTheDocument(view.container)
+    expect(screen.getByText(mock.rider.tt_pnts)).toBeInTheDocument(view.container)
+  })
+  it('should show climbing points in overview if expanded', () => {
+
+    const view = render(<Item user={mock.user} rider={mock.rider} addToRoster={mock.addToRoster} removeFromRoster={mock.removeFromRoster} mine={false} userData={mock.userData}
+      booleanObj={mock.booleanObj}
+      setBooleanObj={mock.setBooleanObj}
+    />, { wrapper: MemoryRouter });
+    fireEvent.click(screen.getByRole('button', {name:"show more"}))
+    expect(screen.getByText(`Climbing Pnts:`)).toBeInTheDocument(view.container)
+    expect(screen.getByText(mock.rider.climb_pnts)).toBeInTheDocument(view.container)
+  })
+  it('should show sprint points in overview if expanded', () => {
+
+    const view = render(<Item user={mock.user} rider={mock.rider} addToRoster={mock.addToRoster} removeFromRoster={mock.removeFromRoster} mine={false} userData={mock.userData}
+      booleanObj={mock.booleanObj}
+      setBooleanObj={mock.setBooleanObj}
+    />, { wrapper: MemoryRouter });
+    fireEvent.click(screen.getByRole('button', {name:"show more"}))
+    expect(screen.getByText(`Sprint Pnts:`)).toBeInTheDocument(view.container)
+    expect(screen.getByText(mock.rider.sprint_pnts)).toBeInTheDocument(view.container)
+  })
+
+  it('should show next race if expanded', () => {
+
+    const view = render(<Item user={mock.user} rider={mock.rider} addToRoster={mock.addToRoster} removeFromRoster={mock.removeFromRoster} mine={false} userData={mock.userData}
+      booleanObj={mock.booleanObj}
+      setBooleanObj={mock.setBooleanObj}
+    />, { wrapper: MemoryRouter });
+    fireEvent.click(screen.getByRole('button', {name:"show more"}))
+    expect(screen.getByText(`next race:${mock.rider.next_race}`)).toBeInTheDocument(view.container)
+  })
+
+
+})
+
+describe('User rider list:', () => {
 
 })

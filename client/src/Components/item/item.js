@@ -85,11 +85,11 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
           }
         { (showInfo || backView )
           ? <div className="detail rider_points">
-              <><span className="pnts green_text">One-day Race Pnts: </span>{rider.classic_pnts}</>
-              <><span className="pnts red_text">GC Pnts: </span>{rider.gc_pnts}</>
-              <><span className="pnts blue_text">Time Trial Pnts: </span>{rider.tt_pnts}</>
-              <><span className="pnts purple_text">Climbing Pnts: </span>{rider.climb_pnts}</>
-              <><span className="pnts pink_text">Sprint Pnts: </span>{rider.sprint_pnts}</>
+              <div><span className="pnts green_text">One-day Race Pnts: </span>{rider.classic_pnts}</div>
+              <div><span className="pnts red_text">GC Pnts: </span>{rider.gc_pnts}</div>
+              <div><span className="pnts blue_text">Time Trial Pnts: </span>{rider.tt_pnts}</div>
+              <div><span className="pnts purple_text">Climbing Pnts: </span>{rider.climb_pnts}</div>
+              <div><span className="pnts pink_text">Sprint Pnts: </span>{rider.sprint_pnts}</div>
               {rider.next_race !== 'undefined'
                 ? <div className="pnts nextRace">next race: {rider.next_race}</div>
                 : <div className="pnts nextRace">next race: unknown</div>
