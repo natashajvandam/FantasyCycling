@@ -8,8 +8,8 @@ const updateRiderTable = async (rider, rank, team) => {
   team = team.replaceAll("'", "''");
   const value = findPrice(rank);
   const res = await client.query(`
-    INSERT into rider_table (name, price, team) 
-    VALUES ('${rider}', ${value}, '${team}') 
+    INSERT into rider_table (name, price, team)
+    VALUES ('${rider}', ${value}, '${team}')
     ON CONFLICT (name) DO UPDATE
     SET team = EXCLUDED.team;`
   );
@@ -24,9 +24,9 @@ const updateScoresTable = async (obj) => {
     );
     const oldScore = prevScore.rows.length? prevScore.rows[prevScore.rows.length-1].score : obj.score;
     const res = await client.query(`
-      INSERT into score_table (rider, score, updated_at, prev_score) 
+      INSERT into score_table (rider, score, updated_at, prev_score)
       VALUES ('${rider}', ${obj.score}, '${date}', ${oldScore})
-      ON CONFLICT ON CONSTRAINT unchanged_score 
+      ON CONFLICT ON CONSTRAINT unchanged_score
       DO UPDATE SET prev_score = EXCLUDED.prev_score;`
     );
     return res;
@@ -63,8 +63,8 @@ const insertImages = async (array) => {
         nextRace = riderObj.nextRace.replaceAll("'", "''");
       }
       const res = await client.query(`
-        UPDATE rider_table SET image = '${image}', classic_pnts = ${parseInt(riderObj.pnts[0]) | 0}, 
-        gc_pnts = ${parseInt(riderObj.pnts[1]) | 0}, tt_pnts = ${parseInt(riderObj.pnts[2]) | 0}, 
+        UPDATE rider_table SET image = '${image}', classic_pnts = ${parseInt(riderObj.pnts[0]) | 0},
+        gc_pnts = ${parseInt(riderObj.pnts[1]) | 0}, tt_pnts = ${parseInt(riderObj.pnts[2]) | 0},
         sprint_pnts = ${parseInt(riderObj.pnts[3]) | 0}, climb_pnts = ${parseInt(riderObj.pnts[4]) | 0},
         next_race = '${nextRace}' WHERE name = '${name}';`
       );

@@ -9,6 +9,7 @@
     "outDir": "dist",
     "allowJs": true,
     "baseUrl": ".",
+    "lib": ["es2021"],
     "paths": {
       "*": ["node_modules/*"]
     }
