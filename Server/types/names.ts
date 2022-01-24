@@ -1,10 +1,4 @@
-type Name = {
-  firstName: string;
-  lastNames: string;
-  rider: RiderStats;
-};
-
-type RiderStats = {
+export type RiderStats = {
   rank: string;
   prev: string;
   next: string;
@@ -13,4 +7,8 @@ type RiderStats = {
   score: string;
 };
 
-export default Name;
+export type Name = {
+  firstName: string;
+  lastNames: string;
+  rider: RiderStats;
+};
