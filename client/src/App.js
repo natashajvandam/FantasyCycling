@@ -17,7 +17,10 @@ function App() {
   const [searchList, setSearchList] = useState([]);
   const [booleanObj, setBooleanObj] = useState([]);
   // const [socket, setSocket] = useState(null);
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
+
+  console.log('Authenticated', isAuthenticated);
+  console.log('Loading ', isLoading);
 
   // const socket = io();
   // socket.on("connect", () => {
@@ -46,24 +49,29 @@ function App() {
   return (
     <div className='routes_div'>
       <Routes>
-        <Route path='/' element={<Navigate to='/login' />} />
-        <Route path='/login' element={<Login />} />
+        <Route
+          path='/'
+          element={
+            isAuthenticated && !isLoading ? (
+              <Navigate to='/home' />
+            ) : (
+              !isAuthenticated && !isLoading && loginWithRedirect()
+            )
+          }
+        />
+        {/* <Route path='/login' element={<Login />} /> */}
 
         <Route
           path='/home'
           className='routes_div'
           element={
-            isAuthenticated && user ? (
-              <Home
-                setSearchList={setSearchList}
-                riderList={riderList}
-                searchList={searchList}
-                booleanObj={booleanObj}
-                setBooleanObj={setBooleanObj}
-              />
-            ) : (
-              <LoginDenied />
-            )
+            <Home
+              setSearchList={setSearchList}
+              riderList={riderList}
+              searchList={searchList}
+              booleanObj={booleanObj}
+              setBooleanObj={setBooleanObj}
+            />
           }
         />
         <Route path='league' element={<League userList={userList} />} />

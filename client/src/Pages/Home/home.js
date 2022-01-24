@@ -161,7 +161,7 @@ function Home({
           </div>
         </div>
       ) : (
-        <h2>User not authenticated</h2>
+        !isLoading && !isAuthenticated && <h2>User not authenticated</h2>
       )}
     </>
   );
