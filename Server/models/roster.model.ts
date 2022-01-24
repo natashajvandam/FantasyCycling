@@ -1,7 +1,9 @@
-import client from "./index.model.js";
-import { convertToPgDate } from "./helper.model.js";
+/* eslint-disable import/no-unresolved */
+import { Rider } from "Types/riders";
+import client from "./index.model";
+import { convertToPgDate } from "./helper.model";
 
-const changeUserTeam = async (id, newName) => {
+const changeUserTeam = async (id: number, newName: string) => {
   // --takes: userId, new team name | returns: { id: userId }
   const newer = newName.replaceAll("'", "''");
   const user = await client.query(`
@@ -11,7 +13,11 @@ const changeUserTeam = async (id, newName) => {
 };
 
 // -helper
-const getResultingMoney = async (id, rider, spending) => {
+const getResultingMoney = async (
+  id: number,
+  rider: Rider,
+  spending: boolean
+) => {
   const money = await client.query(
     `SELECT money FROM user_table WHERE id = ${id};`
   );
@@ -23,7 +29,7 @@ const getResultingMoney = async (id, rider, spending) => {
     : money.rows[0].money + price.rows[0].price;
 };
 
-const addRiderToRoster = async (id, rider) => {
+const addRiderToRoster = async (id: number, rider: Rider) => {
   // --takes: userId, riderId | returns: whether successful
   const newMoneyAmount = await getResultingMoney(id, rider, true);
   const date = convertToPgDate();
@@ -51,7 +57,7 @@ const addRiderToRoster = async (id, rider) => {
   return false;
 };
 
-const removeRiderFromRoster = async (id, rider) => {
+const removeRiderFromRoster = async (id: number, rider: Rider) => {
   const newMoneyAmount = await getResultingMoney(id, rider, false);
   const resOfRemoving = await client.query(`
     UPDATE rider_table SET roster = null, added_at = null
