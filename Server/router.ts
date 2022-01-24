@@ -1,4 +1,5 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
+import { RequestContext } from "express-openid-connect";
 
 // import fetchRiderData from './controllers/riderData.controller.js';
 import {
@@ -10,14 +11,15 @@ import {
   fetchRiders,
   changeTeamName,
   fetchUsers,
-} from "./controllers/userData.controller.js";
+} from "./controllers/userData.controller";
 
 const router = Router();
 
-router.get("/", (req, res) => {
+router.get("/", (req: Request, res: Response) => {
+  const authenticated: RequestContext = req.oidc;
   res.render("index", {
     title: "express Demo",
-    isAuthenticated: req.oidc.isAuthenticated(),
+    isAuthenticated: authenticated.isAuthenticated(),
   });
 });
 router.get("/allriders", fetchRiders);
