@@ -46,8 +46,10 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
   return (
     <div className={button_rider_class} >
       <div className='rider'>
-          {rider.image && mine && !backView
-         ? <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}}></div>
+        {rider.image && mine && !backView
+          //added role and aria-label to this div for accessibility and testing purposes. Ideally this should just be
+          // an <img> tag with an alt label, rather than a div with a background image set
+         ? <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}} role="img" aria-label={`Image of ${rider.name}`}></div>
           : null
         }
 
@@ -65,7 +67,7 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
           }
 
         <div className={rider_name_team}>
-          <div className="detail rider_name">{rider.name}</div>
+          <div className="detail rider_name">{rider.name} </div>
           <div className="detail rider_team">{rider.team}</div>
           {/* {showInfo &&
             <div>rider.nationality</div>
