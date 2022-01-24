@@ -16,3 +16,12 @@ export interface Rider {
 }
 
 export type RiderList = Rider[];
+
+export type RiderData = {
+  rank: string;
+  prev: string;
+  next: string;
+  rider: string;
+  team: string;
+  score: string;
+};

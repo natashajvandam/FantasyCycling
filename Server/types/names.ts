@@ -1,3 +1,9 @@
+export type Name = {
+  firstName: string;
+  lastNames: string;
+  rider: RiderStats;
+};
+
 export type RiderStats = {
   rank: string;
   prev: string;
@@ -5,10 +11,4 @@ export type RiderStats = {
   rider: string;
   team: string;
   score: string;
-};
-
-export type Name = {
-  firstName: string;
-  lastNames: string;
-  rider: RiderStats;
 };
