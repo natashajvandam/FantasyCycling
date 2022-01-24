@@ -48,8 +48,8 @@ const updateUserTable = async () => {
       const roster: QueryResult = await getRoster(user);
       let userNewScore: number = 0;
       roster.rows.forEach(async (rider: RiderDates) => {
-        const rider_value: Promise<number> = fetchRiderScores(rider);
-        userNewScore += await rider_value;
+        const riderValue: Promise<number> = fetchRiderScores(rider);
+        userNewScore += await riderValue;
       });
       if (userNewScore) {
         updateUserScore(userNewScore, user);
@@ -58,7 +58,7 @@ const updateUserTable = async () => {
   }
 };
 
-const insertImages = async (array: Array<RiderImage>) => {
+const insertImages = async (array: RiderImage[]) => {
   try {
     array.forEach(async (riderObj: RiderImage) => {
       const name: string = riderObj.rider.rider.replaceAll("'", "''");
@@ -72,13 +72,13 @@ const insertImages = async (array: Array<RiderImage>) => {
       }
       const res: QueryResult = await client.query(`
         UPDATE rider_table SET image = '${image}', classic_pnts = ${
-        parseInt(riderObj.pnts[0]) | 0
+        parseInt(riderObj.pnts[0], 10) || 0
       },
-        gc_pnts = ${parseInt(riderObj.pnts[1]) | 0}, tt_pnts = ${
-        parseInt(riderObj.pnts[2]) | 0
+        gc_pnts = ${parseInt(riderObj.pnts[1], 10) || 0}, tt_pnts = ${
+        parseInt(riderObj.pnts[2], 10) || 0
       },
-        sprint_pnts = ${parseInt(riderObj.pnts[3]) | 0}, climb_pnts = ${
-        parseInt(riderObj.pnts[4]) | 0
+        sprint_pnts = ${parseInt(riderObj.pnts[3], 10) || 0}, climb_pnts = ${
+        parseInt(riderObj.pnts[4], 10) || 0
       },
         next_race = '${nextRace}' WHERE name = '${name}';`);
       console.log(res.rowCount);

@@ -7,7 +7,7 @@ import pkg from 'pg';
 
 const { Client } = pkg;
 // const DATABASE_URL = `postgres://@localhost:5432/${databaseName}`;
-const DATABASE_URL = process.env.DATABASE_URI;
+const DATABASE_URL: string = process.env.DATABASE_URI;
 
 const client = new Client({
   connectionString: DATABASE_URL,

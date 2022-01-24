@@ -16,7 +16,7 @@ interface Names {
 interface RiderImage {
   image: string;
   rider: Data;
-  pnts: Array<string>;
+  pnts: string[];
   nextRace: string;
 }
 

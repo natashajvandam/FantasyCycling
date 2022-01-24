@@ -15,7 +15,7 @@ import { convertToPgDate } from '../models/helper.model.js';
 export const updateAllData = async (
   start: number,
   end: number,
-  next: () => void
+  next: (...args: any[]) => void
 ) => {
   console.log('updating');
   // getMockData() -- for testing
