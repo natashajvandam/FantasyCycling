@@ -18,12 +18,12 @@ const fetchRiderData = async (url: string) => {
           rider.querySelectorAll("td");
 
         return {
-          rank: rankElem.textContent,
-          prev: prevElem.textContent,
-          next: nextElem.textContent,
-          rider: riderElem.textContent,
-          team: teamElem.textContent,
-          score: scoreElem.textContent,
+          rank: rankElem.textContent as string,
+          prev: prevElem.textContent as string,
+          next: nextElem.textContent as string,
+          rider: riderElem.textContent as string,
+          team: teamElem.textContent as string,
+          score: scoreElem.textContent as string,
         };
       });
       return ridersMap;

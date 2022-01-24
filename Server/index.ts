@@ -1,8 +1,8 @@
-import express from 'express';
-import cors from 'cors';
-import cron from 'node-cron';
-import router from './router.js';
-import updateAllData from './controllers/updateData.controller.js';
+import express from "express";
+import cors from "cors";
+import cron from "node-cron";
+import router from "./router";
+import updateAllData from "./controllers/updateData.controller";
 // npm i express
 const app = express(); // npm i cors
 const PORT = 3005;
@@ -16,7 +16,7 @@ const PORT = 3005;
 // const io = new Server(httpServer, {});
 // //end socket.io
 
-cron.schedule('0 0 0 * * *', async () => {
+cron.schedule("0 0 0 * * *", async () => {
   updateAllData(0, 2, updateAllData);
 });
 // runs everyday at midnight?
@@ -26,7 +26,7 @@ app.use(express.json()); // body parser
 
 // app.use(auth(config));
 
-app.use('/', router);
+app.use("/", router);
 
 // io.on('connection', (socket) => {
 //   console.log('a user connected');
@@ -39,7 +39,7 @@ async function bootstrap() {
       console.log(`Server running on port: https://localhost:${PORT}`);
     });
   } catch (e) {
-    throw new Error('error:', e);
+    throw new Error(`error: ${e}`);
   }
 }
 
