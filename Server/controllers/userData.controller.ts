@@ -1,17 +1,19 @@
+import { Request, Response } from "express";
+
 import {
   getUserRoster,
   setNewUser,
   getUserDetails,
   fetchAllRiders,
   fetchAllUsers,
-} from "../models/user.model.js";
+} from "../models/user.model";
 import {
   addRiderToRoster,
   removeRiderFromRoster,
   changeUserTeam,
-} from "../models/roster.model.js";
+} from "../models/roster.model";
 
-const fetchRiders = async (req, res) => {
+const fetchRiders = async (req: Request, res: Response) => {
   try {
     const fullList = await fetchAllRiders();
     res.status(200);
@@ -22,7 +24,7 @@ const fetchRiders = async (req, res) => {
   }
 };
 
-const createNewUser = async (req, res) => {
+const createNewUser = async (req: Request, res: Response) => {
   try {
     const { email, nickname, password } = req.body;
     const exist = await getUserDetails(nickname);
@@ -43,7 +45,7 @@ const createNewUser = async (req, res) => {
   }
 };
 
-const fetchUserData = async (req, res) => {
+const fetchUserData = async (req: Request, res: Response) => {
   try {
     const { nickname } = req.params;
     const userDetails = await getUserDetails(nickname);
@@ -57,7 +59,7 @@ const fetchUserData = async (req, res) => {
   }
 };
 
-const changeTeamName = async (req, res) => {
+const changeTeamName = async (req: Request, res: Response) => {
   try {
     const user = req.params.id;
     const { newName } = req.body;
@@ -70,7 +72,7 @@ const changeTeamName = async (req, res) => {
   }
 };
 
-const fetchTeam = async (req, res) => {
+const fetchTeam = async (req: Request, res: Response) => {
   try {
     const user = req.params.id;
     const rowOfRiders = await getUserRoster(user);
@@ -82,7 +84,7 @@ const fetchTeam = async (req, res) => {
   }
 };
 
-const fetchUsers = async (req, res) => {
+const fetchUsers = async (req: Request, res: Response) => {
   try {
     const users = await fetchAllUsers();
     res.status(201);
@@ -93,7 +95,7 @@ const fetchUsers = async (req, res) => {
   }
 };
 
-const addRider = async (req, res) => {
+const addRider = async (req: Request, res: Response) => {
   try {
     const { id, rider } = req.params;
     const roster = await addRiderToRoster(id, rider);
@@ -109,7 +111,7 @@ const addRider = async (req, res) => {
   }
 };
 
-const removeRider = async (req, res) => {
+const removeRider = async (req: Request, res: Response) => {
   try {
     const { id, rider } = req.params;
     const team = await removeRiderFromRoster(id, rider);
