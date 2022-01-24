@@ -1,6 +1,13 @@
-import client from "./index.model.js";
+/* eslint-disable import/no-unresolved */
+import client from "./index.model";
 
-const setNewUser = async (user: {email: string, nickname: string, password: string, score: number, money: number}) => {
+const setNewUser = async (user: {
+  email: string;
+  nickname: string;
+  password: string;
+  score: number;
+  money: number;
+}) => {
   const res = await client.query(`
     INSERT INTO user_table (email, nickname, password, score, money)
     VALUES ('${user.email}', '${user.nickname}', '${user.password}', ${user.score}, ${user.money})
