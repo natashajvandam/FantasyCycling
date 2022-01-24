@@ -18,7 +18,6 @@ const fetchRiderNames = async () => {
   return res.rows;
 }
 
-
 //----update--helpers------------------------------->
 const getRoster = async (user) => {
   const roster = await client.query(`
