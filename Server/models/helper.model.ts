@@ -59,7 +59,7 @@ const updateUserScore = async (newScore: number, user: string) => {
 };
 
 const findPrice = (rank: string) => {
-  const intRank = parseInt(rank);
+  const intRank = parseInt(rank, 10);
   if (intRank >= 100) {
     return 10;
   }
