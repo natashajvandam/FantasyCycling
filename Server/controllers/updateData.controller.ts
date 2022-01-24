@@ -12,22 +12,27 @@ import {
   insertImages,
 } from "../models/update.model.js";
 import { convertToPgDate } from "../models/helper.model.js";
+import { RiderData } from "Types/riders";
+import { Name } from "types/names";
 
 // ---GET ALL DATA FROM WEB---------------------------------------->
-const loopThroughPages = async (start, end) => {
-  const allData = [];
+const loopThroughPages = async (start: number, end: number) => {
+  let allData: RiderData[] = [];
+
   for (let i = start; i <= end; i += 1) {
     const date = convertToPgDate();
     fetchRiderData(
       // eslint-disable-next-line comma-dangle
       `https://www.procyclingstats.com/rankings.php?date=${date}&nation=&age=&zage=&page=smallerorequal&team=&offset=${i}00&teamlevel=&filter=Filter`
-    ).then((res) => allData.concat(res));
+    ).then((res) => {
+      allData.concat(res);
+    });
   }
   return allData;
 };
 
 // ---STEP 1---------------------------------------------------------> use data to update riders
-const updateRiders = (data) => {
+const updateRiders = (data: RiderData[]) => {
   data.forEach(async (obj) => {
     await updateRiderTable(obj.rider, obj.rank, obj.team);
   });
@@ -35,9 +40,9 @@ const updateRiders = (data) => {
 };
 
 // ---STEP 2-------------------------------------------------------> use data to update rider scores
-const updateScores = async (data) => {
+const updateScores = async (data: RiderData[]) => {
   data.forEach(async (obj) => {
-    const riderScore = {};
+    const riderScore = {} as { score: number; rider: string };
     riderScore.score = parseInt(obj.score, 10);
     riderScore.rider = obj.rider;
     await updateScoresTable(riderScore);
@@ -46,15 +51,15 @@ const updateScores = async (data) => {
 };
 
 // ---STEP 3--------------------------------------------------------> use data to update user scores
-const updateUserScores = async (data) => {
+const updateUserScores = async (data: RiderData[]) => {
   await updateUserTable();
   return data;
 };
 // ---STEP 4 helper--------------------------------------------------> split first and last names
-const splitNames = async (data) => {
+const splitNames = async (data: RiderData[]) => {
   const names = data.map((rider) => {
     const nameArray = rider.rider.split(" ");
-    const firstName = nameArray.pop();
+    const firstName = nameArray.pop() as string;
     const lastNames = nameArray.join("-");
     return { firstName, lastNames, rider };
   });
@@ -62,14 +67,14 @@ const splitNames = async (data) => {
 };
 
 // ---STEP 4------------------------------------------------------> use names to update rider images
-const updatePhotoLinks = async (data) => {
+const updatePhotoLinks = async (data: RiderData[]) => {
   try {
     const riderAndNamesArray = await splitNames(data);
     // -> web scraper for images
     const riderAndImageArray = await fetchRiderPhoto(riderAndNamesArray);
     await insertImages(riderAndImageArray);
   } catch (err) {
-    throw new Error(err);
+    throw new Error(err as string);
   }
   return data;
 };
@@ -85,7 +90,7 @@ const updatePhotoLinks = async (data) => {
 // TEST: 2) given data from above, test updateScores(data)
 
 // --STEP 5-------------------------------------------> repeats updateAllData on next batch of pages
-const callAgain = (start, end, next) => {
+const callAgain = (start: number, end: number, next: Function) => {
   // - changing "start" and "end" to run functions again on the next patch of pages then update...
   const newStart = end + 1;
   if (end <= 22) {
@@ -94,7 +99,7 @@ const callAgain = (start, end, next) => {
   }
 };
 
-const updateAllData = async (start, end, next) => {
+const updateAllData = async (start: number, end: number, next: Function) => {
   // getMockData() -- for testing
   const result = loopThroughPages(start, end) // -> webscraper for data
     .then((data) => updateRiders(data)) // - 1

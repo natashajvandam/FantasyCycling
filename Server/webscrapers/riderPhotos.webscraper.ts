@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import got, { Response } from "got";
 import jsdom from "jsdom";
-import Name from "types/names";
+import { Name } from "types/names";
 
 const { JSDOM } = jsdom;
 
@@ -49,9 +49,9 @@ const fetchRiderPhoto = async (names: Name[]) => {
   const linkAndName = names.map(async (name) => {
     try {
       const dom = await getDomElement(name);
-      const link = await findImageLink(dom);
-      const pnts = await findPoints(dom);
-      const nextRace = await findUpComing(dom);
+      const link = (await findImageLink(dom)) as string;
+      const pnts = (await findPoints(dom)) as string[];
+      const nextRace = (await findUpComing(dom)) as string;
       return { image: link, rider: name.rider, pnts, nextRace };
     } catch (error) {
       throw new Error("error fetching riderPhoto");

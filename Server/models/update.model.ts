@@ -9,9 +9,9 @@ import {
   findPrice,
 } from "./helper.model";
 
-const updateRiderTable = async (rider: string, rank: number, team: string) => {
-  const formattedRider = rider.replaceAll("'", "''");
-  const formattedTeam = team.replaceAll("'", "''");
+const updateRiderTable = async (rider: string, rank: string, team: string) => {
+  const formattedRider = rider?.replaceAll("'", "''");
+  const formattedTeam = team?.replaceAll("'", "''");
   const value = findPrice(rank);
   const res = await client.query(`
     INSERT into rider_table (name, price, team) 
