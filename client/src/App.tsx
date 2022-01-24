@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import './App.scss'
 import React, { useState, useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -7,13 +8,20 @@ import Login from './Pages/Login/login'
 import Home from './Pages/Home/home'
 import { getAllRiders, getTheUsers } from './Services/apiService'
 
+import { Rider, RiderList } from './Types/riders'
+
 // import { io } from "socket.io-client";
+
+type ObjectBool = {
+  [id: number]: boolean
+}
 
 function App() {
   const [riderList, setRiderList] = useState([])
   const [userList, setUserList] = useState([])
-  const [searchList, setSearchList] = useState([])
-  const [booleanObj, setBooleanObj] = useState([])
+  const [searchList, setSearchList] = useState([] as RiderList)
+  const [booleanObj, setBooleanObj] = useState({})
+
   // const [socket, setSocket] = useState(null);
   const { user, isAuthenticated } = useAuth0()
 
@@ -33,8 +41,10 @@ function App() {
     getAllRiders().then((result) => {
       setSearchList(result)
       setRiderList(result)
-      const newBoolObj = {}
-      result.forEach((el) => {
+
+      const newBoolObj: ObjectBool = {}
+      result.forEach((el: Rider) => {
+
         newBoolObj[el.id] = !!el.added_at
       })
       setBooleanObj(newBoolObj)
@@ -48,7 +58,7 @@ function App() {
 
         <Route
           path="/home"
-          className="routes_div"
+
           element={
             isAuthenticated &&
             user && (

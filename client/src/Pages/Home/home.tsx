@@ -122,44 +122,44 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
     return <div>loading...</div>
   }
 
-  return (
-    isAuthenticated && (
-      <div className="home_page">
-        <div>
-          <Header userData={userData} linkRoute="league" />
+  return !isAuthenticated ? (
+    <h1>Not authenticated!</h1>
+  ) : (
+    <div className="home_page">
+      <div>
+        <Header userData={userData} linkRoute="league" />
+      </div>
+      <div className="body_home_page">
+        <div className="my_rider_list">
+          <h1 className="list_title">{user?.nickname}</h1>
+          <List
+            mine
+            riderList={myRoster}
+            addToRoster={addToRoster}
+            removeFromRoster={removeFromRoster}
+            userData={userData}
+            booleanObj={booleanObj}
+            setBooleanObj={setBooleanObj}
+          />
         </div>
-        <div className="body_home_page">
-          <div className="my_rider_list">
-            <h1 className="list_title">{user?.nickname}</h1>
-            <List
-              mine
-              riderList={myRoster}
-              addToRoster={addToRoster}
-              removeFromRoster={removeFromRoster}
-              userData={userData}
-              booleanObj={booleanObj}
-              setBooleanObj={setBooleanObj}
-            />
-          </div>
 
-          <div className="full_rider_list_heading">
-            <h1 className="list_title">pro cycling riders</h1>
-            <Form filterList={filterList} />
-          </div>
-          <div className="full_rider_list">
-            <List
-              mine={false}
-              riderList={searchList}
-              addToRoster={addToRoster}
-              removeFromRoster={removeFromRoster}
-              userData={userData}
-              booleanObj={booleanObj}
-              setBooleanObj={setBooleanObj}
-            />
-          </div>
+        <div className="full_rider_list_heading">
+          <h1 className="list_title">pro cycling riders</h1>
+          <Form filterList={filterList} />
+        </div>
+        <div className="full_rider_list">
+          <List
+            mine={false}
+            riderList={searchList}
+            addToRoster={addToRoster}
+            removeFromRoster={removeFromRoster}
+            userData={userData}
+            booleanObj={booleanObj}
+            setBooleanObj={setBooleanObj}
+          />
         </div>
       </div>
-    )
+    </div>
   )
 }
 
