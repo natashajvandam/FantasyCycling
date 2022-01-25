@@ -1,5 +1,5 @@
 import ModelRider from "Types/models";
-import convertToPgDate from "helpers/convertDate";
+import convertToPgDate from "../helpers/convertDate";
 
 const getRoster = (user: string) => {
   return `

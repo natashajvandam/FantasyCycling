@@ -1,7 +1,7 @@
 import client from "./index.model";
 import riderPrices from "./valueLibrary";
-import queries from "queries/helperQueries";
-import ModelRider from "Types/models";
+import queries from "../queries/helperQueries";
+import ModelRider from "../Types/models";
 // ----global-helper-------------------------------->
 
 // ----update-image-helper--------------------------->

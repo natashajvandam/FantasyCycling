@@ -1,7 +1,7 @@
 import { Rider } from "Types/riders";
 import client from "./index.model";
-import convertToPgDate from "helpers/convertDate";
-import queries from "queries/rosterQueries";
+import convertToPgDate from "../helpers/convertDate";
+import queries from "../queries/rosterQueries";
 
 const changeUserTeam = async (id: number, newName: string) => {
   // --takes: userId, new team name | returns: { id: userId }

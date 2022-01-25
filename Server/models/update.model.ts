@@ -2,7 +2,7 @@ import { RiderStats } from "types/names";
 import client from "./index.model";
 import convertToPgDate from "../helpers/convertDate";
 
-import queries from "queries/updateQueries";
+import queries from "../queries/updateQueries";
 
 import {
   getRoster,

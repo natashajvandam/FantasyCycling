@@ -1,5 +1,5 @@
 import client from "./index.model";
-import queries from "queries/userQueries";
+import queries from "../queries/userQueries";
 
 const setNewUser = async (user: {
   email: string;
