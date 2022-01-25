@@ -1,4 +1,4 @@
-import { IUser, fetchOptions, SimpleUser } from '../interfaces';
+import { IUser, fetchOptions, SimpleUser, IRider } from '../interfaces';
 const backend = 'http://localhost:3005';
 
 const fetchRequest = async (path: string, options?: fetchOptions) => {
@@ -20,11 +20,11 @@ const fetchUser = async (token: string) => {
     .catch((err) => console.log(err));
 };
 
-async function getAllRiders() {
+async function getAllRiders(): Promise<IRider[]> {
   return fetchRequest('/allriders');
 }
 
-async function getTheUsers() {
+async function getTheUsers(): Promise<IUser[]> {
   return fetchRequest('/allUsers');
 }
 
@@ -38,7 +38,7 @@ async function getTheUsers() {
 //   });
 // }
 
-async function changeNameOfTeam(userId: string, newName: string) {
+async function changeNameOfTeam(userId: string, newName: string): Promise<any> {
   return fetchRequest(`/team/${userId}`, {
     method: 'PUT',
     body: `{"newName": "${newName}"}`,
@@ -48,7 +48,11 @@ async function changeNameOfTeam(userId: string, newName: string) {
   });
 }
 
-async function addRider(userId: string, riderId: string, token: string) {
+async function addRider(
+  userId: string,
+  riderId: string,
+  token: string
+): Promise<any> {
   return fetchRequest(`/team/add/${userId}/${riderId}`, {
     method: 'PUT',
     headers: {
@@ -57,7 +61,11 @@ async function addRider(userId: string, riderId: string, token: string) {
   });
 }
 
-async function removeRider(userId: string, riderId: string, token: string) {
+async function removeRider(
+  userId: string,
+  riderId: string,
+  token: string
+): Promise<any> {
   return fetchRequest(`/team/delete/${userId}/${riderId}`, {
     method: 'PUT',
     headers: {
@@ -66,11 +74,11 @@ async function removeRider(userId: string, riderId: string, token: string) {
   });
 }
 
-async function fetchUserRoster(userId: string) {
+async function fetchUserRoster(userId: string): Promise<any> {
   return fetchRequest(`/team/${userId}`);
 }
 
-async function fetchUserData(user: SimpleUser) {
+async function fetchUserData(user: SimpleUser): Promise<IUser> {
   return fetchRequest(`/user/details`, {
     method: 'POST',
     body: JSON.stringify(user),
