@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable import/no-unresolved */
 // import getMockData from '../tests/mock.data.js'; //for testing
 
 // webscrapers
+import { RiderData } from "Types/riders";
 import fetchRiderData from "../webscrapers/riderData.webscraper";
 import fetchRiderPhoto from "../webscrapers/riderPhotos.webscraper.js";
 
@@ -12,12 +14,10 @@ import {
   insertImages,
 } from "../models/update.model.js";
 import { convertToPgDate } from "../models/helper.model.js";
-import { RiderData } from "Types/riders";
-import { Name } from "types/names";
 
 // ---GET ALL DATA FROM WEB---------------------------------------->
 const loopThroughPages = async (start: number, end: number) => {
-  let allData: RiderData[] = [];
+  const allData: RiderData[] = [];
 
   for (let i = start; i <= end; i += 1) {
     const date = convertToPgDate();
