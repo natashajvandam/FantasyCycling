@@ -1,45 +1,31 @@
 import './App.scss';
 import League from './Pages/League/league';
-import Login from './Pages/Login/login';
-import Home from './Pages/Home/home';
+import Home from './Pages/Home/home'
 import { useState, useEffect } from 'react';
 import { getAllRiders, getTheUsers } from './Services/apiService.js';
-import { useAuth0 } from '@auth0/auth0-react';
-
-// import { io } from "socket.io-client";
-
+import { useAuth0, User } from '@auth0/auth0-react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-// import LoginDenied from './Pages/LoginDenied/loginDenied';
+import React from 'react';
+import { IRider, IUser} from './interfaces';
 
-function App() {
-  const [riderList, setRiderList] = useState([]);
-  const [userList, setUserList] = useState([]);
-  const [searchList, setSearchList] = useState([]);
-  const [booleanObj, setBooleanObj] = useState([]);
-  // const [socket, setSocket] = useState(null);
-  const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
+const App: React.FC = () => {
+  const [riderList, setRiderList] = useState<IRider[]>([]);
+  const [userList, setUserList] = useState<IUser[]>([]);
+  const [searchList, setSearchList] = useState<IRider[]>([]);
+  const [booleanObj, setBooleanObj] = useState<{[k: number]: boolean}>([]);
+  const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0<User>();
 
   console.log('Authenticated', isAuthenticated);
   console.log('Loading ', isLoading);
 
-  // const socket = io();
-  // socket.on("connect", () => {
-  //   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-  // });
-
-  // useEffect(() => {
-  //   const newSocket = io(`http://${window.location.hostname}:3000`);
-  //   setSocket(newSocket);
-  //   return () => newSocket.close();
-  // }, [setSocket]);
 
   useEffect(() => {
-    getTheUsers().then((result) => setUserList(result));
-    getAllRiders().then((result) => {
+    getTheUsers().then((result:IUser[]) => setUserList(result));
+    getAllRiders().then((result:IRider[]) => {
       setSearchList(result);
       setRiderList(result);
-      const newBoolObj = {};
-      result.forEach((el) => {
+      const newBoolObj: {[k: number]: boolean} = {};
+      result.forEach((el: IRider) => {
         newBoolObj[el.id] = el.added_at ? true : false;
       });
       setBooleanObj(newBoolObj);
@@ -59,11 +45,8 @@ function App() {
             )
           }
         />
-        {/* <Route path='/login' element={<Login />} /> */}
-
         <Route
           path='/home'
-          className='routes_div'
           element={
             <Home
               setSearchList={setSearchList}
