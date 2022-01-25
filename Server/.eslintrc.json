@@ -17,7 +17,8 @@
   },
   "rules": {
     "import/extensions": [0, { ".ts": "always" }],
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "import/no-unresolved": [2, { "caseSensitive": false }]
   },
   "settings": {
     "import/resolver": {
@@ -25,5 +26,21 @@
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
-  }
+  },
+  "@typescript-eslint/ban-types": [
+    "error",
+    {
+      "types": {
+        "String": false,
+        "Boolean": false,
+        "Number": false,
+        "Symbol": false,
+        "{}": false,
+        "Object": false,
+        "object": false,
+        "Function": false
+      },
+      "extendDefaults": true
+    }
+  ]
 }

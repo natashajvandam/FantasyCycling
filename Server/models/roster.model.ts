@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { Rider } from "Types/riders";
 import client from "./index.model";
 import { convertToPgDate } from "./helper.model";

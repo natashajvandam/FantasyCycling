@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import client from "./index.model";
 
 const setNewUser = async (user: {

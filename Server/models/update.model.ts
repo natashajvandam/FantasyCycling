@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { RiderStats } from "types/names";
 import client from "./index.model";
 import {

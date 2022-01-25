@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable import/no-unresolved */
 // import getMockData from '../tests/mock.data.js'; //for testing
 
 // webscrapers
