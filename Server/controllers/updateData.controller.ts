@@ -1,9 +1,10 @@
 // import getMockData from '../tests/mock.data.js'; //for testing
 
 // webscrapers
-import { RiderData } from "Types/riders";
 import fetchRiderData from "../webscrapers/riderData.webscraper";
 import fetchRiderPhoto from "../webscrapers/riderPhotos.webscraper";
+
+import { RiderData } from "Types/riders";
 
 import {
   updateRiderTable,

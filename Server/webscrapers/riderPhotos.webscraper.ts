@@ -29,7 +29,6 @@ const findPoints = async (response: Response<string>) => {
   const points = [...dom.window.document.getElementsByClassName("pnt")];
   const pointsArray = [];
   for (let i = 0; i < points.length; i += 1) {
-    // console.log(points[i].textContent)
     pointsArray.push(points[i].textContent);
   }
   return pointsArray;

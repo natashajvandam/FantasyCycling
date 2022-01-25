@@ -3,7 +3,7 @@ import cors from "cors";
 import cron from "node-cron";
 import router from "./router";
 import updateAllData from "./controllers/updateData.controller";
-// npm i express
+
 const app = express(); // npm i cors
 const PORT = 3005;
 

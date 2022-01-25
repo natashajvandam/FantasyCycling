@@ -1,10 +1,6 @@
 import { Request, Response } from "express";
 
 import { fetchAllRiders } from "../models/user.model";
-import {
-  addRiderToRoster,
-  removeRiderFromRoster,
-} from "../models/roster.model";
 
 const riderData = () => {};
 
