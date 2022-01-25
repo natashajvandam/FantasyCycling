@@ -9,7 +9,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 // import { io } from "socket.io-client";
 
 import { Routes, Route, Navigate } from 'react-router-dom';
-import LoginDenied from './Pages/LoginDenied/loginDenied';
+// import LoginDenied from './Pages/LoginDenied/loginDenied';
 
 function App() {
   const [riderList, setRiderList] = useState([]);
