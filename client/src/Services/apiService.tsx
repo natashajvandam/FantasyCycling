@@ -38,7 +38,7 @@ async function getTheUsers(): Promise<IUser[]> {
 //   });
 // }
 
-async function changeNameOfTeam(userId: string, newName: string): Promise<any> {
+async function changeNameOfTeam(userId: number, newName: string): Promise<any> {
   return fetchRequest(`/team/${userId}`, {
     method: 'PUT',
     body: `{"newName": "${newName}"}`,
@@ -49,7 +49,7 @@ async function changeNameOfTeam(userId: string, newName: string): Promise<any> {
 }
 
 async function addRider(
-  userId: string,
+  userId: number,
   riderId: string,
   token: string
 ): Promise<any> {
@@ -62,7 +62,7 @@ async function addRider(
 }
 
 async function removeRider(
-  userId: string,
+  userId: number,
   riderId: string,
   token: string
 ): Promise<any> {
@@ -74,7 +74,7 @@ async function removeRider(
   });
 }
 
-async function fetchUserRoster(userId: string): Promise<any> {
+async function fetchUserRoster(userId: number): Promise<any> {
   return fetchRequest(`/team/${userId}`);
 }
 
