@@ -12,7 +12,7 @@ import {
   updateUserTable,
   insertImages,
 } from "../models/update.model";
-import { convertToPgDate } from "../models/helper.model";
+import convertToPgDate from "../helpers/convertDate";
 
 // ---GET ALL DATA FROM WEB---------------------------------------->
 const loopThroughPages = async (start: number, end: number) => {
