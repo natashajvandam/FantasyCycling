@@ -1,16 +1,12 @@
 import { Request, Response } from "express";
 
-import {
-  setNewUser,
-  getUserDetails,
-  fetchAllUsers,
-} from "../models/user.model";
+import userModel from "../models/user.model";
 
 const userData = () => {};
 
 userData.fetchUsers = async (req: Request, res: Response) => {
   try {
-    const users = await fetchAllUsers();
+    const users = await userModel.fetchAllUsers();
     res.status(201);
     res.send(users);
   } catch (error) {
@@ -22,9 +18,9 @@ userData.fetchUsers = async (req: Request, res: Response) => {
 userData.createNewUser = async (req: Request, res: Response) => {
   try {
     const { email, nickname, password } = req.body;
-    const exist = await getUserDetails(nickname);
+    const exist = await userModel.getUserDetails(nickname);
     if (!exist) {
-      const newUser = await setNewUser({
+      const newUser = await userModel.setNewUser({
         email,
         nickname,
         password,
@@ -43,10 +39,13 @@ userData.createNewUser = async (req: Request, res: Response) => {
 userData.fetchUserData = async (req: Request, res: Response) => {
   try {
     const { nickname } = req.params;
-    const userDetails = await getUserDetails(nickname);
+    const userDetails = await userModel.getUserDetails(nickname);
     if (userDetails) {
       res.status(201);
       res.send(userDetails);
+    } else {
+      res.status(400);
+      res.send("<h1>User does not exist</h1>");
     }
   } catch (error) {
     res.status(500);

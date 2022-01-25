@@ -1,6 +1,6 @@
 import client from "./index.model";
-import riderPrices from "./valueLibrary";
-import queries from "../queries/helperQueries";
+import riderPrices from "../helpers/valueLibrary";
+import helperQueries from "../queries/helperQueries";
 import ModelRider from "../Types/models";
 // ----global-helper-------------------------------->
 
@@ -9,21 +9,21 @@ import ModelRider from "../Types/models";
 const fetchRiderNames = async () => {
   const res = await client.query(
     // eslint-disable-next-line comma-dangle
-    queries.FETCH_RIDERS
+    helperQueries.FETCH_RIDERS
   );
   return res.rows;
 };
 
 // ----update--helpers------------------------------->
 const getRoster = async (user: string) => {
-  const roster = await client.query(queries.GET_ROSTER(user));
+  const roster = await client.query(helperQueries.GET_ROSTER(user));
   return roster;
 };
 
 const fetchRiderScores = async (rider: ModelRider) => {
-  const startScore = await client.query(queries.GET_START_SCORE(rider));
+  const startScore = await client.query(helperQueries.GET_START_SCORE(rider));
 
-  const endScore = await client.query(queries.GET_END_SCORE(rider));
+  const endScore = await client.query(helperQueries.GET_END_SCORE(rider));
 
   const startingScore = startScore.rows[startScore.rows.length - 1].score;
   const endingScore = endScore.rows[endScore.rows.length - 1].score;
@@ -32,7 +32,7 @@ const fetchRiderScores = async (rider: ModelRider) => {
 };
 
 const updateUserScore = async (newScore: number, user: string) => {
-  const res = await client.query(queries.UPDATE_SCORE(newScore, user));
+  const res = await client.query(helperQueries.UPDATE_SCORE(newScore, user));
 
   return res;
 };

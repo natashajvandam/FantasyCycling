@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 
-import { fetchAllRiders } from "../models/user.model";
+import userModel from "../models/user.model";
 
 const riderData = () => {};
 
 riderData.fetchRiders = async (req: Request, res: Response): Promise<void> => {
   try {
-    const fullList = await fetchAllRiders();
+    const fullList = await userModel.fetchAllRiders();
     res.status(200);
     res.send(fullList);
   } catch (error) {

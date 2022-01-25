@@ -1,17 +1,13 @@
 import { Request, Response } from "express";
-import { getUserRoster } from "../models/user.model";
-import {
-  addRiderToRoster,
-  changeUserTeam,
-  removeRiderFromRoster,
-} from "../models/roster.model";
+import userModel from "../models/user.model";
+import rosterModel from "../models/roster.model";
 
 const teamData = () => {};
 
 teamData.fetchTeam = async (req: Request, res: Response) => {
   try {
     const user = req.params.id;
-    const rowOfRiders = await getUserRoster(user);
+    const rowOfRiders = await userModel.getUserRoster(user);
     res.status(201);
     res.send(rowOfRiders);
   } catch (error) {
@@ -25,7 +21,10 @@ teamData.changeTeamName = async (req: Request, res: Response) => {
   try {
     const user = req.params.id;
     const { newName } = req.body;
-    const userDetails = await changeUserTeam(parseInt(user, 10), newName);
+    const userDetails = await rosterModel.changeUserTeam(
+      parseInt(user, 10),
+      newName
+    );
     res.status(201);
     res.send(userDetails);
   } catch (error) {
@@ -37,7 +36,10 @@ teamData.changeTeamName = async (req: Request, res: Response) => {
 teamData.addRider = async (req: Request, res: Response) => {
   try {
     const { id, rider } = req.params;
-    const roster = await addRiderToRoster(parseInt(id, 10), JSON.parse(rider));
+    const roster = await rosterModel.addRiderToRoster(
+      parseInt(id, 10),
+      JSON.parse(rider)
+    );
     if (roster) {
       res.status(204);
       res.send(roster);
@@ -53,7 +55,7 @@ teamData.addRider = async (req: Request, res: Response) => {
 teamData.removeRider = async (req: Request, res: Response) => {
   try {
     const { id, rider } = req.params;
-    const team = await removeRiderFromRoster(
+    const team = await rosterModel.removeRiderFromRoster(
       parseInt(id, 10),
       JSON.parse(rider)
     );

@@ -2,7 +2,7 @@ import { RiderStats } from "types/names";
 import client from "./index.model";
 import convertToPgDate from "../helpers/convertDate";
 
-import queries from "../queries/updateQueries";
+import updateQueries from "../queries/updateQueries";
 
 import {
   getRoster,
@@ -16,7 +16,7 @@ const updateRiderTable = async (rider: string, rank: string, team: string) => {
   const formattedTeam = team?.replaceAll("'", "''");
   const value = findPrice(rank);
   const res = await client.query(
-    queries.UPDATE_RIDER(formattedRider, value, formattedTeam)
+    updateQueries.UPDATE_RIDER(formattedRider, value, formattedTeam)
   );
   return res.rows;
 };
@@ -24,12 +24,12 @@ const updateRiderTable = async (rider: string, rank: string, team: string) => {
 const updateScoresTable = async (obj: { score: number; rider: string }) => {
   const rider = obj.rider.replaceAll("'", "''");
   const date = convertToPgDate();
-  const prevScore = await client.query(queries.GET_PREV_SCORE(rider));
+  const prevScore = await client.query(updateQueries.GET_PREV_SCORE(rider));
   const oldScore = prevScore.rows.length
     ? prevScore.rows[prevScore.rows.length - 1].score
     : obj.score;
   const res = await client.query(
-    queries.UPDATE_SCORE(rider, date, prevScore, oldScore)
+    updateQueries.UPDATE_SCORE(rider, date, prevScore, oldScore)
   );
   return res;
 };
@@ -72,7 +72,7 @@ const insertImages = async (
         nextRace = riderObj.nextRace.replaceAll("'", "''");
       }
       await client.query(
-        queries.INSERT_IMAGES(image, riderObj.pnts, nextRace, name)
+        updateQueries.INSERT_IMAGES(image, riderObj.pnts, nextRace, name)
       );
     });
   } catch (error) {

@@ -19,6 +19,7 @@ const fetchRequest = async (path: string, options?: Options) =>
       throw new Error(err)
     })
 
+// FETCH AUTH
 const fetchUser = async (token: string) =>
   fetch('https:/dev-sfbx-116.us.auth0.com/userinfo', {
     method: 'GET',
@@ -31,9 +32,12 @@ const fetchUser = async (token: string) =>
       throw new Error(err)
     })
 
+// FETCH RIDERS
 async function getAllRiders() {
   return fetchRequest('/all-riders')
 }
+
+// FETCH USERS
 
 async function getTheUsers() {
   return fetchRequest('/all-users')
@@ -52,6 +56,11 @@ async function createUser(body: { email?: string; nickname?: string; password: s
   })
 }
 
+async function fetchUserData(nickname?: string) {
+  return fetchRequest(`/user/${nickname}`)
+}
+
+// FETCH TEAMS
 async function changeNameOfTeam(userId: number, newName: string) {
   return fetchRequest(`/team/${userId}`, {
     method: 'PUT',
@@ -60,6 +69,10 @@ async function changeNameOfTeam(userId: number, newName: string) {
       'Content-Type': 'application/json'
     }
   })
+}
+
+async function fetchUserRoster(userId: number) {
+  return fetchRequest(`/team/${userId}`)
 }
 
 async function addRider(userId: number, riderId: number, token: string) {
@@ -78,14 +91,6 @@ async function removeRider(userId: number, riderId: number, token: string) {
       Authorization: `Bearer ${token}`
     }
   })
-}
-
-async function fetchUserRoster(userId: number) {
-  return fetchRequest(`/team/${userId}`)
-}
-
-async function fetchUserData(nickname?: string) {
-  return fetchRequest(`/user/${nickname}`)
 }
 
 export {
