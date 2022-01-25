@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 // eslint-disable-next-line import/no-unresolved
 import got, { Response } from "got";
 import jsdom from "jsdom";

@@ -1,5 +1,4 @@
 // const databaseName = "cyclingfantacyteam"
-
 import pkg from "pg";
 
 const { Client } = pkg;
