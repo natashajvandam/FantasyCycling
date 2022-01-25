@@ -5,15 +5,15 @@
 // webscrapers
 import { RiderData } from "Types/riders";
 import fetchRiderData from "../webscrapers/riderData.webscraper";
-import fetchRiderPhoto from "../webscrapers/riderPhotos.webscraper.js";
+import fetchRiderPhoto from "../webscrapers/riderPhotos.webscraper";
 
 import {
   updateRiderTable,
   updateScoresTable,
   updateUserTable,
   insertImages,
-} from "../models/update.model.js";
-import { convertToPgDate } from "../models/helper.model.js";
+} from "../models/update.model";
+import { convertToPgDate } from "../models/helper.model";
 
 // ---GET ALL DATA FROM WEB---------------------------------------->
 const loopThroughPages = async (start: number, end: number) => {

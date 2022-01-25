@@ -36,7 +36,7 @@ async function bootstrap() {
   try {
     app.listen(PORT, () => {
       // eslint-disable-next-line no-console
-      console.log(`Server running on port: https://localhost:${PORT}`);
+      console.log(`Server running on port: http://localhost:${PORT}`);
     });
   } catch (e) {
     throw new Error(`error: ${e}`);
