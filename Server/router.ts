@@ -22,11 +22,11 @@ router.get("/", (req: Request, res: Response) => {
     isAuthenticated: authenticated.isAuthenticated(),
   });
 });
-router.get("/allriders", fetchRiders);
-router.get("/allUsers", fetchUsers);
-router.post("/newTeam", createNewUser); // { username, team, password} = req.body; => returns {id:"1"}
-router.get("/team/details/:nickname", fetchUserData); // returns {"name":"natasha", "team-name":"myTeam", "score":0, "money":500}
-router.put("/team/:id", changeTeamName);
+router.get("/all-riders", fetchRiders);
+router.get("/all-users", fetchUsers);
+router.post("/new-user", createNewUser); // { username, team, password} = req.body; => returns {id:"1"}
+router.get("/user/:nickname", fetchUserData); // returns {"name":"natasha", "team-name":"myTeam", "score":0, "money":500}
+router.put("/team/:id", changeTeamName); // NOT CURRENTLY USED
 router.get("/team/:id", fetchTeam); // returns [{"name":"Hendrik"},{"name":"Wout"},...]
 router.put("/team/add/:id/:rider", addRider); // currently both id numbers(userId, riderId)
 router.put("/team/delete/:id/:rider", removeRider);

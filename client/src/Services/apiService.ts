@@ -32,15 +32,15 @@ const fetchUser = async (token: string) =>
     })
 
 async function getAllRiders() {
-  return fetchRequest('/allriders')
+  return fetchRequest('/all-riders')
 }
 
 async function getTheUsers() {
-  return fetchRequest('/allUsers')
+  return fetchRequest('/all-users')
 }
 
 async function createUser(body: { email?: string; nickname?: string; password: string }) {
-  return fetchRequest('/newTeam', {
+  return fetchRequest('/new-user', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
@@ -85,7 +85,7 @@ async function fetchUserRoster(userId: number) {
 }
 
 async function fetchUserData(nickname?: string) {
-  return fetchRequest(`/team/details/${nickname}`)
+  return fetchRequest(`/user/${nickname}`)
 }
 
 export {
