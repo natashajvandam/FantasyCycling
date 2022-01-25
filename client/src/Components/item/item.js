@@ -46,8 +46,10 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
   return (
     <div className={button_rider_class} >
       <div className='rider'>
-          {rider.image && mine && !backView
-         ? <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}}></div>
+        {rider.image && mine && !backView
+          //added role and aria-label to this div for accessibility and testing purposes. Ideally this should just be
+          // an <img> tag with an alt label, rather than a div with a background image set
+         ? <div className="rider_image" style={{backgroundImage: `url(${rider.image})`}} role="img" aria-label={`Image of ${rider.name}`}></div>
           : null
         }
 
@@ -65,7 +67,7 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
           }
 
         <div className={rider_name_team}>
-          <div className="detail rider_name">{rider.name}</div>
+          <div className="detail rider_name">{rider.name} </div>
           <div className="detail rider_team">{rider.team}</div>
           {/* {showInfo &&
             <div>rider.nationality</div>
@@ -85,11 +87,11 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
           }
         { (showInfo || backView )
           ? <div className="detail rider_points">
-              <><span className="pnts green_text">One-day Race Pnts: </span>{rider.classic_pnts}</>
-              <><span className="pnts red_text">GC Pnts: </span>{rider.gc_pnts}</>
-              <><span className="pnts blue_text">Time Trial Pnts: </span>{rider.tt_pnts}</>
-              <><span className="pnts purple_text">Climbing Pnts: </span>{rider.climb_pnts}</>
-              <><span className="pnts pink_text">Sprint Pnts: </span>{rider.sprint_pnts}</>
+              <div><span className="pnts green_text">One-day Race Pnts: </span>{rider.classic_pnts}</div>
+              <div><span className="pnts red_text">GC Pnts: </span>{rider.gc_pnts}</div>
+              <div><span className="pnts blue_text">Time Trial Pnts: </span>{rider.tt_pnts}</div>
+              <div><span className="pnts purple_text">Climbing Pnts: </span>{rider.climb_pnts}</div>
+              <div><span className="pnts pink_text">Sprint Pnts: </span>{rider.sprint_pnts}</div>
               {rider.next_race !== 'undefined'
                 ? <div className="pnts nextRace">next race: {rider.next_race}</div>
                 : <div className="pnts nextRace">next race: unknown</div>
