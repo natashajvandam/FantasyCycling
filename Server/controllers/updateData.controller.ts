@@ -77,16 +77,6 @@ const updatePhotoLinks = async (data: RiderData[]) => {
   return data;
 };
 
-// Ideally:
-// const data = await loopThroughPages(1);
-// TEST that give 1 I get the data I want
-
-// Run loopThroughPages(1) -> store 'data'
-// TEST: 1) given data, what does updateRiders(data) return
-// data = updateRiders(data)
-
-// TEST: 2) given data from above, test updateScores(data)
-
 // --STEP 5-------------------------------------------> repeats updateAllData on next batch of pages
 const callAgain = (start: number, end: number, next: Function) => {
   // - changing "start" and "end" to run functions again on the next patch of pages then update...
@@ -113,3 +103,13 @@ const updateAllData = async (start: number, end: number, next: Function) => {
 };
 
 export default updateAllData;
+
+// Ideally:
+// const data = await loopThroughPages(1);
+// TEST that give 1 I get the data I want
+
+// Run loopThroughPages(1) -> store 'data'
+// TEST: 1) given data, what does updateRiders(data) return
+// data = updateRiders(data)
+
+// TEST: 2) given data from above, test updateScores(data)
