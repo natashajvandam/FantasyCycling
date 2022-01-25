@@ -2,13 +2,17 @@ import './userItem.scss';
 import React from 'react';
 import { IUser } from '../../interfaces';
 
-type Props = {
+type UserItemProps = {
   user: IUser;
   topScore: number;
   self: boolean;
 };
 
-function userItem({ user, topScore, self }: Props) {
+const userItem: React.FC<UserItemProps> = ({
+  user,
+  topScore,
+  self,
+}: UserItemProps) => {
   const percent: number = (user.score * 85) / topScore;
   const name_class: string = !self ? 'user_item_name' : 'user_item_myName';
   return (
@@ -33,6 +37,6 @@ function userItem({ user, topScore, self }: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default userItem;

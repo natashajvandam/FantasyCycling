@@ -4,14 +4,21 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { IUser } from '../../interfaces';
 import React from 'react';
 
-type Props = {
+type HeaderProps = {
   userData: IUser;
   link_route: string;
 };
 
-function Header({ userData, link_route }: Props) {
-  const link = '/' + link_route;
-  const { logout } = useAuth0();
+type LogoutArgs = {
+  returnTo: string;
+};
+
+const Header: React.FC<HeaderProps> = ({
+  userData,
+  link_route,
+}: HeaderProps) => {
+  const link: string = '/' + link_route;
+  const { logout } = useAuth0<(args: LogoutArgs) => {}>();
 
   return (
     <div className='header_box'>
@@ -41,6 +48,6 @@ function Header({ userData, link_route }: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default Header;

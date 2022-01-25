@@ -1,18 +1,18 @@
 import './league.scss';
-import UserList from '../../Components/userList/userList.js';
-import Header from '../../Components/header/header.js';
-import { useAuth0 } from '@auth0/auth0-react';
+import UserList from '../../Components/userList/userList';
+import Header from '../../Components/header/header';
+import { useAuth0, User } from '@auth0/auth0-react';
 import { useState, useEffect } from 'react';
-import { fetchUserData } from '../../Services/apiService.js';
+import { fetchUserData } from '../../Services/apiService';
 import { IUser } from '../../interfaces';
 import React from 'react';
 
-type Props = {
+type LeagueProps = {
   userList: IUser[];
 };
 
-function League({ userList }: Props) {
-  const { user, getAccessTokenSilently } = useAuth0<any>();
+const League: React.FC<LeagueProps> = ({ userList }: LeagueProps) => {
+  const { user, getAccessTokenSilently } = useAuth0<User>();
   const [userData, setUserData] = useState<IUser>({
     id: 0,
     email: '',
@@ -24,9 +24,10 @@ function League({ userList }: Props) {
   useEffect(() => {
     const getUserMetadata = async () => {
       try {
-        fetchUserData(user).then((response: IUser) => {
-          setUserData(response);
-        });
+        user &&
+          fetchUserData(user).then((response: IUser) => {
+            setUserData(response);
+          });
       } catch (err) {
         console.log(err);
       }
@@ -45,6 +46,6 @@ function League({ userList }: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default League;

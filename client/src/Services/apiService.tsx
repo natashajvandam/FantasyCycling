@@ -1,7 +1,7 @@
-import { IUser } from '../interfaces';
+import { IUser, fetchOptions, SimpleUser } from '../interfaces';
 const backend = 'http://localhost:3005';
 
-const fetchRequest = async (path: string, options?: object) => {
+const fetchRequest = async (path: string, options?: fetchOptions) => {
   //use await - async syntac with try catch
   return fetch(backend + path, options)
     .then((res) => (res.status < 400 ? res : Promise.reject(res))) //all errors 401, 404, 500 etc.
@@ -70,7 +70,7 @@ async function fetchUserRoster(userId: string) {
   return fetchRequest(`/team/${userId}`);
 }
 
-async function fetchUserData(user: IUser) {
+async function fetchUserData(user: SimpleUser) {
   return fetchRequest(`/user/details`, {
     method: 'POST',
     body: JSON.stringify(user),

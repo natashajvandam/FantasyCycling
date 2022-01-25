@@ -20,3 +20,17 @@ export interface IUser {
   score: number;
   money: number;
 }
+
+export interface SimpleUser {
+  email?: string;
+  nickname?: string;
+}
+
+export interface fetchOptions {
+  method: string;
+  body?: string;
+  headers: {
+    'Content-Type'?: string;
+    Authorization?: string;
+  };
+}
