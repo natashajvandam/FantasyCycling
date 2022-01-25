@@ -50,8 +50,8 @@ async function changeNameOfTeam(userId: number, newName: string): Promise<any> {
 
 async function addRider(
   userId: number,
-  riderId: string,
-  token: string
+  riderId: number,
+  token: string | null
 ): Promise<any> {
   return fetchRequest(`/team/add/${userId}/${riderId}`, {
     method: 'PUT',
@@ -63,8 +63,8 @@ async function addRider(
 
 async function removeRider(
   userId: number,
-  riderId: string,
-  token: string
+  riderId: number,
+  token: string | null
 ): Promise<any> {
   return fetchRequest(`/team/delete/${userId}/${riderId}`, {
     method: 'PUT',

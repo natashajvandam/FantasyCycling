@@ -4,7 +4,7 @@ import { IRider } from '../../interfaces';
 import React from 'react';
 
 type FormProps = {
-  filterList: (query: string) => IRider[];
+  filterList: (query: string) => void;
 };
 
 const Form: React.FC<FormProps> = ({ filterList }: FormProps) => {

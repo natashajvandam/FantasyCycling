@@ -1,5 +1,5 @@
 import './home.scss';
-import List from '../../Components/list/list';
+import List from '../../Components/list/list.js';
 import Header from '../../Components/header/header';
 import Form from '../../Components/form/form';
 import { useState, useEffect } from 'react';
@@ -8,18 +8,18 @@ import {
   addRider,
   fetchUserData,
   removeRider,
-} from '../../Services/apiService.js';
+} from '../../Services/apiService';
 import { useAuth0, User } from '@auth0/auth0-react';
 import React from 'react';
 import { IResponse, IRider, IUser } from '../../interfaces';
 
 type HomeProps = {
-  riderList: IRider[],
-  setSearchList: React.Dispatch<React.SetStateAction<IRider[]>>,
-  searchList: IRider[],
-  booleanObj: {[k: number]: boolean},
-  setBooleanObj: React.Dispatch<React.SetStateAction<{[k: number]: boolean}>>,
-}
+  riderList: IRider[];
+  setSearchList: React.Dispatch<React.SetStateAction<IRider[]>>;
+  searchList: IRider[];
+  booleanObj: { [k: number]: boolean };
+  setBooleanObj: React.Dispatch<React.SetStateAction<{ [k: number]: boolean }>>;
+};
 
 const Home: React.FC<HomeProps> = ({
   riderList,
@@ -28,13 +28,13 @@ const Home: React.FC<HomeProps> = ({
   booleanObj,
   setBooleanObj,
 }) => {
-
-  const { user, isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0<User>();
+  const { user, isLoading, isAuthenticated, getAccessTokenSilently } =
+    useAuth0<User>();
   const [token, setToken] = useState<string | null>(null);
   const [myRoster, setMyRoster] = useState<IRider[]>([]);
   const [userData, setUserData] = useState<IUser | null>(null);
 
-  const filterList = (query:string) => {
+  const filterList = (query: string) => {
     if (query) {
       const filteredList = riderList.filter((rider) =>
         rider.name.toLowerCase().includes(query.toLowerCase())
@@ -52,17 +52,17 @@ const Home: React.FC<HomeProps> = ({
           scope: 'read:current_user',
         });
         setToken(accessToken);
-        fetchUserData(user)
-          .then((response: IUser) => {
-            if (response) {
-               setUserData(response);
-            return fetchUserRoster(response.id);
-            }
-          })
-          .then((result: IRider[]) => {
-
-            setMyRoster(result);
-          });
+        user &&
+          fetchUserData(user)
+            .then((response: IUser) => {
+              if (response) {
+                setUserData(response);
+                return fetchUserRoster(response.id);
+              }
+            })
+            .then((result: IRider[]) => {
+              setMyRoster(result);
+            });
       } catch (err) {
         console.log(err);
       }
@@ -70,38 +70,46 @@ const Home: React.FC<HomeProps> = ({
     getUserMetadata();
   }, [getAccessTokenSilently, user]);
 
-  async function addToRoster(userId: number, riderId: number): Promise<IResponse> {
+  async function addToRoster(
+    userId: number,
+    riderId: number
+  ): Promise<IResponse> {
     const serverResponse: IResponse = await addRider(userId, riderId, token);
-     if (userData) {
+    if (userData) {
       fetchUserData(userData).then((result: IUser) =>
         setUserData((prev) => {
           if (prev !== null) {
-        return  { ...prev, money: result.money }
-      } else {
-         return null
-        }
-  } ))
+            return { ...prev, money: result.money };
+          } else {
+            return null;
+          }
+        })
+      );
       fetchUserRoster(userData.id).then((result: IRider[]) => {
         setMyRoster(result);
-      })
+      });
     }
     return serverResponse;
   }
 
-  async function removeFromRoster(userId: string, riderId: string): Promise<void> {
+  async function removeFromRoster(
+    userId: number,
+    riderId: number
+  ): Promise<void> {
     await removeRider(userId, riderId, token);
     if (userData) {
       fetchUserData(userData).then((result: IUser) =>
         setUserData((prev) => {
           if (prev !== null) {
-        return  { ...prev, money: result.money }
-      } else {
-         return null
-        }
-  } ))
+            return { ...prev, money: result.money };
+          } else {
+            return null;
+          }
+        })
+      );
       fetchUserRoster(userData.id).then((result: IRider[]) => {
         setMyRoster(result);
-      })
+      });
     }
   }
 
@@ -112,7 +120,7 @@ const Home: React.FC<HomeProps> = ({
       {isAuthenticated && user ? (
         <div className='home_page'>
           <>
-            <Header userData={userData} link_route={'league'} />
+            {userData && <Header userData={userData} link_route={'league'} />}
           </>
           <div className='body_home_page'>
             <div className='my_rider_list'>
@@ -148,10 +156,10 @@ const Home: React.FC<HomeProps> = ({
           </div>
         </div>
       ) : (
-        (!isLoading && !isAuthenticated) && <h2>User not authenticated</h2>
+        !isLoading && !isAuthenticated && <h2>User not authenticated</h2>
       )}
     </>
   );
-}
+};
 
 export default Home;
