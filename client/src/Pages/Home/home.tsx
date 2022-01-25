@@ -1,5 +1,5 @@
 import './home.scss';
-import List from '../../Components/list/list.js';
+import List from '../../Components/list/list';
 import Header from '../../Components/header/header';
 import Form from '../../Components/form/form';
 import { useState, useEffect } from 'react';
