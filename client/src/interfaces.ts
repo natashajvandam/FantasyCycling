@@ -3,7 +3,7 @@ export interface IRider {
   name: string;
   price: number;
   roster: number;
-  added_at: string;
+  added_at?: string;
   team: string;
   image: string;
   classic_pnts: number;
@@ -34,3 +34,8 @@ export interface fetchOptions {
     Authorization?: string;
   };
 }
+
+export interface IResponse{
+    ok: boolean
+}
+
