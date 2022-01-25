@@ -1,8 +1,15 @@
 import './header.scss';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import { IUser } from '../../interfaces';
+import React from 'react';
 
-function Header({ userData, link_route }) {
+type Props = {
+  userData: IUser;
+  link_route: string;
+};
+
+function Header({ userData, link_route }: Props) {
   const link = '/' + link_route;
   const { logout } = useAuth0();
 

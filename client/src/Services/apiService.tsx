@@ -1,6 +1,7 @@
+import { IUser } from '../interfaces';
 const backend = 'http://localhost:3005';
 
-const fetchRequest = async (path, options) => {
+const fetchRequest = async (path: string, options?: object) => {
   //use await - async syntac with try catch
   return fetch(backend + path, options)
     .then((res) => (res.status < 400 ? res : Promise.reject(res))) //all errors 401, 404, 500 etc.
@@ -8,7 +9,7 @@ const fetchRequest = async (path, options) => {
     .catch((err) => console.log(err));
 };
 
-const fetchUser = async (token) => {
+const fetchUser = async (token: string) => {
   return fetch('https://dev-874owraq.us.auth0.com/userinfo', {
     method: 'GET',
     headers: {
@@ -37,7 +38,7 @@ async function getTheUsers() {
 //   });
 // }
 
-async function changeNameOfTeam(userId, newName) {
+async function changeNameOfTeam(userId: string, newName: string) {
   return fetchRequest(`/team/${userId}`, {
     method: 'PUT',
     body: `{"newName": "${newName}"}`,
@@ -47,7 +48,7 @@ async function changeNameOfTeam(userId, newName) {
   });
 }
 
-async function addRider(userId, riderId, token) {
+async function addRider(userId: string, riderId: string, token: string) {
   return fetchRequest(`/team/add/${userId}/${riderId}`, {
     method: 'PUT',
     headers: {
@@ -56,7 +57,7 @@ async function addRider(userId, riderId, token) {
   });
 }
 
-async function removeRider(userId, riderId, token) {
+async function removeRider(userId: string, riderId: string, token: string) {
   return fetchRequest(`/team/delete/${userId}/${riderId}`, {
     method: 'PUT',
     headers: {
@@ -65,11 +66,11 @@ async function removeRider(userId, riderId, token) {
   });
 }
 
-async function fetchUserRoster(userId) {
+async function fetchUserRoster(userId: string) {
   return fetchRequest(`/team/${userId}`);
 }
 
-async function fetchUserData(user) {
+async function fetchUserData(user: IUser) {
   return fetchRequest(`/user/details`, {
     method: 'POST',
     body: JSON.stringify(user),
