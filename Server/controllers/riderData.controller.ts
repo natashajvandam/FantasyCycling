@@ -8,7 +8,7 @@ const riderData = () => {};
 riderData.fetchRiders = async (req: Request, res: Response): Promise<void> => {
   try {
     const fullList = await userModel.fetchAllRiders();
-    io.emit("fetchriders", fullList);
+
     res.status(200);
     res.send(fullList);
   } catch (error) {

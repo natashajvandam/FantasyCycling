@@ -26,7 +26,6 @@ function App() {
   const [userList, setUserList] = useState([])
   const [searchList, setSearchList] = useState([] as RiderList)
   const [booleanObj, setBooleanObj] = useState({})
-  const [myRoster, setMyRoster] = useState([] as RiderList)
 
   const { user, isAuthenticated } = useAuth0()
 
@@ -41,14 +40,19 @@ function App() {
     socket.on('connection', () => {
       console.log('Connected to server')
     })
-    socket.on('fetchriders', (riders) => {
+    socket.on('fetchRiders', (riders) => {
       setRiderList(riders)
       setSearchList(riders)
-      console.log(riderList)
+      const newBoolObj: ObjectBool = {}
+      riders.forEach((el: Rider) => {
+        newBoolObj[el.id] = !!el.added_at
+      })
+      setBooleanObj(newBoolObj)
     })
-    socket.on('message', (message) => console.log(message))
-    socket.on('disconnect', () => console.log('Socket disconnecting'))
-  }, [riderList])
+    return () => {
+      socket.disconnect()
+    }
+  }, [])
 
   useEffect(() => {
     apiService.getTheUsers().then((result) => setUserList(result))
