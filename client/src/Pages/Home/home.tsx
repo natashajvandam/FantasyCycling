@@ -2,17 +2,17 @@
 import './home.scss'
 import React, { useState, useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
+
+// Components
 import List from '../../Components/list/list'
 import Header from '../../Components/header/header'
 import Form from '../../Components/form/form'
+
+// Services
+import apiService from '../../Services/apiService'
+
+// TS Types
 import { RiderList, Rider } from '../../Types/riders'
-import {
-  fetchUserRoster,
-  addRider,
-  fetchUserData,
-  removeRider,
-  createUser
-} from '../../Services/apiService'
 import { User } from '../../Types/users'
 
 type homePropTypes = {
@@ -47,28 +47,30 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
   //   .then(result => setMyRoster(result));
   // }, [])
 
-  useEffect(() => {
-    const getUserMetadata = async () => {
-      const domain = 'dev-sfbx-116.us.auth0.com'
-      try {
-        const accessToken = await getAccessTokenSilently({
-          audience: `https://${domain}/api/v2/`,
-          scope: 'read:current_user'
+  const getUserMetadata = async () => {
+    const domain = 'dev-sfbx-116.us.auth0.com'
+    try {
+      const accessToken = await getAccessTokenSilently({
+        audience: `https://${domain}/api/v2/`,
+        scope: 'read:current_user'
+      })
+      setToken(accessToken)
+      apiService.createUser({ nickname: user?.nickname, email: user?.email, password: '' })
+      apiService
+        .fetchUserData(user?.nickname)
+        .then((response: User) => {
+          setUserData(response)
+          return apiService.fetchUserRoster(response.id)
         })
-        setToken(accessToken)
-        createUser({ nickname: user?.nickname, email: user?.email, password: '' })
-        fetchUserData(user?.nickname)
-          .then((response: User) => {
-            setUserData(response)
-            return fetchUserRoster(response.id)
-          })
-          .then((result: RiderList) => {
-            setMyRoster(result)
-          })
-      } catch (err) {
-        throw new Error(`${err}`)
-      }
+        .then((result: RiderList) => {
+          setMyRoster(result)
+        })
+    } catch (err) {
+      throw new Error(`${err}`)
     }
+  }
+
+  useEffect(() => {
     getUserMetadata()
   }, [getAccessTokenSilently, user?.sub])
 
@@ -86,8 +88,8 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
   // }
 
   const addToRoster = async (userId: number, riderId: number): Promise<Rider> => {
-    const res = await addRider(userId, riderId, token)
-    fetchUserData(user?.nickname).then((result: User) =>
+    const res = await apiService.addRider(userId, riderId, token)
+    apiService.fetchUserData(user?.nickname).then((result: User) =>
       setUserData((prev) => ({
         id: prev.id,
         nickname: prev.nickname,
@@ -96,15 +98,15 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
         money: result.money
       }))
     )
-    fetchUserRoster(userData?.id).then((result: RiderList) => {
+    apiService.fetchUserRoster(userData?.id).then((result: RiderList) => {
       setMyRoster(result)
     })
     return res
   }
 
   const removeFromRoster = async (userId: number, riderId: number) => {
-    await removeRider(userId, riderId, token)
-    fetchUserData(user?.nickname).then((result: User) =>
+    await apiService.removeRider(userId, riderId, token)
+    apiService.fetchUserData(user?.nickname).then((result: User) =>
       setUserData((prev) => ({
         id: prev.id,
         nickname: prev.nickname,
@@ -113,7 +115,7 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
         money: result.money
       }))
     )
-    fetchUserRoster(userData?.id).then((result: RiderList) => {
+    apiService.fetchUserRoster(userData?.id).then((result: RiderList) => {
       setMyRoster(result)
     })
   }

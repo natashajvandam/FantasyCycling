@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import React, { useState, useEffect } from 'react'
 import UserList from '../../Components/userList/userList'
 import Header from '../../Components/header/header'
-import { fetchUserData } from '../../Services/apiService'
+import apiService from '../../Services/apiService'
 import { User } from '../../Types/users'
 
 type leaguePropTypes = {
@@ -18,7 +18,7 @@ function League({ userList }: leaguePropTypes) {
   useEffect(() => {
     const getUserMetadata = async () => {
       try {
-        fetchUserData(user?.nickname).then((response: User) => {
+        apiService.fetchUserData(user?.nickname).then((response: User) => {
           setUserData(response)
         })
       } catch (err) {

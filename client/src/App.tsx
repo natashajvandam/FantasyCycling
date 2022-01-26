@@ -6,7 +6,7 @@ import { Routes, Route } from 'react-router-dom'
 import League from './Pages/League/league'
 import Login from './Pages/Login/login'
 import Home from './Pages/Home/home'
-import { getAllRiders, getTheUsers } from './Services/apiService'
+import apiService from './Services/apiService'
 
 import { Rider, RiderList } from './Types/riders'
 
@@ -37,8 +37,8 @@ function App() {
   // }, [setSocket]);
 
   useEffect(() => {
-    getTheUsers().then((result) => setUserList(result))
-    getAllRiders().then((result) => {
+    apiService.getTheUsers().then((result) => setUserList(result))
+    apiService.getAllRiders().then((result) => {
       setSearchList(result)
       setRiderList(result)
 

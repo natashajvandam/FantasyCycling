@@ -93,7 +93,7 @@ async function removeRider(userId: number, riderId: number, token: string) {
   })
 }
 
-export {
+const apiService = {
   getAllRiders,
   createUser,
   addRider,
@@ -104,3 +104,5 @@ export {
   getTheUsers,
   fetchUser
 }
+
+export default apiService
