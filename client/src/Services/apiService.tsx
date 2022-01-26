@@ -1,6 +1,7 @@
+import { IUser, fetchOptions, SimpleUser, IRider } from '../interfaces';
 const backend = 'http://localhost:3005';
 
-const fetchRequest = async (path, options) => {
+const fetchRequest = async (path: string, options?: fetchOptions) => {
   //use await - async syntac with try catch
   return fetch(backend + path, options)
     .then((res) => (res.status < 400 ? res : Promise.reject(res))) //all errors 401, 404, 500 etc.
@@ -8,7 +9,7 @@ const fetchRequest = async (path, options) => {
     .catch((err) => console.log(err));
 };
 
-const fetchUser = async (token) => {
+const fetchUser = async (token: string) => {
   return fetch('https://dev-874owraq.us.auth0.com/userinfo', {
     method: 'GET',
     headers: {
@@ -19,11 +20,11 @@ const fetchUser = async (token) => {
     .catch((err) => console.log(err));
 };
 
-async function getAllRiders() {
+async function getAllRiders(): Promise<IRider[]> {
   return fetchRequest('/allriders');
 }
 
-async function getTheUsers() {
+async function getTheUsers(): Promise<IUser[]> {
   return fetchRequest('/allUsers');
 }
 
@@ -37,7 +38,7 @@ async function getTheUsers() {
 //   });
 // }
 
-async function changeNameOfTeam(userId, newName) {
+async function changeNameOfTeam(userId: number, newName: string): Promise<any> {
   return fetchRequest(`/team/${userId}`, {
     method: 'PUT',
     body: `{"newName": "${newName}"}`,
@@ -47,7 +48,11 @@ async function changeNameOfTeam(userId, newName) {
   });
 }
 
-async function addRider(userId, riderId, token) {
+async function addRider(
+  userId: number,
+  riderId: number,
+  token: string | null
+): Promise<any> {
   return fetchRequest(`/team/add/${userId}/${riderId}`, {
     method: 'PUT',
     headers: {
@@ -56,7 +61,11 @@ async function addRider(userId, riderId, token) {
   });
 }
 
-async function removeRider(userId, riderId, token) {
+async function removeRider(
+  userId: number,
+  riderId: number,
+  token: string | null
+): Promise<any> {
   return fetchRequest(`/team/delete/${userId}/${riderId}`, {
     method: 'PUT',
     headers: {
@@ -65,11 +74,11 @@ async function removeRider(userId, riderId, token) {
   });
 }
 
-async function fetchUserRoster(userId) {
+async function fetchUserRoster(userId: number): Promise<any> {
   return fetchRequest(`/team/${userId}`);
 }
 
-async function fetchUserData(user) {
+async function fetchUserData(user: SimpleUser): Promise<IUser> {
   return fetchRequest(`/user/details`, {
     method: 'POST',
     body: JSON.stringify(user),

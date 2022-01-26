@@ -1,10 +1,21 @@
 import './header.scss';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import { IUser } from '../../interfaces';
+import React from 'react';
 
-function Header({ userData, link_route }) {
-  const link = '/' + link_route;
-  const { logout } = useAuth0();
+type HeaderProps = {
+  userData: IUser;
+  link_route: string;
+};
+
+type LogoutArgs = {
+  returnTo: string;
+};
+
+const Header: React.FC<HeaderProps> = ({userData, link_route}) => {
+  const link: string = '/' + link_route;
+  const { logout } = useAuth0<(args: LogoutArgs) => {}>();
 
   return (
     <div className='header_box'>
@@ -34,6 +45,6 @@ function Header({ userData, link_route }) {
       </div>
     </div>
   );
-}
+};
 
 export default Header;
