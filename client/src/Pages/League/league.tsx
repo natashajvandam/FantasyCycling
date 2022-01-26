@@ -11,7 +11,7 @@ type LeagueProps = {
   userList: IUser[];
 };
 
-const League: React.FC<LeagueProps> = ({ userList }: LeagueProps) => {
+const League: React.FC<LeagueProps> = ({ userList }) => {
   const { user, getAccessTokenSilently } = useAuth0<User>();
   const [userData, setUserData] = useState<IUser>({
     id: 0,
@@ -33,7 +33,7 @@ const League: React.FC<LeagueProps> = ({ userList }: LeagueProps) => {
       }
     };
     getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
+  }, [getAccessTokenSilently, user]);
 
   return (
     <div className='league_page'>

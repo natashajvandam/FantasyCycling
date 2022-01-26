@@ -1,17 +1,28 @@
 import './item.scss';
-import { useState
- } from 'react';
-function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, booleanObj, setBooleanObj}) {
-  const [showInfo, setShowInfo] = useState(false);
-  // const [taken, setTaken] = useState(false);
-  const [backView, setBackView] = useState(false);
+import React, { useState } from 'react';
+import { IResponse, IRider, IUser } from '../../interfaces';
 
+
+type ItemProps = {
+  mine: boolean;
+  rider: IRider;
+  addToRoster: (userId: number, riderId: number) => Promise<IResponse>;
+  removeFromRoster: (userId: number, riderId: number) => Promise<void>;
+  userData: IUser;
+  booleanObj: { [k: number]: boolean };
+  setBooleanObj: React.Dispatch<React.SetStateAction<{ [k: number]: boolean }>>;
+};
+
+const Item: React.FC<ItemProps> = ({rider, addToRoster, removeFromRoster, mine, userData, booleanObj, setBooleanObj}) => {
+
+  const [showInfo, setShowInfo] = useState<boolean>(false);
+  const [backView, setBackView] = useState<boolean>(false);
   const button_rider_class = mine ? 'button_myRider' : 'button_rider';
   const  rider_name_team = mine ? 'my_name_team' : 'name_team'
 
-  async function toggleRider (riderId, rider) {
+  async function toggleRider (riderId: number, rider: IRider): Promise<void> {
     if (!rider.added_at) {
-      const result = await addToRoster(userData.id, riderId);
+      const result: IResponse = await addToRoster(userData.id, riderId);
       if (result.ok) {
         setBooleanObj(prev => ({
           ...prev,
@@ -27,7 +38,7 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
     }
   }
 
-  function toggleRiderInfo () {
+  function toggleRiderInfo (): void {
     if (!showInfo) {
       setShowInfo(true);
     } else {
@@ -35,7 +46,7 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
     }
   }
 
-  function toggleBackView () {
+  function toggleBackView (): void {
     if (!backView) {
       setBackView(true);
     } else {
@@ -69,9 +80,7 @@ function Item ({user, rider, addToRoster, removeFromRoster, mine, userData, bool
         <div className={rider_name_team}>
           <div className="detail rider_name">{rider.name} </div>
           <div className="detail rider_team">{rider.team}</div>
-          {/* {showInfo &&
-            <div>rider.nationality</div>
-          } */}
+
           {mine && !backView
             ? <div className="my_rider_buttons">
                 <button className="SellRider" onClick={() => toggleRider(rider.id, rider)}>sell: &#x20AC; {rider.price}</button>

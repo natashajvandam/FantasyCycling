@@ -13,10 +13,7 @@ type LogoutArgs = {
   returnTo: string;
 };
 
-const Header: React.FC<HeaderProps> = ({
-  userData,
-  link_route,
-}: HeaderProps) => {
+const Header: React.FC<HeaderProps> = ({userData, link_route}) => {
   const link: string = '/' + link_route;
   const { logout } = useAuth0<(args: LogoutArgs) => {}>();
 

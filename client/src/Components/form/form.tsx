@@ -1,14 +1,14 @@
 import './form.scss';
 import { useState } from 'react';
-import { IRider } from '../../interfaces';
 import React from 'react';
 
 type FormProps = {
   filterList: (query: string) => void;
 };
 
-const Form: React.FC<FormProps> = ({ filterList }: FormProps) => {
+const Form: React.FC<FormProps> = ({ filterList }) => {
   const [input, setInput] = useState<string>('');
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInput(e.target.value);
     filterList(e.target.value);
@@ -26,4 +26,5 @@ const Form: React.FC<FormProps> = ({ filterList }: FormProps) => {
     </form>
   );
 };
+
 export default Form;

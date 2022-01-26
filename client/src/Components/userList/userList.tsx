@@ -8,10 +8,7 @@ type UserListProps = {
   userData: IUser;
 };
 
-const userList: React.FC<UserListProps> = ({
-  userList,
-  userData,
-}: UserListProps) => {
+const userList: React.FC<UserListProps> = ({userList, userData}) => {
   const sortedList: IUser[] = userList.sort(
     (b: IUser, a: IUser) => a.score - b.score
   );
@@ -31,7 +28,7 @@ const userList: React.FC<UserListProps> = ({
               user={user}
             />
           ))
-      : [<>'loading...'</>];
+      : [<>loading...</>];
 
   return <div className='user_list'>{users}</div>;
 };

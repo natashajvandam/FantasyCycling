@@ -8,13 +8,10 @@ type UserItemProps = {
   self: boolean;
 };
 
-const userItem: React.FC<UserItemProps> = ({
-  user,
-  topScore,
-  self,
-}: UserItemProps) => {
+const userItem: React.FC<UserItemProps> = ({user, topScore, self}) => {
   const percent: number = (user.score * 85) / topScore;
   const name_class: string = !self ? 'user_item_name' : 'user_item_myName';
+
   return (
     <div className='league_page'>
       <div className='road'>
