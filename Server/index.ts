@@ -3,18 +3,22 @@ import cors from "cors";
 import cron from "node-cron";
 import router from "./router";
 import updateAllData from "./controllers/updateData.controller";
+import { Server } from "socket.io";
+import { createServer } from "http";
+import riderData from "./controllers/riderData.controller";
 
-const app = express(); // npm i cors
+const app = express();
 const PORT = 3005;
 
 // socket.io
-// import { createServer } from "http";
-// import { Server } from "socket.io";
 
-// const httpServer = createServer();
-
-// const io = new Server(httpServer, {});
-// //end socket.io
+const http = createServer(app);
+const io = new Server(http, {
+  cors: {
+    origin: ["http://localhost:3000"],
+  },
+});
+//end socket.io
 
 cron.schedule("0 0 0 * * *", async () => {
   updateAllData(0, 2, updateAllData);
@@ -28,13 +32,18 @@ app.use(express.json()); // body parser
 
 app.use("/", router);
 
-// io.on('connection', (socket) => {
-//   console.log('a user connected');
-// });
+io.on("connection", (socket) => {
+  console.log("Connection to socket.io");
+  socket.on("message", (message) => {
+    console.log(`Message from ${socket.id}:${message}`);
+  });
+});
+
+export { io };
 
 async function bootstrap() {
   try {
-    app.listen(PORT, () => {
+    http.listen(PORT, () => {
       // eslint-disable-next-line no-console
       console.log(`Server running on port: http://localhost:${PORT}`);
     });

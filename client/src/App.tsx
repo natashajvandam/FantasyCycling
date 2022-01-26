@@ -1,11 +1,16 @@
+/* eslint-disable no-console */
 /* eslint-disable import/extensions */
 import './App.scss'
 import React, { useState, useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Routes, Route } from 'react-router-dom'
+// SOCKET
+import io from 'socket.io-client'
+
 import League from './Pages/League/league'
 import Login from './Pages/Login/login'
 import Home from './Pages/Home/home'
+
 import apiService from './Services/apiService'
 
 import { Rider, RiderList } from './Types/riders'
@@ -17,24 +22,33 @@ type ObjectBool = {
 }
 
 function App() {
-  const [riderList, setRiderList] = useState([])
+  const [riderList, setRiderList] = useState([] as RiderList)
   const [userList, setUserList] = useState([])
   const [searchList, setSearchList] = useState([] as RiderList)
   const [booleanObj, setBooleanObj] = useState({})
+  const [myRoster, setMyRoster] = useState([] as RiderList)
 
-  // const [socket, setSocket] = useState(null);
   const { user, isAuthenticated } = useAuth0()
 
-  // const socket = io();
-  // socket.on("connect", () => {
-  //   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-  // });
+  // const [response, setResponse] = useState('')
 
-  // useEffect(() => {
-  //   const newSocket = io(`http://${window.location.hostname}:3000`);
-  //   setSocket(newSocket);
-  //   return () => newSocket.close();
-  // }, [setSocket]);
+  useEffect(() => {
+    const socket = io('http://localhost:3005')
+
+    socket.on('connect_error', (err) => {
+      console.log(`connect_error due to ${err.message}`)
+    })
+    socket.on('connection', () => {
+      console.log('Connected to server')
+    })
+    socket.on('fetchriders', (riders) => {
+      setRiderList(riders)
+      setSearchList(riders)
+      console.log(riderList)
+    })
+    socket.on('message', (message) => console.log(message))
+    socket.on('disconnect', () => console.log('Socket disconnecting'))
+  }, [riderList])
 
   useEffect(() => {
     apiService.getTheUsers().then((result) => setUserList(result))
