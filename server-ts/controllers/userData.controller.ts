@@ -52,7 +52,7 @@ const fetchUserData = async (req: Request, res: Response) => {
     const email: string = req.body.email;
     console.log('nickname in control', nickname);
     let userDetails: User | any = await getUserDetails(nickname, email);
-    console.log(userDetails);
+
     if (!userDetails) {
       userDetails = await setNewUser(req.body);
     }
@@ -111,6 +111,8 @@ const addRider = async (
 ) => {
   try {
     const { id, rider } = req.params;
+    console.log('id ', id);
+    console.log('rider ', rider);
     const roster: QueryResult | false = await addRiderToRoster(id, rider);
     if (roster) {
       res.status(204);

@@ -16,7 +16,7 @@ const getUserDetails = async (nickname: string, email: string) => {
   const res: QueryResult = await client.query(
     `SELECT id, email, nickname, score, money FROM user_table WHERE nickname = '${nickname}' AND email = '${email}';`
   );
-  console.log('model', res);
+
   return res.rows[0];
 };
 
