@@ -5,7 +5,6 @@ import router from "./router";
 import updateAllData from "./controllers/updateData.controller";
 import { Server } from "socket.io";
 import { createServer } from "http";
-import riderData from "./controllers/riderData.controller";
 
 const app = express();
 const PORT = 3005;
