@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import userModel from "../models/user.model";
 import rosterModel from "../models/roster.model";
+import { io } from "../index";
+
+import client from "../models/index.model";
+import userQueries from "../queries/userQueries";
 
 const teamData = () => {};
 
@@ -41,6 +45,8 @@ teamData.addRider = async (req: Request, res: Response) => {
       JSON.parse(rider)
     );
     if (roster) {
+      const test = await client.query(userQueries.FETCH_ALL_RIDERS());
+      io.emit("fetchRiders", test.rows, id);
       res.status(204);
       res.send(roster);
     } else {
@@ -59,6 +65,8 @@ teamData.removeRider = async (req: Request, res: Response) => {
       parseInt(id, 10),
       JSON.parse(rider)
     );
+    const test = await client.query(userQueries.FETCH_ALL_RIDERS());
+    io.emit("fetchRiders", test.rows, id);
     res.status(204);
     res.send(team);
   } catch (error) {

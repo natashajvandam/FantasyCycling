@@ -1,11 +1,16 @@
+/* eslint-disable no-console */
 /* eslint-disable import/extensions */
 import './App.scss'
 import React, { useState, useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Routes, Route } from 'react-router-dom'
+// SOCKET
+import io from 'socket.io-client'
+
 import League from './Pages/League/league'
 import Login from './Pages/Login/login'
 import Home from './Pages/Home/home'
+
 import apiService from './Services/apiService'
 
 import { Rider, RiderList } from './Types/riders'
@@ -17,24 +22,37 @@ type ObjectBool = {
 }
 
 function App() {
-  const [riderList, setRiderList] = useState([])
+  const [riderList, setRiderList] = useState([] as RiderList)
   const [userList, setUserList] = useState([])
   const [searchList, setSearchList] = useState([] as RiderList)
   const [booleanObj, setBooleanObj] = useState({})
 
-  // const [socket, setSocket] = useState(null);
   const { user, isAuthenticated } = useAuth0()
 
-  // const socket = io();
-  // socket.on("connect", () => {
-  //   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-  // });
+  // const [response, setResponse] = useState('')
 
-  // useEffect(() => {
-  //   const newSocket = io(`http://${window.location.hostname}:3000`);
-  //   setSocket(newSocket);
-  //   return () => newSocket.close();
-  // }, [setSocket]);
+  useEffect(() => {
+    const socket = io('http://localhost:3005')
+
+    socket.on('connect_error', (err) => {
+      console.log(`connect_error due to ${err.message}`)
+    })
+    socket.on('connection', () => {
+      console.log('Connected to server')
+    })
+    socket.on('fetchRiders', (riders) => {
+      setRiderList(riders)
+      setSearchList(riders)
+      const newBoolObj: ObjectBool = {}
+      riders.forEach((el: Rider) => {
+        newBoolObj[el.id] = !!el.added_at
+      })
+      setBooleanObj(newBoolObj)
+    })
+    return () => {
+      socket.disconnect()
+    }
+  }, [])
 
   useEffect(() => {
     apiService.getTheUsers().then((result) => setUserList(result))

@@ -12,7 +12,7 @@ describe('Welcome Page.', () => {
   it('Successfully log in.', () => {
     cy.contains('Log In').click();
 
-    cy.get('input[name=username]').type('santi@hotmail.com ');
+    cy.get('input[name=username]').type('santi@hotmail.com');
     cy.get('input[name=password]').type('hello123.');
     cy.get('button[name=action]').click();
   });
@@ -21,27 +21,20 @@ describe('Welcome Page.', () => {
 describe('Buys and sells a player and displays the league score.', () => {
   it('Should buy a player.', () => {
     cy.wait(700);
-    cy.contains('buy').click();
-    cy.wait(500);
+    cy.get('#70').contains('buy').click();
   });
 
   it('Should sell a player.', () => {
-    cy.wait(700);
-    cy.get('button[name=sell]').click();
-    cy.wait(500);
+    cy.get('[id=70][class=button_myRider]').find('button[name=sell]').click();
   });
 
   it('Should buy more than one player.', () => {
-    cy.wait(500);
-    cy.get('#2').contains('buy').click();
-    cy.wait(500);
+    cy.get('#60').contains('buy').click();
     cy.get('#30').contains('buy').click();
-    cy.wait(500);
   });
 
   it('Should sell all the players.', () => {
-    cy.get('[id=2][class=button_myRider]').find('button[name=sell]').click();
-    cy.wait(500);
+    cy.get('[id=60][class=button_myRider]').find('button[name=sell]').click();
     cy.get('[id=30][class=button_myRider]').find('button[name=sell]').click();
   });
 
