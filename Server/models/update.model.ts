@@ -81,7 +81,7 @@ const insertImages = async (array: RiderImage[]) => {
         parseInt(riderObj.pnts[4], 10) || 0
       },
         next_race = '${nextRace}' WHERE name = '${name}';`);
-      console.log(res.rowCount);
+
     });
   } catch (error) {
     console.log('error inserting (insertImages):', error);

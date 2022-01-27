@@ -25,32 +25,11 @@ const fetchRiders = async (req: Request, res: Response) => {
   }
 };
 
-// const createNewTeam = async (req: Request, res: Response) => {
-//   try {
-//     const {
-//       username,
-//       team,
-//       password,
-//     }: { username: string; team: string; password: string } = req.body;
-//     const newUser: User = await setNewUser({
-//       username,
-//       team,
-//       password,
-//       score: 0,
-//     });
-//     res.status(201);
-//     res.send(newUser);
-//   } catch (error) {
-//     console.log(error);
-//     res.sendStatus(500);
-//   }
-// };
 
 const fetchUserData = async (req: Request, res: Response) => {
   try {
     const nickname: string = req.body.nickname;
     const email: string = req.body.email;
-    console.log('nickname in control', nickname);
     let userDetails: User | any = await getUserDetails(nickname, email);
 
     if (!userDetails) {
@@ -111,8 +90,6 @@ const addRider = async (
 ) => {
   try {
     const { id, rider } = req.params;
-    console.log('id ', id);
-    console.log('rider ', rider);
     const roster: QueryResult | false = await addRiderToRoster(id, rider);
     if (roster) {
       res.status(204);

@@ -15,8 +15,6 @@ const App: React.FC = () => {
   const [booleanObj, setBooleanObj] = useState<{ [k: number]: boolean }>([]);
   const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0<User>();
 
-  console.log('Authenticated', isAuthenticated);
-  console.log('Loading ', isLoading);
 
   useEffect(() => {
     getTheUsers().then((result: IUser[]) => setUserList(result));

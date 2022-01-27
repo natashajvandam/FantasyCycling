@@ -17,7 +17,7 @@ const fetchRiderNames = async () => {
   const res: QueryResult = await client.query(
     `SELECT name FROM rider_table WHERE image is NULL OR image = 'undefined' AND price = 10`
   );
-  console.log(res.rows);
+
   return res.rows;
 };
 
