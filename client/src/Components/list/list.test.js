@@ -1,7 +1,7 @@
 import { expect } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
 import {MemoryRouter} from 'react-router-dom'
-import List from './list.js'
+import List from './list'
 import '@testing-library/jest-dom/extend-expect'
 
 jest.mock('../item/item', () => () => <div data-testid="item" />)
@@ -22,18 +22,25 @@ emptyRiderList : [],
     "sprint_pnts": 656,
     "climb_pnts": 390,
     "next_race": " Trofeo Calvia"
-  }]
+  }],
+  userData:  {
+    id: 8,
+    email: 'john@john.com',
+    nickname: 'john',
+    score: 500,
+    money: 200,
+  }
 }
 
 describe('List component', () => {
   it('should render no riders riderList is empty', () => {
-    const view = render(<List riderList={mock.emptyRiderList}/>, { wrapper: MemoryRouter })
+    const view = render(<List riderList={mock.emptyRiderList} userData={mock.userData }/>, { wrapper: MemoryRouter })
 
     expect(view.container).toHaveTextContent('no riders...')
   })
 
   it('should render riders if riderList contains riders', () => {
-    const view= render(<List riderList={mock.riderList}/>, { wrapper: MemoryRouter })
+    const view= render(<List riderList={mock.riderList} userData={mock.userData }/>, { wrapper: MemoryRouter })
 
       expect(screen.getByTestId(/item/)).toBeInTheDocument(view.container)
   })

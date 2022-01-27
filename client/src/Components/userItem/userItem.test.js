@@ -4,7 +4,6 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import UserItem from './userItem';
-import { prettyDOM } from '@testing-library/dom';
 
 const mockData = [
   {
@@ -30,37 +29,45 @@ const mockData = [
   },
 ];
 
-test('renders correct content', () => {
-  render(<UserItem user={mockData[0]} topScore={500} self={false} />, {
-    wrapper: MemoryRouter,
+describe('User Item component', () => {
+
+  it('should not render any data if an invalid prop is passed', () => {
+    const { container } = render(
+      <UserItem user={null} topScore={null} self={null} />,
+      {
+        wrapper: MemoryRouter,
+      }
+    );
+    expect(container.getElementsByClassName('league_page').children).toBeFalsy()
   });
 
-  screen.getByText(mockData[0].nickname);
-  screen.getByText(mockData[0].score);
-});
+  describe('if self attribute if false', () => {
 
-test('renders correct attributes on self username', () => {
-  const { container } = render(
-    <UserItem user={mockData[0]} topScore={500} self={true} />,
-    {
-      wrapper: MemoryRouter,
-    }
-  );
+    it('should render correct nickname', () => {
+      render(<UserItem user={mockData[0]} topScore={500} self={false} />, {
+        wrapper: MemoryRouter,
+      });
+      screen.getByText(mockData[0].nickname);
+    });
 
-  console.log(prettyDOM(container));
+    it('should render correct score', () => {
+      render(<UserItem user={mockData[0]} topScore={500} self={false} />, {
+        wrapper: MemoryRouter,
+      });
 
-  expect(container.getElementsByClassName('user_item_myName').length).toBe(1);
-});
+      screen.getByText(mockData[0].score);
+    });
+  })
 
-test('Handles invalid props', () => {
-  const { container } = render(
-    <UserItem user={null} topScore={null} self={null} />,
-    {
-      wrapper: MemoryRouter,
-    }
-  );
-
-  expect(container.getElementsByClassName('league_page').children.length).toBe(
-    1
-  );
-});
+  describe('If self attribute is true', ()=> {
+    it('should apply correct styling on self username', () => {
+    const { container } = render(
+      <UserItem user={mockData[0]} topScore={500} self={true} />,
+      {
+        wrapper: MemoryRouter,
+      }
+    );
+    expect(container.getElementsByClassName('user_item_myName').length).toBe(1);
+  });
+  })
+})

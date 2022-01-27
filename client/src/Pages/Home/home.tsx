@@ -3,7 +3,12 @@ import List from '../../Components/list/list';
 import Header from '../../Components/header/header';
 import Form from '../../Components/form/form';
 import React, { useState, useEffect } from 'react';
-import {fetchUserRoster, addRider, fetchUserData, removeRider} from '../../Services/apiService';
+import {
+  fetchUserRoster,
+  addRider,
+  fetchUserData,
+  removeRider,
+} from '../../Services/apiService';
 import { useAuth0, User } from '@auth0/auth0-react';
 import { IResponse, IRider, IUser } from '../../interfaces';
 
@@ -15,8 +20,15 @@ type HomeProps = {
   setBooleanObj: React.Dispatch<React.SetStateAction<{ [k: number]: boolean }>>;
 };
 
-const Home: React.FC<HomeProps> = ({riderList, setSearchList, searchList, booleanObj, setBooleanObj,}) => {
-  const { user, isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0<User>();
+const Home: React.FC<HomeProps> = ({
+  riderList,
+  setSearchList,
+  searchList,
+  booleanObj,
+  setBooleanObj,
+}) => {
+  const { user, isLoading, isAuthenticated, getAccessTokenSilently } =
+    useAuth0<User>();
   const [token, setToken] = useState<string | null>(null);
   const [myRoster, setMyRoster] = useState<IRider[]>([]);
   const [userData, setUserData] = useState<IUser | null>(null);
@@ -31,6 +43,7 @@ const Home: React.FC<HomeProps> = ({riderList, setSearchList, searchList, boolea
   };
 
   useEffect(() => {
+    let isMounted = true;
     const getUserMetadata = async (): Promise<void> => {
       const domain = process.env.REACT_APP_AUTH0_DOMAIN;
       try {
@@ -48,16 +61,22 @@ const Home: React.FC<HomeProps> = ({riderList, setSearchList, searchList, boolea
               }
             })
             .then((result: IRider[]) => {
-              setMyRoster(result);
+              if (isMounted) setMyRoster(result);
             });
       } catch (err) {
         console.log(err);
       }
     };
     getUserMetadata();
+    return () => {
+      isMounted = false;
+    };
   }, [getAccessTokenSilently, user]);
 
-  async function addToRoster(userId: number, riderId: number): Promise<IResponse> {
+  async function addToRoster(
+    userId: number,
+    riderId: number
+  ): Promise<IResponse> {
     const serverResponse: IResponse = await addRider(userId, riderId, token);
     if (userData) {
       fetchUserData(userData).then((result: IUser) =>
@@ -76,7 +95,10 @@ const Home: React.FC<HomeProps> = ({riderList, setSearchList, searchList, boolea
     return serverResponse;
   }
 
-  async function removeFromRoster(userId: number, riderId: number): Promise<void> {
+  async function removeFromRoster(
+    userId: number,
+    riderId: number
+  ): Promise<void> {
     await removeRider(userId, riderId, token);
     if (userData) {
       fetchUserData(userData).then((result: IUser) =>
@@ -98,7 +120,7 @@ const Home: React.FC<HomeProps> = ({riderList, setSearchList, searchList, boolea
     <>
       {isLoading ? <>loading...</> : null}
 
-      {(isAuthenticated && user && userData) ? (
+      {isAuthenticated && user && userData ? (
         <div className='home_page'>
           <>
             {userData && <Header userData={userData} link_route={'league'} />}

@@ -1,7 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import { prettyDOM } from '@testing-library/dom';
 import League from './league';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -29,11 +28,13 @@ const mockData = [
   },
 ];
 
-test('renders content', () => {
+describe('League component', () => {
+  it('should render content', () => {
   const view = render(<League userList={mockData} />, {
     wrapper: MemoryRouter,
   });
 
   expect(view.container).toHaveTextContent('fantacy league');
-  //console.log(prettyDOM(view.container));
 });
+})
+

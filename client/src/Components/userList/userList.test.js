@@ -29,29 +29,33 @@ const mockData = [
   },
 ];
 
-test('renders content', () => {
-  const { container } = render(
-    <UserList userList={mockData} userData={mockData[0]} />,
-    {
+describe('User List component', () => {
+
+  it('should render list items', () => {
+    const { container } = render(
+      <UserList userList={mockData} userData={mockData[0]} />,
+      {
+        wrapper: MemoryRouter,
+      }
+    );
+
+    expect(container.firstChild).toHaveClass('user_list');
+  });
+
+  it('should render Loading while sorting scores', () => {
+    render(<UserList userList={[]} userData={mockData[0]} />, {
       wrapper: MemoryRouter,
-    }
-  );
+    });
 
-  expect(container.firstChild).toHaveClass('user_list');
-});
-
-test('renders Loading on empty list', () => {
-  render(<UserList userList={[]} userData={mockData[0]} />, {
-    wrapper: MemoryRouter,
+    screen.getByText('loading...');
   });
 
-  screen.getByText('loading...');
-});
+  it('should not render if invalid props passed', () => {
+    const { container } = render(<UserList userList={null} userData={null} />, {
+      wrapper: MemoryRouter,
+    });
+    expect(container.getElementsByClassName('user_list').children).toBeFalsy();
 
-test('Handles invalid props', () => {
-  const { container } = render(<UserList userList={null} userData={null} />, {
-    wrapper: MemoryRouter,
   });
+})
 
-  expect(container.getElementsByClassName('user_list').children.length).toBe(1);
-});
