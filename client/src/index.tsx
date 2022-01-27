@@ -6,16 +6,14 @@ import { BrowserRouter } from 'react-router-dom'
 import { Auth0Provider } from '@auth0/auth0-react'
 import App from './App'
 
-import 'dotenv/config'
-
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider
-      domain={process.env.AUTH_DOMAIN as string}
-      clientId={process.env.AUTH_CLIENT_ID as string}
-      redirectUri={process.env.AUTH_REDIRECT_URI}
-      audience={process.env.AUTH_AUDIENCE}
-      scope={process.env.AUTH_SCOPE}
+      domain="dev-sfbx-116.us.auth0.com"
+      clientId="huLpHGSwa4GNH5DX4rH9sUlGMf3NKQxg"
+      redirectUri="http://localhost:3000/home"
+      audience="https://dev-sfbx-116.us.auth0.com/api/v2/"
+      scope="read:current_user update:current_user_metadata"
     >
       <BrowserRouter>
         <App />
