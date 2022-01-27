@@ -1,12 +1,12 @@
 import { expect } from '@jest/globals';
 import { fireEvent, render, screen } from '@testing-library/react';
 import {MemoryRouter} from 'react-router-dom'
-import Item from './item.js'
+import Item from './item'
  import '@testing-library/jest-dom/extend-expect'
 
-jest.mock('../../Services/apiService.js', () => ({
-      addRider: () => ({ Result: { type: 'cors', url: 'http://localhost:3005/team/add/8/97', redirected: false, status: 204, ok: true } })
-}))
+// jest.mock('../../Services/apiService.js', () => ({
+//       addRider: () => ({ Result: { type: 'cors', url: 'http://localhost:3005/team/add/8/97', redirected: false, status: 204, ok: true } })
+// }))
 
 const mock = {
 user : {

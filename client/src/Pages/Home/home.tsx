@@ -2,7 +2,7 @@ import './home.scss';
 import List from '../../Components/list/list';
 import Header from '../../Components/header/header';
 import Form from '../../Components/form/form';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {fetchUserRoster, addRider, fetchUserData, removeRider} from '../../Services/apiService';
 import { useAuth0, User } from '@auth0/auth0-react';
 import { IResponse, IRider, IUser } from '../../interfaces';
@@ -41,13 +41,15 @@ const Home: React.FC<HomeProps> = ({riderList, setSearchList, searchList, boolea
         setToken(accessToken);
         user &&
           fetchUserData(user)
-            .then((response: IUser) => {
+          .then((response: IUser) => {
+              console.log("res", response)
               if (response) {
                 setUserData(response);
                 return fetchUserRoster(response.id);
               }
             })
-            .then((result: IRider[]) => {
+          .then((result: IRider[]) => {
+            console.log("result", result)
               setMyRoster(result);
             });
       } catch (err) {
@@ -55,6 +57,7 @@ const Home: React.FC<HomeProps> = ({riderList, setSearchList, searchList, boolea
       }
     };
     getUserMetadata();
+
   }, [getAccessTokenSilently, user]);
 
   async function addToRoster(userId: number, riderId: number): Promise<IResponse> {

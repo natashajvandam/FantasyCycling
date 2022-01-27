@@ -28,7 +28,7 @@ const userList: React.FC<UserListProps> = ({userList, userData}) => {
               user={user}
             />
           ))
-      : [<>loading...</>];
+      : [<div key="loading">loading...</div>];
 
   return <div className='user_list'>{users}</div>;
 };

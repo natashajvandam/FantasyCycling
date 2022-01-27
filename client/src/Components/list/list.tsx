@@ -16,8 +16,9 @@ type ListProps = {
 const List: React.FC<ListProps> = ({mine, riderList, addToRoster, removeFromRoster, userData, booleanObj, setBooleanObj}) => {
   const class_name: string = mine ? 'myList' : 'fullList';
   const riders: JSX.Element[] =
-    (riderList.length > 0 && userData)
-      ? riderList
+    (riderList && riderList.length > 0 && userData)
+      ?
+      riderList
           .sort((r1, r2) => r2.price - r1.price)
           .map((rider) => (
             <Item
@@ -31,7 +32,7 @@ const List: React.FC<ListProps> = ({mine, riderList, addToRoster, removeFromRost
               setBooleanObj={setBooleanObj}
             />
           ))
-      : [<div>no riders...</div>]
+      : [<div key="no-riders">no riders...</div>]
 
   return <div className={class_name}>{riders}</div>;
 };

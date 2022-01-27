@@ -43,31 +43,31 @@ test('renders content', () => {
   //console.log(prettyDOM(view.container));
 });
 
-test('renders content with invalid props', () => {
-  let view = render(<Header userData={null} link_route={null} />, {
-    wrapper: MemoryRouter,
-  });
+// test('renders content with invalid props', () => {
+//   let view = render(<Header userData={null} link_route={null} />, {
+//     wrapper: MemoryRouter,
+//   });
 
-  expect(view.container).toHaveTextContent('Granny Gear Groupetto');
+//   expect(view.container).toHaveTextContent('Granny Gear Groupetto');
 
-  view = render(<Header userData={undefined} link_route={undefined} />, {
-    wrapper: MemoryRouter,
-  });
+//   view = render(<Header userData={undefined} link_route={undefined} />, {
+//     wrapper: MemoryRouter,
+//   });
 
-  expect(view.container).toHaveTextContent('Granny Gear Groupetto');
+//   expect(view.container).toHaveTextContent('Granny Gear Groupetto');
 
-  view = render(<Header userData={mockData[0]} link_route={undefined} />, {
-    wrapper: MemoryRouter,
-  });
+//   view = render(<Header userData={mockData[0]} link_route={undefined} />, {
+//     wrapper: MemoryRouter,
+//   });
 
-  expect(view.container).toHaveTextContent('Granny Gear Groupetto');
+//   expect(view.container).toHaveTextContent('Granny Gear Groupetto');
 
-  view = render(<Header userData={undefined} link_route={mockLink[0]} />, {
-    wrapper: MemoryRouter,
-  });
+//   view = render(<Header userData={undefined} link_route={mockLink[0]} />, {
+//     wrapper: MemoryRouter,
+//   });
 
-  expect(view.container).toHaveTextContent('Granny Gear Groupetto');
-});
+//   expect(view.container).toHaveTextContent('Granny Gear Groupetto');
+// });
 
 mockData.forEach((user) => {
   test('renders correct user data', () => {
