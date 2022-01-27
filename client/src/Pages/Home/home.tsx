@@ -38,15 +38,6 @@ function Home({ riderList, setSearchList, searchList, booleanObj, setBooleanObj 
     }
   }
 
-  // useEffect(() => {
-  //   console.log(user);
-  //   fetchUserData(user.nickname) //hard-coded userId => {id: 3, name: 'natashajv', team_name: 'aCoolTeam', score: 0, money: 490}
-  //   .then(result => {
-  //     setUserData(result)
-  //     return fetchUserRoster(result.id) })
-  //   .then(result => setMyRoster(result));
-  // }, [])
-
   const getUserMetadata = async () => {
     const domain = 'dev-sfbx-116.us.auth0.com'
     try {

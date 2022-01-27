@@ -19,7 +19,7 @@ function Header({ userData, linkRoute }: headerProps) {
       <div className="user_header">
         <div className="logo">
           <div className="logoImg" />
-          <div className="logo_name">Granny Gear Groupetto</div>
+          <div className="logo_name">Fantacycling</div>
         </div>
         <div className="user_header_details">
           <div>

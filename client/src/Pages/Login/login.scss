@@ -1,0 +1,104 @@
+@import '../../Assets/_globalVar.scss';
+
+.container {
+  background: rgb(245, 245, 245);
+  padding: 1rem;
+  border-radius: 10px;
+  width: 60%;
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.container p {
+  font-size: 1.2rem;
+}
+
+.container h2 {
+  font-weight: bold;
+  font-size: 2rem;
+  color: $orange_color;
+  margin: 0 0 2rem 0;
+}
+
+.container h3 {
+  font-size: 1.5rem;
+  color: $orange_color;
+}
+.log-in {
+  background-color: $orange_color;
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.logoImg {
+  width: 82px;
+  height: 82px;
+  background-image: url('../../Assets/Images/logoOrange.jpg');
+  background-size: cover;
+  margin-right: 2px;
+  background-position: 0% 50%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  justify-content: space-between;
+  width: 65.5%;
+}
+
+.logos-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.logos {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.image {
+  width: 25;
+  margin: 0.8rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logos img {
+  width: 130px;
+  height: 130px;
+}
+
+.login-wrapper {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+}
+
+.got img {
+  height: auto;
+  width: 150px;
+}
+
+.jsdom img {
+  height: auto;
+  width: 110px;
+}
