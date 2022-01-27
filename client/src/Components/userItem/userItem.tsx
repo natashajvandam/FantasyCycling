@@ -9,12 +9,15 @@ type UserItemProps = {
 };
 
 const userItem: React.FC<UserItemProps> = ({user, topScore, self}) => {
-  const percent: number = (user.score * 85) / topScore;
+  const percent: number = user && (user.score * 85) / topScore;
   const name_class: string = !self ? 'user_item_name' : 'user_item_myName';
 
   return (
+
     <div className='league_page'>
-      <div className='road'>
+      {user
+        ? <>
+          <div className='road'>
         <div
           className='road_rider_image'
           style={{ transform: `translate(${percent | 0}vw, 10px)` }}
@@ -31,8 +34,13 @@ const userItem: React.FC<UserItemProps> = ({user, topScore, self}) => {
         <div className='user_item_name_team'>
           <div className={name_class}>{user.nickname}</div>
         </div>
+          </div>
+        </>
+        : null
+      }
+
       </div>
-    </div>
+
   );
 };
 

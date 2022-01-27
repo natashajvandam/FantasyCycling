@@ -2,7 +2,7 @@ import './home.scss';
 import List from '../../Components/list/list';
 import Header from '../../Components/header/header';
 import Form from '../../Components/form/form';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   fetchUserRoster,
   addRider,
@@ -55,14 +55,12 @@ const Home: React.FC<HomeProps> = ({
         user &&
           fetchUserData(user)
             .then((response: IUser) => {
-              console.log('res', response);
               if (response) {
                 setUserData(response);
                 return fetchUserRoster(response.id);
               }
             })
             .then((result: IRider[]) => {
-              console.log('result', result);
               if (isMounted) setMyRoster(result);
             });
       } catch (err) {

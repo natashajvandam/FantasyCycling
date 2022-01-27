@@ -26,16 +26,27 @@ const Header: React.FC<HeaderProps> = ({userData, link_route}) => {
         </div>
         <div className='user_header_details'>
           <div>
-            <Link className='link_league' to='/home'>
+            {link_route && userData
+              ? <Link className='link_league' to='/home'>
               {userData.nickname}
-            </Link>
+              </Link>
+            : null }
           </div>
+          {link_route && userData
+            ?<>
           <div>&#x20AC; {userData.money}</div>
           <div>{userData.score} pts</div>
+            </>
+          : null}
+
         </div>
-        <Link className='link_league' to={link}>
+        {link_route && userData
+          ?<Link className='link_league' to={link}>
           {link_route}
         </Link>
+          : null
+      }
+
         <button
           className='logOutButton'
           onClick={() => logout({ returnTo: 'http://localhost:3000/' })}

@@ -31,52 +31,60 @@ const mockData = [
 
 const mockLink = ['home', 'league'];
 
-test('renders content', () => {
-  const view = render(
-    <Header userData={mockData[0]} link_route={mockLink[0]} />,
-    {
-      wrapper: MemoryRouter,
-    }
-  );
+describe("Header component", () => {
 
-  expect(view.container).toHaveTextContent('Granny Gear Groupetto');
-  //console.log(prettyDOM(view.container));
-});
+  it('should render the app name', () => {
+    const view = render(
+      <Header userData={mockData[0]} link_route={mockLink[0]} />,
+      {wrapper: MemoryRouter}
+    );
+    expect(view.container).toHaveTextContent('Granny Gear Groupetto');
+  });
 
-// test('renders content with invalid props', () => {
-//   let view = render(<Header userData={null} link_route={null} />, {
-//     wrapper: MemoryRouter,
-//   });
-
-//   expect(view.container).toHaveTextContent('Granny Gear Groupetto');
-
-//   view = render(<Header userData={undefined} link_route={undefined} />, {
-//     wrapper: MemoryRouter,
-//   });
-
-//   expect(view.container).toHaveTextContent('Granny Gear Groupetto');
-
-//   view = render(<Header userData={mockData[0]} link_route={undefined} />, {
-//     wrapper: MemoryRouter,
-//   });
-
-//   expect(view.container).toHaveTextContent('Granny Gear Groupetto');
-
-//   view = render(<Header userData={undefined} link_route={mockLink[0]} />, {
-//     wrapper: MemoryRouter,
-//   });
-
-//   expect(view.container).toHaveTextContent('Granny Gear Groupetto');
-// });
-
-mockData.forEach((user) => {
-  test('renders correct user data', () => {
-    render(<Header userData={user} link_route={mockLink[0]} />, {
+  it('should still render app name if invalid props passed', () => {
+    let view = render(<Header userData={null} link_route={null} />, {
       wrapper: MemoryRouter,
     });
 
-    screen.getByText(user.nickname);
-    screen.getByText('€ ' + user.money);
-    screen.getByText(user.score + ' pts');
+    expect(view.container).toHaveTextContent('Granny Gear Groupetto');
+
+    view = render(<Header userData={undefined} link_route={undefined} />, {
+      wrapper: MemoryRouter,
+    });
+
+    expect(view.container).toHaveTextContent('Granny Gear Groupetto');
+
+    view = render(<Header userData={mockData[0]} link_route={undefined} />, {
+      wrapper: MemoryRouter,
+    });
+
+    expect(view.container).toHaveTextContent('Granny Gear Groupetto');
+
+    view = render(<Header userData={undefined} link_route={mockLink[0]} />, {
+      wrapper: MemoryRouter,
+    });
+
+    expect(view.container).toHaveTextContent('Granny Gear Groupetto');
   });
-});
+
+
+    it('should render correct user nickname', () => {
+      render(<Header userData={mockData[0]} link_route={mockLink[0]} />, {
+        wrapper: MemoryRouter,
+      });
+      screen.getByText(mockData[0].nickname);
+    });
+    it('should render correct user money', () => {
+      render(<Header userData={mockData[0]} link_route={mockLink[0]} />, {
+        wrapper: MemoryRouter,
+      });
+      screen.getByText('€ ' + mockData[0].money);
+    });
+    it('should render correct user score', () => {
+      render(<Header userData={mockData[0]} link_route={mockLink[0]} />, {
+        wrapper: MemoryRouter,
+      });
+      screen.getByText(mockData[0].score + ' pts');
+    });
+
+})

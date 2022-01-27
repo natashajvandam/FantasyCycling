@@ -9,7 +9,7 @@ type UserListProps = {
 };
 
 const userList: React.FC<UserListProps> = ({userList, userData}) => {
-  const sortedList: IUser[] = userList.sort(
+  const sortedList: IUser[] = userList && userList.sort(
     (b: IUser, a: IUser) => a.score - b.score
   );
   let topScore: number = 0;
@@ -30,7 +30,7 @@ const userList: React.FC<UserListProps> = ({userList, userData}) => {
           ))
       : [<div key="loading">loading...</div>];
 
-  return <div className='user_list'>{users}</div>;
+  return <div className='user_list'> {userList &&userData ? users: null}</div>;
 };
 
 export default userList;

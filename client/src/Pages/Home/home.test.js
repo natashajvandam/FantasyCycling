@@ -7,27 +7,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
 import * as API from '../../Services/apiService'
 
-
 jest.mock('../../Components/list/list', () => () => <div data-testid="list" />)
 jest.mock('@auth0/auth0-react')
 jest.mock('../../Components/header/header', () => () => <div data-testid="header" />)
-// jest.mock('../../Services/apiService', () => {
-//   return {
-//     fetchUserData: jest.fn(() => {
-//     return Promise.resolve({
-//        " id": 8,
-//           "email": "john@john.com",
-//             "nickname": "john",
-//               "score": 500,
-//                 "money": 200
-//       })
-//     }),
-//     fetchUserRoster: jest.fn(() => {
-//       return Promise.resolve([])
-//     })
-//    }
-//  })
-
 
 const user = {
   email: "john@john.com",
@@ -35,7 +17,7 @@ const user = {
   nickname: 'john'
 };
 
-const mock = {
+const mockProps = {
   setSearchList: jest.fn(),
   riderList: [],
   booleanObj: {},
@@ -43,7 +25,7 @@ const mock = {
   setBooleanObj: jest.fn()
 }
 
-describe.only('Home conponent tests', () => {
+describe('Home component', () => {
 
   describe("Athenticated user", () => {
 
@@ -63,11 +45,11 @@ describe.only('Home conponent tests', () => {
 
     it('Header should render on page', async () => {
         const spy = jest.spyOn(API, 'fetchUserRoster')
-       render(<Home setSearchList={mock.setSearchList}
-        riderList={mock.riderList}
-        searchList={mock.searchList}
-        booleanObj={mock.booleanObj}
-         setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
+       render(<Home setSearchList={mockProps.setSearchList}
+        riderList={mockProps.riderList}
+        searchList={mockProps.searchList}
+        booleanObj={mockProps.booleanObj}
+         setBooleanObj={mockProps.setBooleanObj} />, { wrapper: MemoryRouter })
         await waitFor(()=>expect(spy).toHaveBeenCalled())
       const el = await screen.findByTestId(/header/)
       expect(el).toBeInTheDocument()
@@ -79,11 +61,11 @@ describe.only('Home conponent tests', () => {
 
     it("should render two lists if user is authenticated", async () => {
         const spy = jest.spyOn(API, 'fetchUserRoster')
-       render(<Home setSearchList={mock.setSearchList}
-        riderList={mock.riderList}
-        searchList={mock.searchList}
-        booleanObj={mock.booleanObj}
-         setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
+       render(<Home setSearchList={mockProps.setSearchList}
+        riderList={mockProps.riderList}
+        searchList={mockProps.searchList}
+        booleanObj={mockProps.booleanObj}
+         setBooleanObj={mockProps.setBooleanObj} />, { wrapper: MemoryRouter })
         await waitFor(()=>expect(spy).toHaveBeenCalled())
     const el = await screen.findAllByTestId(/list/)
       expect(el).toHaveLength(2)
@@ -93,33 +75,33 @@ describe.only('Home conponent tests', () => {
     })
 
     it("should have users name as label for first list", async () => {
-      render(<Home setSearchList={mock.setSearchList}
-        riderList={mock.riderList}
-        searchList={mock.searchList}
-        booleanObj={mock.booleanObj}
-        setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
+      render(<Home setSearchList={mockProps.setSearchList}
+        riderList={mockProps.riderList}
+        searchList={mockProps.searchList}
+        booleanObj={mockProps.booleanObj}
+        setBooleanObj={mockProps.setBooleanObj} />, { wrapper: MemoryRouter })
       const el = await screen.findByText(user.nickname)
       expect(el).toBeInTheDocument()
 
     })
 
     it("should have pro cycling riders as label for second list", async () => {
-      render(<Home setSearchList={mock.setSearchList}
-        riderList={mock.riderList}
-        searchList={mock.searchList}
-        booleanObj={mock.booleanObj}
-        setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
+      render(<Home setSearchList={mockProps.setSearchList}
+        riderList={mockProps.riderList}
+        searchList={mockProps.searchList}
+        booleanObj={mockProps.booleanObj}
+        setBooleanObj={mockProps.setBooleanObj} />, { wrapper: MemoryRouter })
       const el = await screen.findByText('pro cycling riders')
       expect(el).toBeInTheDocument()
 
     })
 
     it("should have a search bar", async () => {
-       render(<Home setSearchList={mock.setSearchList}
-        riderList={mock.riderList}
-        searchList={mock.searchList}
-        booleanObj={mock.booleanObj}
-        setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
+       render(<Home setSearchList={mockProps.setSearchList}
+        riderList={mockProps.riderList}
+        searchList={mockProps.searchList}
+        booleanObj={mockProps.booleanObj}
+        setBooleanObj={mockProps.setBooleanObj} />, { wrapper: MemoryRouter })
       const el = await screen.findByPlaceholderText(/search/)
       expect(el).toBeInTheDocument()
 
@@ -139,11 +121,11 @@ describe.only('Home conponent tests', () => {
     });
 
     it('should not display lists', async () => {
-       render(<Home setSearchList={mock.setSearchList}
-        riderList={mock.riderList}
-        searchList={mock.searchList}
-        booleanObj={mock.booleanObj}
-        setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
+       render(<Home setSearchList={mockProps.setSearchList}
+        riderList={mockProps.riderList}
+        searchList={mockProps.searchList}
+        booleanObj={mockProps.booleanObj}
+        setBooleanObj={mockProps.setBooleanObj} />, { wrapper: MemoryRouter })
       const el = await screen.findByText('User not authenticated')
       expect(el).toBeInTheDocument()
 
