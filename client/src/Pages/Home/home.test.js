@@ -92,61 +92,61 @@ describe.only('Home conponent tests', () => {
 
     })
 
-    // it("should have users name as label for first list", async () => {
-    //   render(<Home setSearchList={mock.setSearchList}
-    //     riderList={mock.riderList}
-    //     searchList={mock.searchList}
-    //     booleanObj={mock.booleanObj}
-    //     setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
-    //   const el = await screen.findByText(user.nickname)
-    //   expect(el).toBeInTheDocument()
+    it("should have users name as label for first list", async () => {
+      render(<Home setSearchList={mock.setSearchList}
+        riderList={mock.riderList}
+        searchList={mock.searchList}
+        booleanObj={mock.booleanObj}
+        setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
+      const el = await screen.findByText(user.nickname)
+      expect(el).toBeInTheDocument()
 
-    // })
+    })
 
-    // it("should have pro cycling riders as label for second list", async () => {
-    //   render(<Home setSearchList={mock.setSearchList}
-    //     riderList={mock.riderList}
-    //     searchList={mock.searchList}
-    //     booleanObj={mock.booleanObj}
-    //     setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
-    //   const el = await screen.findByText('pro cycling riders')
-    //   expect(el).toBeInTheDocument()
+    it("should have pro cycling riders as label for second list", async () => {
+      render(<Home setSearchList={mock.setSearchList}
+        riderList={mock.riderList}
+        searchList={mock.searchList}
+        booleanObj={mock.booleanObj}
+        setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
+      const el = await screen.findByText('pro cycling riders')
+      expect(el).toBeInTheDocument()
 
-    // })
+    })
 
-    // it("should have a search bar", async () => {
-    //    render(<Home setSearchList={mock.setSearchList}
-    //     riderList={mock.riderList}
-    //     searchList={mock.searchList}
-    //     booleanObj={mock.booleanObj}
-    //     setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
-    //   const el = await screen.findByPlaceholderText(/search/)
-    //   expect(el).toBeInTheDocument()
+    it("should have a search bar", async () => {
+       render(<Home setSearchList={mock.setSearchList}
+        riderList={mock.riderList}
+        searchList={mock.searchList}
+        booleanObj={mock.booleanObj}
+        setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
+      const el = await screen.findByPlaceholderText(/search/)
+      expect(el).toBeInTheDocument()
 
-    // })
+    })
   })
 
-  // describe("User not authenticated", () => {
+  describe("User not authenticated", () => {
 
-  //   beforeEach(() => {
-  //     useAuth0.mockReturnValue({
-  //       isAuthenticated: false,
-  //       user,
-  //       logout: jest.fn(),
-  //       loginWithRedirect: jest.fn(),
-  //       getAccessTokenSilently: jest.fn(() => "iamatoken")
-  //     });
-  //   });
+    beforeEach(() => {
+      useAuth0.mockReturnValue({
+        isAuthenticated: false,
+        user,
+        logout: jest.fn(),
+        loginWithRedirect: jest.fn(),
+        getAccessTokenSilently: jest.fn(() => "iamatoken")
+      });
+    });
 
-  //   it('should not display lists', async () => {
-  //      render(<Home setSearchList={mock.setSearchList}
-  //       riderList={mock.riderList}
-  //       searchList={mock.searchList}
-  //       booleanObj={mock.booleanObj}
-  //       setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
-  //     const el = await screen.findByText('User not authenticated')
-  //     expect(el).toBeInTheDocument()
+    it('should not display lists', async () => {
+       render(<Home setSearchList={mock.setSearchList}
+        riderList={mock.riderList}
+        searchList={mock.searchList}
+        booleanObj={mock.booleanObj}
+        setBooleanObj={mock.setBooleanObj} />, { wrapper: MemoryRouter })
+      const el = await screen.findByText('User not authenticated')
+      expect(el).toBeInTheDocument()
 
-  //   })
-  // })
+    })
+  })
 })
