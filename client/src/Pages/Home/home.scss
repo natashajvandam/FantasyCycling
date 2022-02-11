@@ -1,5 +1,4 @@
 @import "../../Assets/_globalVar.scss";
-//@import './homeBackground.jpg';
 * {
   padding: none;
   margin: none;
@@ -10,7 +9,6 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
 }
 .full_rider_list_heading {
   display: flex;
@@ -34,7 +32,3 @@
   width: 100vw;
   overflow-x: hidden;
 }
-
-
-
-

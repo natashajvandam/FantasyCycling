@@ -6,10 +6,6 @@
   font-family: $font;
 }
 
-// .small_text {
-//   font-size: $small_font_size;
-// }
-
 .road_div_grey {
   width: 100vw;
   height: 7px;
@@ -18,10 +14,9 @@
 .road_div_orange {
   width: 100vw;
   height: 2px;
-  
 }
 .road_rider_image {
-  background-image: url('./logoColor.jpg');
+  background-image: url("../../Assets/logoColor.jpg");
   height: 50px;
   width: 50px;
   background-size: cover;

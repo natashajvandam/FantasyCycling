@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "allowJs": true,
+    "baseUrl": ".",
+    "lib": ["es2021"],
+    "paths": {
+      "*": ["node_modules/*"]
+    }
+  },
+  "include": ["./**/*"]
+}
