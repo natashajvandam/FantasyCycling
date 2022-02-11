@@ -1,5 +1,5 @@
-import { IUser, fetchOptions, SimpleUser, IRider } from '../interfaces';
-const backend = 'http://localhost:3005';
+import { IUser, fetchOptions, SimpleUser, IRider } from "../interfaces";
+const backend = "http://localhost:3005";
 
 const fetchRequest = async (path: string, options?: fetchOptions) => {
   //use await - async syntac with try catch
@@ -10,8 +10,8 @@ const fetchRequest = async (path: string, options?: fetchOptions) => {
 };
 
 const fetchUser = async (token: string) => {
-  return fetch('https://dev-874owraq.us.auth0.com/userinfo', {
-    method: 'GET',
+  return fetch("https://dev-874owraq.us.auth0.com", {
+    method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -21,11 +21,11 @@ const fetchUser = async (token: string) => {
 };
 
 async function getAllRiders(): Promise<IRider[]> {
-  return fetchRequest('/allriders');
+  return fetchRequest("/allriders");
 }
 
 async function getTheUsers(): Promise<IUser[]> {
-  return fetchRequest('/allUsers');
+  return fetchRequest("/allUsers");
 }
 
 // async function createUser(body) {
@@ -40,10 +40,10 @@ async function getTheUsers(): Promise<IUser[]> {
 
 async function changeNameOfTeam(userId: number, newName: string): Promise<any> {
   return fetchRequest(`/team/${userId}`, {
-    method: 'PUT',
+    method: "PUT",
     body: `{"newName": "${newName}"}`,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 }
@@ -54,7 +54,7 @@ async function addRider(
   token: string | null
 ): Promise<any> {
   return fetchRequest(`/team/add/${userId}/${riderId}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -67,7 +67,7 @@ async function removeRider(
   token: string | null
 ): Promise<any> {
   return fetchRequest(`/team/delete/${userId}/${riderId}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -80,10 +80,10 @@ async function fetchUserRoster(userId: number): Promise<any> {
 
 async function fetchUserData(user: SimpleUser): Promise<IUser> {
   return fetchRequest(`/user/details`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(user),
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 }

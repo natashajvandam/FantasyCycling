@@ -1,18 +1,17 @@
-'use strict';
+"use strict";
 import {
   getUserRoster,
   setNewUser,
   getUserDetails,
   fetchAllRiders,
   fetchAllUsers,
-} from '../models/user.model.js';
+} from "../models/user.model.js";
 import {
   addRiderToRoster,
   removeRiderFromRoster,
-  changeUserTeam,
-} from '../models/roster.model.js';
-import { Request, Response } from 'express';
-import { QueryResult } from 'pg';
+} from "../models/roster.model.js";
+import { Request, Response } from "express";
+import { QueryResult } from "pg";
 
 const fetchRiders = async (req: Request, res: Response) => {
   try {
@@ -24,7 +23,6 @@ const fetchRiders = async (req: Request, res: Response) => {
     res.sendStatus(500);
   }
 };
-
 
 const fetchUserData = async (req: Request, res: Response) => {
   try {
@@ -39,22 +37,9 @@ const fetchUserData = async (req: Request, res: Response) => {
       res.status(201);
       res.send(userDetails);
     } else {
-      console.log('problem getting user: doesnt exist');
+      console.log("problem getting user: doesnt exist");
       res.sendStatus(204);
     }
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-};
-
-const changeTeamName = async (req: Request, res: Response) => {
-  try {
-    const user: string = req.params.id;
-    const { newName }: { newName: string } = req.body;
-    const userDetails: QueryResult = await changeUserTeam(user, newName);
-    res.status(201);
-    res.send(userDetails);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
@@ -93,7 +78,7 @@ const addRider = async (
     const roster: QueryResult | false = await addRiderToRoster(id, rider);
     if (roster) {
       res.status(204);
-      res.send(roster); // will automatically send status 200
+      res.send(roster);
     } else {
       res.sendStatus(405);
     }
@@ -111,7 +96,7 @@ const removeRider = async (
     const { id, rider } = req.params;
     const team: QueryResult | string = await removeRiderFromRoster(id, rider);
     res.status(204);
-    res.send(team); // will automatically send status 200
+    res.send(team);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
@@ -121,10 +106,8 @@ const removeRider = async (
 export {
   fetchTeam,
   fetchUserData,
-  // createNewTeam,
   addRider,
   removeRider,
   fetchRiders,
-  changeTeamName,
   fetchUsers,
 };

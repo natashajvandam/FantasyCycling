@@ -1,27 +1,19 @@
-'use strict';
+"use strict";
 
-import client from './index.model.js';
-import { QueryResult } from 'pg';
+import client from "./index.model.js";
+import { QueryResult } from "pg";
+
 // ----global-helper-------------------------------->
 function convertToPgDate() {
+  // takes current date and converts to a database-compatible date.
   const date: Date = new Date();
   const year: number = date.getFullYear();
-  const month: string = ('0' + (date.getMonth() + 1)).slice(-2);
-  const day: string = ('0' + date.getDate()).slice(-2);
+  const month: string = ("0" + (date.getMonth() + 1)).slice(-2);
+  const day: string = ("0" + date.getDate()).slice(-2);
   return `${year}-${month}-${day}`;
 }
 
-// ----update-image-helper--------------------------->
-// not using because images take too long to fetch
-const fetchRiderNames = async () => {
-  const res: QueryResult = await client.query(
-    `SELECT name FROM rider_table WHERE image is NULL OR image = 'undefined' AND price = 10`
-  );
-
-  return res.rows;
-};
-
-// ----update--helpers------------------------------->
+// ----update-helpers------------------------------->
 const getRoster = async (user: number) => {
   const roster: QueryResult = await client.query(`
     SELECT rider, end_date, start_date FROM roster_table
@@ -64,7 +56,7 @@ const findPrice = (rank: any) => {
 };
 
 const valueLibrary = [
-  'buffer',
+  "buffer",
   300,
   260,
   220,
@@ -167,7 +159,6 @@ const valueLibrary = [
 ];
 
 export {
-  fetchRiderNames,
   getRoster,
   fetchRiderScores,
   updateUserScore,

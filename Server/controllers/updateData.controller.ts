@@ -1,23 +1,23 @@
 // import getMockData from '../tests/mock.data.js'; //for testing
 
 // webscrapers
-import fetchRiderData from '../webscrapers/riderData.webscraper.js';
-import fetchRiderPhoto from '../webscrapers/riderPhotos.webscraper.js';
+import fetchRiderData from "../webscrapers/riderData.webscraper.js";
+import fetchRiderPhoto from "../webscrapers/riderPhotos.webscraper.js";
 
 import {
   updateRiderTable,
   updateScoresTable,
   updateUserTable,
   insertImages,
-} from '../models/update.model.js';
-import { convertToPgDate } from '../models/helper.model.js';
+} from "../models/update.model.js";
+import { convertToPgDate } from "../models/helper.model.js";
 
 export const updateAllData = async (
   start: number,
   end: number,
   next: (...args: any[]) => void
 ) => {
-  console.log('updating');
+  console.log("updating");
   // getMockData() -- for testing
   const result = loopThroughPages(start, end) // -> webscraper for data
     .then((data) => updateRiders(data)) // - 1
@@ -45,7 +45,7 @@ const loopThroughPages = async (start: number, end: number) => {
 
 // ---STEP 1---------------------------------------------------------> use data to update riders
 const updateRiders = (data: Data[]) => {
-  console.log('updating riders');
+  console.log("updating riders");
   data.forEach(async (obj: Data) => {
     await updateRiderTable(obj.rider, obj.rank, obj.team);
   });
@@ -54,11 +54,11 @@ const updateRiders = (data: Data[]) => {
 
 // ---STEP 2---------------------------------------------------------> use data to update rider scores
 const updateScores = async (data: Data[]) => {
-  console.log('updating scores');
+  console.log("updating scores");
   data.forEach(async (obj: Data) => {
     const riderScore: { score: number; rider: string } = {
       score: 0,
-      rider: '',
+      rider: "",
     };
     riderScore.score = parseInt(obj.score, 10);
     riderScore.rider = obj.rider;
@@ -69,7 +69,7 @@ const updateScores = async (data: Data[]) => {
 
 // ---STEP 3---------------------------------------------------------> use data to update user scores
 const updateUserScores = async (data: Data[]) => {
-  console.log('updating user score');
+  console.log("updating user score");
   await updateUserTable();
   return data;
 };
@@ -91,9 +91,9 @@ const updatePhotoLinks = async (data: Data[]) => {
 // ---STEP 4 helper--------------------------------------------------> split first and last names
 const splitNames = async (data: Data[]) => {
   const names: Names[] = data.map((rider: Data) => {
-    const nameArray: string[] = rider.rider.split(' ');
+    const nameArray: string[] = rider.rider.split(" ");
     const firstName: string = nameArray.pop();
-    const lastNames: string = nameArray.join('-');
+    const lastNames: string = nameArray.join("-");
     return { firstName, lastNames, rider };
   });
   return names;
@@ -105,21 +105,11 @@ const callAgain = (
   end: number,
   next: (start: number, end: number, next: (...args: any[]) => any) => void
 ) => {
-  start = end + 1; // - changing "start" and "end" to run functions again on the next patch of pages then update...
+  start = end + 1; // - changing "start" and "end" to run functions again on the next patch of pages then update.
   end = end + 1;
   if (end <= 22) {
     next(start, end, updateAllData);
   } else {
-    console.log('complete');
+    console.log("complete");
   }
 };
-
-// Ideally:
-// const data = await loopThroughPages(1);
-// TEST that give 1 I get the data I want
-
-// Run loopThroughPages(1) -> store 'data'
-// TEST: 1) given data, what does updateRiders(data) return
-// data = updateRiders(data)
-
-// TEST: 2) given data from above, test updateScores(data)

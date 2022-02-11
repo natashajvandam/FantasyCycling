@@ -1,17 +1,8 @@
-'use strict';
+"use strict";
 
-import client from './index.model.js';
-import { convertToPgDate } from './helper.model.js';
-import { QueryResult } from 'pg';
-
-const changeUserTeam = async (id: string, newName: string) => {
-  // --takes: userId, new team name | returns: { id: userId }
-  newName = newName.replaceAll("'", "''");
-  const user: QueryResult = await client.query(`
-  UPDATE user_table SET nickname = '${newName}'
-  WHERE id = ${id};`);
-  return user;
-};
+import client from "./index.model.js";
+import { convertToPgDate } from "./helper.model.js";
+import { QueryResult } from "pg";
 
 const addRiderToRoster = async (id: string, rider: string) => {
   // --takes: userId, riderId | returns: whether successful
@@ -19,7 +10,6 @@ const addRiderToRoster = async (id: string, rider: string) => {
   const date: string = convertToPgDate();
   if (newMoneyAmount >= 0) {
     // - if enough money, attempt to add userId and added_at to rider_table
-    // use more descriptive names
     const addRider: QueryResult = await client.query(`
       UPDATE rider_table SET roster = ${id}, added_at = '${date}'
       WHERE id = ${rider} AND roster IS NULL
@@ -59,7 +49,7 @@ const removeRiderFromRoster = async (id: string, rider: string) => {
       WHERE id = ${id} RETURNING money;`);
     return resOfMoney;
   } else {
-    return 'cannot remove';
+    return "cannot remove";
   }
 };
 
@@ -80,4 +70,4 @@ const getResultingMoney = async (
     : money.rows[0].money + price.rows[0].price;
 };
 
-export { addRiderToRoster, removeRiderFromRoster, changeUserTeam };
+export { addRiderToRoster, removeRiderFromRoster };
