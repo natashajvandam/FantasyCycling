@@ -33,10 +33,10 @@ To set up Auth0, create an account on [Auth0](https://auth0.com). Create a new S
 
 To configure these connections, create two `.env` files, one in the client folder an one in the Server folder and copy the following and add the correct values for the auth0 domain and client id, as well as the elephant sql uri.
 
-> REACT*APP_AUTH0_DOMAIN=\_your_auth0_domain_name*
-> REACT*APP_AUTH0_CLIENTID=\_your_auth0_client_id*
-> REACT_APP_AUTH0_REDIRECT_URL=http://localhost:3000/home
-> DATABASE_URI=\*your_elephantsql_database_url
+> REACT*APP_AUTH0_DOMAIN=\_your_auth0_domain_name* return
+> REACT*APP_AUTH0_CLIENTID=\_your_auth0_client_id* return
+> REACT_APP_AUTH0_REDIRECT_URL=http://localhost:3000/home return
+> DATABASE_URI=\*your_elephantsql_database_url return
 
 Finally, to initially add all riders to the database, uncomment line **22** of Server/index.ts, run `npm run build`, then run `node .`. This will take a few minutes. You will see rider-names, team names, and upcoming race names in the console. It is complete when you see `complete` in the console and it stops logging. At this point you can comment out line 22 again, run the build again (`npm run build`) and then start the server again with `node .`. Move to the client folder and start it with `npm start`.
 
