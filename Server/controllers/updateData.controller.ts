@@ -1,4 +1,4 @@
-// import getMockData from '../tests/mock.data.js'; //for testing
+// import getMockData from '../tests/mock.data.js'; // -> for testing
 
 // webscrapers
 import fetchRiderData from "../webscrapers/riderData.webscraper.js";

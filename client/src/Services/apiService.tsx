@@ -2,15 +2,14 @@ import { IUser, fetchOptions, SimpleUser, IRider } from "../interfaces";
 const backend = "http://localhost:3005";
 
 const fetchRequest = async (path: string, options?: fetchOptions) => {
-  //use await - async syntac with try catch
   return fetch(backend + path, options)
     .then((res) => (res.status < 400 ? res : Promise.reject(res))) //all errors 401, 404, 500 etc.
-    .then((res) => (res.status !== 204 ? res.json() : res)) //204 is when you delete (aka, no body)
+    .then((res) => (res.status !== 204 ? res.json() : res)) //204 for delete (no body)
     .catch((err) => console.log(err));
 };
 
 const fetchUser = async (token: string) => {
-  return fetch("https://dev-874owraq.us.auth0.com", {
+  return fetch(`https://${process.env.REACT_APP_AUTH0_DOMAIN}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -26,26 +25,6 @@ async function getAllRiders(): Promise<IRider[]> {
 
 async function getTheUsers(): Promise<IUser[]> {
   return fetchRequest("/allUsers");
-}
-
-// async function createUser(body) {
-//   return fetchRequest('/newTeam', {
-//     method: 'POST',
-//     body: JSON.stringify(body),
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   });
-// }
-
-async function changeNameOfTeam(userId: number, newName: string): Promise<any> {
-  return fetchRequest(`/team/${userId}`, {
-    method: "PUT",
-    body: `{"newName": "${newName}"}`,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
 }
 
 async function addRider(
@@ -90,12 +69,10 @@ async function fetchUserData(user: SimpleUser): Promise<IUser> {
 
 export {
   getAllRiders,
-  // createUser,
   addRider,
   removeRider,
   fetchUserRoster,
   fetchUserData,
-  changeNameOfTeam,
   getTheUsers,
   fetchUser,
 };
