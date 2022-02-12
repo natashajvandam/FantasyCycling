@@ -12,13 +12,13 @@ Users login or register with Auth0.
 
 #### Home Page
 
-![home screen](https://i.ibb.co/KbKQmDt/Screen-Shot-2022-02-11-at-8-23-27-PM.png)
+![home screen](https://i.ibb.co/RNrPxVM/logo-cycling.png)
 
 Users can search for, buy, and sell riders.
 
 #### League Page
 
-![league page](https://i.ibb.co/djVF0NQ/league-Page-Simp.png)
+![league page](https://i.ibb.co/NmtwGXs/logo-cycling-1.png)
 
 Users can view their ranking on the league page.
 
