@@ -18,7 +18,7 @@ Users can search for, buy, and sell riders.
 
 #### League Page
 
-![league page](https://i.ibb.co/NmtwGXs/logo-cycling-1.png)
+![league page](https://i.ibb.co/c8SwMnk/logo-cycling-2.png)
 
 Users can view their ranking on the league page.
 
