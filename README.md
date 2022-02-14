@@ -1,6 +1,6 @@
 # Granny Gear Groupetto - Fantasy Cycling App
 
-This website was created during Codeworks bootcamp, in a week in order to practice and test coding skills. It allows users to create accounts, buy and sell cyclists from a ranked list of over 2,200 riders, and earn points each night based on which riders were on their roster the day before the race.
+This cycling fantasy league application allows users to create accounts, buy and sell cyclists from a ranked list of over 2,200 riders, and earn points each night based on which riders were on their roster the day before the race.
 
 [Demo youtube video](https://www.youtube.com/watch?v=NL4RpSDbDKw&t=36s)
 
