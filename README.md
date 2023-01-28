@@ -1,4 +1,4 @@
-# Granny Gear Groupetto - Fantasy Cycling App
+# Fantasy Cycling
 
 This cycling fantasy league application allows users to create accounts, buy and sell cyclists from a ranked list of over 2,200 riders, and earn points each night based on which riders were on their roster the day before the race.
 
